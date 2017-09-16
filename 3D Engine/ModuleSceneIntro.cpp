@@ -88,9 +88,14 @@ update_status ModuleSceneIntro::Update(float dt)
 				ImGui::Separator();
 				ImGui::Text("Save file");
 				ImGui::Separator();
-				if (ImGui::MenuItem("Exit"))
+				if (ImGui::MenuItem("Hide GUI"))
 				{
 					able_imgui = false;
+				}
+				ImGui::Separator();
+				if (ImGui::MenuItem("Exit"))
+				{
+					App->input->Quit();
 				}
 				ImGui::EndMenu();
 			}

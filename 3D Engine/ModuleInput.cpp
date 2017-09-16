@@ -114,16 +114,23 @@ update_status ModuleInput::PreUpdate(float dt)
 		}
 	}
 
-	if(quit == true || keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP)
+	if(quit == true || keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP || quit_app == true)
 		return UPDATE_STOP;
 
 	return UPDATE_CONTINUE;
 }
+
 
 // Called before quitting
 bool ModuleInput::CleanUp()
 {
 	LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
+	return true;
+}
+
+bool ModuleInput::Quit()
+{
+	quit_app = true;
 	return true;
 }
