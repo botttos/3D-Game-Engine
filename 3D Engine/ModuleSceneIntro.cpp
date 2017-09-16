@@ -60,6 +60,7 @@ update_status ModuleSceneIntro::Update(float dt)
 		if (able_imgui == false)
 		{
 			able_imgui = true;
+			ImGui_ImplSdlGL3_Init(App->window->window);
 		}
 		else
 		{
