@@ -57,17 +57,18 @@ update_status ModuleSceneIntro::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
 	{
-		if (enable_imgui == false)
+		if (able_imgui == false)
 		{
-			enable_imgui = true;
+			able_imgui = true;
 		}
 		else
 		{
-			enable_imgui = false;
+			able_imgui = false;
+			ImGui_ImplSdlGL3_Shutdown();
 		}
 	}
 
-	if (enable_imgui == true)
+	if (able_imgui == true)
 	{
 
 		static bool show_test_window = false;
@@ -88,7 +89,7 @@ update_status ModuleSceneIntro::Update(float dt)
 				ImGui::Separator();
 				if (ImGui::MenuItem("Exit"))
 				{
-					enable_imgui = false;
+					able_imgui = false;
 				}
 				ImGui::EndMenu();
 			}

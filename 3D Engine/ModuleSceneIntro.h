@@ -20,7 +20,7 @@ public:
 	update_status PreUpdate(float dt);
 	bool CleanUp();
 
-	bool enable_imgui = true;
+	bool able_imgui = true;
 public:
 
 };
