@@ -55,98 +55,116 @@ update_status ModuleSceneIntro::Update(float dt)
 		p.axis = true;
 		p.Render();
 	}
-	
-
-	static bool show_test_window = false;
-
-	if (show_test_window)
+	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
 	{
-		ImGui::ShowTestWindow();
+		if (enable_imgui == false)
+		{
+			enable_imgui = true;
+		}
+		else
+		{
+			enable_imgui = false;
+		}
 	}
 
-	if (ImGui::BeginMainMenuBar())
+	if (enable_imgui == true)
 	{
-		if (ImGui::BeginMenu("File"))
+
+		static bool show_test_window = false;
+
+		if (show_test_window)
 		{
-			ImGui::Text("New file");
-			ImGui::Text("Open file");
-			ImGui::Separator();
-			ImGui::Text("Save file");
-			ImGui::EndMenu();
+			ImGui::ShowTestWindow();
 		}
 
-		if (ImGui::BeginMenu("Edit"))
+		if (ImGui::BeginMainMenuBar())
 		{
-			ImGui::Text("Undo");
-			ImGui::Text("Redo");
-			ImGui::Separator();
-			ImGui::Text("Cut");
-			ImGui::Text("Copy");
-			ImGui::Text("Paste");
-			ImGui::Separator();
-			ImGui::Text("Duplicate");
-			ImGui::Text("Delete");
-			ImGui::EndMenu();
-		}
-
-		if (ImGui::BeginMenu("Assets"))
-		{
-			ImGui::Text("Import new asset");
-			ImGui::EndMenu();
-		}
-
-		if (ImGui::BeginMenu("GameObject"))
-		{
-			ImGui::Text("Create empty");
-			if (ImGui::BeginMenu("3D object"))
+			if (ImGui::BeginMenu("File"))
 			{
-				ImGui::Text("Cube");
-				ImGui::Text("Sphere");
-				ImGui::Text("Capsule");
-				ImGui::Text("Cylinder");
+				ImGui::Text("New file");
+				ImGui::Text("Open file");
 				ImGui::Separator();
-				ImGui::Text("Plane");
-				ImGui::Text("Quad");
+				ImGui::Text("Save file");
+				ImGui::Separator();
+				if (ImGui::MenuItem("Exit"))
+				{
+					enable_imgui = false;
+				}
 				ImGui::EndMenu();
 			}
-			ImGui::EndMenu();
-		}
 
-		if (ImGui::BeginMenu("Component"))
-		{
-			ImGui::Text("Mesh");
-			ImGui::Text("Physics");
-			ImGui::EndMenu();
-		}
-
-		if (ImGui::BeginMenu("Window"))
-		{
-			//We can use ImGui::Button("Show grid") to don't close the window automatically
-			if (ImGui::MenuItem("Show grid"))
+			if (ImGui::BeginMenu("Edit"))
 			{
-				App->camera->ShowGrid();
+				ImGui::Text("Undo");
+				ImGui::Text("Redo");
+				ImGui::Separator();
+				ImGui::Text("Cut");
+				ImGui::Text("Copy");
+				ImGui::Text("Paste");
+				ImGui::Separator();
+				ImGui::Text("Duplicate");
+				ImGui::Text("Delete");
+				ImGui::EndMenu();
 			}
 
-			
-		
-			ImGui::Separator();
+			if (ImGui::BeginMenu("Assets"))
+			{
+				ImGui::Text("Import new asset");
+				ImGui::EndMenu();
+			}
 
-			ImGui::Checkbox("Show test window", &show_test_window);
+			if (ImGui::BeginMenu("GameObject"))
+			{
+				ImGui::Text("Create empty");
+				if (ImGui::BeginMenu("3D object"))
+				{
+					ImGui::Text("Cube");
+					ImGui::Text("Sphere");
+					ImGui::Text("Capsule");
+					ImGui::Text("Cylinder");
+					ImGui::Separator();
+					ImGui::Text("Plane");
+					ImGui::Text("Quad");
+					ImGui::EndMenu();
+				}
+				ImGui::EndMenu();
+			}
 
-			ImGui::EndMenu();
+			if (ImGui::BeginMenu("Component"))
+			{
+				ImGui::Text("Mesh");
+				ImGui::Text("Physics");
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("Window"))
+			{
+				//We can use ImGui::Button("Show grid") to don't close the window automatically
+				if (ImGui::MenuItem("Show grid"))
+				{
+					App->camera->ShowGrid();
+				}
+
+
+
+				ImGui::Separator();
+
+				ImGui::Checkbox("Show test window", &show_test_window);
+
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("About"))
+			{
+
+				ImGui::EndMenu();
+			}
+
+
+			ImGui::EndMainMenuBar();
 		}
 
-		if (ImGui::BeginMenu("About"))
-		{
-
-			ImGui::EndMenu();
-		}
-
-		
-		ImGui::EndMainMenuBar();
+		ImGui::Render();
 	}
-	
-	ImGui::Render();
-
 	return UPDATE_CONTINUE;
 }
