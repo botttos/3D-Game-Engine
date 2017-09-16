@@ -149,6 +149,20 @@ float* ModuleCamera3D::GetViewMatrix()
 	return &ViewMatrix;
 }
 
+bool ModuleCamera3D::ShowGrid()
+{
+	if (active == false)
+	{
+		active = true;
+	}
+	else
+	{
+		active = false;
+	}
+
+	return active;
+}
+
 // -----------------------------------------------------------------
 void ModuleCamera3D::CalculateViewMatrix()
 {

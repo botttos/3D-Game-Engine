@@ -49,9 +49,13 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
+	if (App->camera->active == true)
+	{
+		Plane p(0, 1, 0, 0);
+		p.axis = true;
+		p.Render();
+	}
+	
 
 	static bool show_test_window = false;
 
@@ -117,7 +121,18 @@ update_status ModuleSceneIntro::Update(float dt)
 
 		if (ImGui::BeginMenu("Window"))
 		{
+			//We can use ImGui::Button("Show grid") to don't close the window automatically
+			if (ImGui::MenuItem("Show grid"))
+			{
+				App->camera->ShowGrid();
+			}
+
+			
+		
+			ImGui::Separator();
+
 			ImGui::Checkbox("Show test window", &show_test_window);
+
 			ImGui::EndMenu();
 		}
 
@@ -126,6 +141,7 @@ update_status ModuleSceneIntro::Update(float dt)
 
 			ImGui::EndMenu();
 		}
+
 		
 		ImGui::EndMainMenuBar();
 	}
