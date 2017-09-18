@@ -55,6 +55,15 @@ update_status ModuleSceneIntro::Update(float dt)
 		p.axis = true;
 		p.Render();
 	}
+
+	// GUI update
+	ImGuiUpdate();
+	
+	return UPDATE_CONTINUE;
+}
+
+bool ModuleSceneIntro::ImGuiUpdate()
+{
 	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
 	{
 		if (able_imgui == false)
@@ -173,5 +182,5 @@ update_status ModuleSceneIntro::Update(float dt)
 
 		ImGui::Render();
 	}
-	return UPDATE_CONTINUE;
+	return true;
 }

@@ -21,6 +21,8 @@ public:
 	bool CleanUp();
 
 	bool able_imgui = true;
-public:
 
+private:
+
+	bool ImGuiUpdate();
 };
