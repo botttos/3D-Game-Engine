@@ -16,7 +16,7 @@ artifacts:
   name: 3D-Engine
 deploy:
 - provider: GitHub
-  auth_token:
+  auth_token: 2e215b3b2712eb9ec8e3fd518c48bfb639269d40
     secure: QhydgyQMxm8l8l9gAV7ByY9TCaj7XY0plvUrout15RVMfURdWPupt/Ra560eLxeO
   draft: false
   force_update: true
