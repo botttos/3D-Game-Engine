@@ -24,7 +24,7 @@ bool ModuleSceneIntro::Start()
 
 	glewInit();
 	ImGui_ImplSdlGL3_Init(App->window->window);
-	//Testing the Appveyor
+
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
@@ -161,8 +161,6 @@ bool ModuleSceneIntro::ImGuiUpdate()
 					App->camera->ShowGrid();
 				}
 
-
-
 				ImGui::Separator();
 
 				ImGui::Checkbox("Show test window", &show_test_window);
@@ -172,6 +170,19 @@ bool ModuleSceneIntro::ImGuiUpdate()
 
 			if (ImGui::BeginMenu("About"))
 			{
+				
+				ImGui::Text("This is a 3D game engine made by Alexis Cosano and Fran Ruiz,\ntwo college students from the CITM UPC, Terrassa.\nThis engine is made for educational purposes.");
+				ImGui::Separator();
+				
+				if (ImGui::MenuItem("Link to repository"))
+				{
+					ShellExecuteA(0, 0, "chrome.exe", "https://github.com/botttos/3D-Game-Engine", 0, SW_SHOWMAXIMIZED);
+				}
+
+				if (ImGui::MenuItem("Link to the latest release"))
+				{
+					ShellExecuteA(0, 0, "chrome.exe", "https://github.com/botttos/3D-Game-Engine/releases", 0, SW_SHOWMAXIMIZED);
+				}
 
 				ImGui::EndMenu();
 			}
