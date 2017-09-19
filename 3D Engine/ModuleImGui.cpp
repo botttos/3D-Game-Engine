@@ -3,6 +3,7 @@
 #include "imGUI\imgui.h"
 #include "imGUI\imgui_impl_sdl_gl3.h"
 #include "Glew\include\glew.h"
+#include "MathGeoLib\MathGeoLib.h"
 
 #pragma comment( lib, "Glew/libx86/glew32.lib" )
 
@@ -174,6 +175,22 @@ bool ModuleImGui::ImGuiUpdate()
 				ImGui::EndMenu();
 			}
 
+			if (ImGui::BeginMenu("RandomNumbers"))
+			{
+
+				ImGui::Text("Random number button between 1 and 100.");
+				ImGui::Separator();
+
+				LCG rand_number;
+				if (ImGui::Button(" PRESS ME "))
+				{
+					rand = rand_number.Int(0, 100);
+				}
+				ImGui::Text("%i", rand);
+
+
+				ImGui::EndMenu();
+			}
 
 			ImGui::EndMainMenuBar();
 		}
