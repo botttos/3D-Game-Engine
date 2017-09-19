@@ -19,10 +19,4 @@ public:
 	update_status Update(float dt);
 	update_status PreUpdate(float dt);
 	bool CleanUp();
-
-	bool able_imgui = true;
-
-private:
-
-	bool ImGuiUpdate();
 };

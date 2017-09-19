@@ -303,6 +303,9 @@
     <ClInclude Include="MathGeoLib\Time\Clock.h">
       <Filter>Sources\Tools\MathGeoLib\Time</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleImGui.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -478,6 +481,9 @@
     </ClCompile>
     <ClCompile Include="MathGeoLib\Time\Clock.cpp">
       <Filter>Sources\Tools\MathGeoLib\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleImGui.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
