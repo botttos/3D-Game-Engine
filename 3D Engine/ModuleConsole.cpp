@@ -11,7 +11,7 @@ Console::Console(Application * app, bool start_enabled) : Module(app, start_enab
 	Commands.push_back("HISTORY");
 	Commands.push_back("CLEAR");
 	Commands.push_back("CLASSIFY");  // "classify" is here to provide an example of "C"+[tab] completing to "CL" and displaying matches.
-	//AddLog("Welcome to ImGui!");
+	AddLog("Welcome to ImGui!");
 }
 
 Console::~Console()
@@ -28,7 +28,7 @@ bool Console::Start()
 
 update_status Console::Update(float dt)
 {
-	return update_status();
+	return UPDATE_CONTINUE;
 }
 
 bool Console::CleanUp()
@@ -53,10 +53,9 @@ void Console::Draw(const char * title)
 	ImGui::TextWrapped("This example implements a console with basic coloring, completion and history. A more elaborate implementation may want to store entries along with extra data such as timestamp, emitter, etc.");
 	ImGui::TextWrapped("Enter 'HELP' for help, press TAB to use text completion.");
 
-	// TODO: display items starting from the bottom
 
-	//if (ImGui::SmallButton("Add Dummy Text")) { AddLog("%d some text", Items.Size); AddLog("some more text"); AddLog("display very important message here!"); } ImGui::SameLine();
-	//if (ImGui::SmallButton("Add Dummy Error")) AddLog("[error] something went wrong"); ImGui::SameLine();
+	if (ImGui::SmallButton("Add Dummy Text")) { AddLog("%d some text", Items.Size); AddLog("some more text"); AddLog("display very important message here!"); } ImGui::SameLine();
+	if (ImGui::SmallButton("Add Dummy Error")) AddLog("[error] something went wrong"); ImGui::SameLine();
 	if (ImGui::SmallButton("Clear")) ClearLog(); ImGui::SameLine();
 	bool copy_to_clipboard = ImGui::SmallButton("Copy"); ImGui::SameLine();
 	if (ImGui::SmallButton("Scroll to bottom")) ScrollToBottom = true;
@@ -129,7 +128,7 @@ void Console::Draw(const char * title)
 	ImGui::End();
 }
 
-/*void Console::AddLog(const char* fmt, ...) IM_FMTARGS(2)
+void Console::AddLog(const char* fmt, ...) IM_FMTARGS(2)
 {
 	char buf[1024];
 	va_list args;
@@ -139,11 +138,11 @@ void Console::Draw(const char * title)
 	va_end(args);
 	Items.push_back(Strdup(buf));
 	ScrollToBottom = true;
-}*/
+}
 
 void Console::ExecCommand(const char * command_line)
 {
-	//AddLog("# %s\n", command_line);
+	AddLog("# %s\n", command_line);
 
 	// Insert into history. First find match and delete it so it can be pushed to the back. This isn't trying to be smart or optimal.
 	HistoryPos = -1;
@@ -163,19 +162,19 @@ void Console::ExecCommand(const char * command_line)
 	}
 	else if (Stricmp(command_line, "HELP") == 0)
 	{
-		//AddLog("Commands:");
-		//for (int i = 0; i < Commands.Size; i++)
-			//AddLog("- %s", Commands[i]);
+		AddLog("Commands:");
+		for (int i = 0; i < Commands.Size; i++)
+			AddLog("- %s", Commands[i]);
 	}
 	else if (Stricmp(command_line, "HISTORY") == 0)
 	{
 		int first = History.Size - 10;
-		//for (int i = first > 0 ? first : 0; i < History.Size; i++)
-			//AddLog("%3d: %s\n", i, History[i]);
+		for (int i = first > 0 ? first : 0; i < History.Size; i++)
+			AddLog("%3d: %s\n", i, History[i]);
 	}
 	else
 	{
-		//AddLog("Unknown command: '%s'\n", command_line);
+		AddLog("Unknown command: '%s'\n", command_line);
 	}
 }
 

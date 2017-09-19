@@ -12,7 +12,7 @@ Application::Application()
 	player = new ModulePlayer(this);
 	imgui = new ModuleImGui(this);
 	//Console
-	//console = new Console(this);
+	console = new Console(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -32,7 +32,7 @@ Application::Application()
 	AddModule(imgui);
 
 	//Console
-	//AddModule(console);
+	AddModule(console);
 
 	// Renderer last!
 	AddModule(renderer3D);

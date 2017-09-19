@@ -15,6 +15,7 @@
 #include "ModuleImGui.h"
 #include "ModuleConsole.h"
 
+class Console;
 
 class Application
 {
@@ -29,7 +30,7 @@ public:
 	ModulePlayer* player;
 	ModuleImGui* imgui;
 	//Console
-	//Console* console;
+	Console* console;
 
 private:
 

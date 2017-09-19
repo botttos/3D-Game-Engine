@@ -9,15 +9,14 @@
 class Console : public Module
 {
 public:
-
-	Console(Application* app, bool start_enabled = false);
+	Console(Application* app, bool start_enabled = true);
 	~Console();
 	
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
 
-	//void AddLog(const char*, ...) IM_PRINTFARGS(2);
+	void AddLog(const char*, ...) IM_FMTARGS(2);
 	void ClearLog();
 
 	void Draw(const char* title);
@@ -26,6 +25,8 @@ public:
 
 	static int TextEditCallbackStub(ImGuiTextEditCallbackData* data); // In C++11 you are better off using lambdas for this sort of forwarding callbacks
 	int TextEditCallback(ImGuiTextEditCallbackData* data); // In C++11 you are better off using lambdas for this sort of forwarding callbacks
+
+private:
 
 	char                  InputBuf[256];
 	ImVector<char*>       Items;
