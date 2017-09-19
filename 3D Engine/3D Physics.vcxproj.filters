@@ -306,6 +306,9 @@
     <ClInclude Include="ModuleImGui.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleConsole.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -483,6 +486,9 @@
       <Filter>Sources\Tools\MathGeoLib\Time</Filter>
     </ClCompile>
     <ClCompile Include="ModuleImGui.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleConsole.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
