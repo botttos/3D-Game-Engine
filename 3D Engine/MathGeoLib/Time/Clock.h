@@ -1,53 +1,45 @@
 /* Copyright 2010 Jukka Jylänki
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License. */
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */
 #pragma once
 
 /** @file Clock.h
-	@brief The Clock class. Supplies timing facilities. */
+@brief The Clock class. Supplies timing facilities. */
 
-#ifdef __EMSCRIPTEN__
+#define WIN32
 
-// The native type for high-resolution timing is double, use
-// that instead of uint64, which is not natively supported but
-// must be emulated, which is slow.
-#define MATH_TICK_IS_FLOAT
-#include <limits>
+#ifdef WIN32
+#define Polygon Polygon_unused
+#include <Windows.h>
+#undef Polygon
 #endif
 
 #include "../Math/MathNamespace.h"
 
 MATH_BEGIN_NAMESPACE
 
-/// A tick is the basic unit of the high-resolution timer. If MATH_TICK_IS_FLOAT is defined,
-/// then tick_t is a floating-point type. Otherwise a 64-bit unsigned integer is used instead.
-#ifdef MATH_TICK_IS_FLOAT
-typedef double tick_t;
-const tick_t TICK_INF = std::numeric_limits<double>::infinity();
-#else
+/// A tick is the basic unit of the high-resolution timer.
 typedef unsigned long long tick_t;
-const tick_t TICK_INF = 0xFFFFFFFFFFFFFFFFULL;
-#endif
 
 /** @brief High-resolution timing and system time.
 
-	Gives out timing information in various forms. Use this rather than
-	any platform-dependent perf-counters or rdtsc or whatever.*/
+Gives out timing information in various forms. Use this rather than
+any platform-dependent perf-counters or rdtsc or whatever.*/
 class Clock
 {
 public:
 	Clock();
-//	~Clock() {}
+	//	~Clock() {}
 
 	/// Sleeps the current thread for the given amount of milliseconds.
 	static void Sleep(int milliseconds);
@@ -96,11 +88,7 @@ public:
 	/// Returns true if newTick represents a later wallclock time than oldTick.
 	static inline bool IsNewer(tick_t newTick, tick_t oldTick)
 	{
-#ifdef MATH_TICK_IS_FLOAT
-		return newTick >= oldTick;
-#else
 		return TicksInBetween(newTick, oldTick) < ((tick_t)(-1) >> 1);
-#endif
 	}
 
 	static inline float MillisecondsSinceF(tick_t oldTick) { return TimespanToMillisecondsF(oldTick, Tick()); }
@@ -126,13 +114,12 @@ public:
 private:
 	static tick_t appStartTime;      ///< Application startup time in ticks.
 
-	/// Initializes clock tick frequency and marks the application startup time.
+									 /// Initializes clock tick frequency and marks the application startup time.
 	static void InitClockData();
 
 #ifdef WIN32
-	// The following two are actually used as LARGE_INTEGERs, but to avoid having to pull Windows.h in Clock.h, define them
-	// as identically sized u64 instead.
-	static u64/*LARGE_INTEGER*/ ddwTimerFrequency; ///< Ticks per second.
+	static LARGE_INTEGER ddwTimerFrequency; ///< Ticks per second.
+	static LARGE_INTEGER ddwTimer;          ///< Temporary storage for Win32 function calls.
 #endif
 #ifdef __APPLE__
 	static tick_t ticksPerSecond;
