@@ -4,6 +4,7 @@
 #include "imGUI\imgui_impl_sdl_gl3.h"
 #include "Glew\include\glew.h"
 #include "MathGeoLib\MathGeoLib.h"
+#include "ModuleConsole.h"
 
 #pragma comment( lib, "Glew/libx86/glew32.lib" )
 
@@ -64,6 +65,25 @@ bool ModuleImGui::ImGuiUpdate()
 			able_imgui = false;
 			ImGui_ImplSdlGL3_Shutdown();
 		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+	{
+		if (App->console->active == false)
+		{
+			App->console->active = true;
+
+		}
+		else
+		{
+			App->console->active = false;
+		}
+	}
+	
+	
+
+	if (App->console->active == true)
+	{
+		App->console->Draw("TEST CONSOLE");
 	}
 
 	if (able_imgui == true)
@@ -206,6 +226,10 @@ bool ModuleImGui::ImGuiUpdate()
 					App->camera->ShowGrid();
 				}
 
+				if (ImGui::MenuItem("Console"))
+				{
+					App->console->active = true;
+				}
 				ImGui::Checkbox("Create test sphere collision", &createspheresandcollide);
 				
 				ImGui::Checkbox("Create test sphere no collision", &createsphereandnotcollide);

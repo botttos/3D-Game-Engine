@@ -27,7 +27,7 @@ bool Console::Start()
 }
 
 update_status Console::Update(float dt)
-{
+{	
 	return UPDATE_CONTINUE;
 }
 
