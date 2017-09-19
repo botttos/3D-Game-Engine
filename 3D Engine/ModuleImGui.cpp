@@ -79,8 +79,6 @@ bool ModuleImGui::ImGuiUpdate()
 		}
 	}
 	
-	
-
 	if (App->console->active == true)
 	{
 		App->console->Draw("TEST CONSOLE");
@@ -89,68 +87,20 @@ bool ModuleImGui::ImGuiUpdate()
 	if (able_imgui == true)
 	{
 		static bool show_test_window = false;
-		static bool createspheresandcollide = false;
-		static bool createsphereandnotcollide = false;
-
-		if (createspheresandcollide)
-		{
-			math::Sphere testsphere1;
-			vec vector1(1.0f, 1.0f, 1.0f);
-			testsphere1.pos = vector1;
-			testsphere1.r = 5.0f;
-			LOG("Sphere1 created");
-			LOG("Sphere1 radius: %f", testsphere1.r);
-			LOG("Sphere1 position: (%f, %f, %f)", testsphere1.pos.x, testsphere1.pos.y, testsphere1.pos.z);
-
-			math::Sphere testsphere2;
-			vec vector2(1.0f, 2.0f, 1.0f);
-			testsphere2.pos = vector2;
-			testsphere2.r = 5.0f;
-			LOG("Sphere2 created");
-			LOG("Sphere2 radius: %f", testsphere2.r);
-			LOG("Sphere2 position: (%f, %f, %f)", testsphere2.pos.x, testsphere2.pos.y, testsphere2.pos.z);
-
-			if (testsphere1.Intersects(testsphere2))
-			{
-				LOG("The spheres intersect.");
-			}
-			else
-			{
-				LOG("The spheres do not intersect.");
-			}
-		}
-
-		if (createsphereandnotcollide)
-		{
-			math::Sphere testsphere3;
-			vec vector3(5.0f, 5.0f, 5.0f);
-			testsphere3.pos = vector3;
-			testsphere3.r = 1.0f;
-			LOG("Sphere3 created");
-			LOG("Sphere3 radius: %f", testsphere3.r);
-			LOG("Sphere3 position: (%f, %f, %f)", testsphere3.pos.x, testsphere3.pos.y, testsphere3.pos.z);
-
-			math::Sphere testsphere4;
-			vec vector4(1.0f, 1.0f, 1.0f);
-			testsphere4.pos = vector4;
-			testsphere4.r = 1.0f;
-			LOG("Sphere4 created");
-			LOG("Sphere4 radius: %f", testsphere4.r);
-			LOG("Sphere4 position: (%f, %f, %f)", testsphere4.pos.x, testsphere4.pos.y, testsphere4.pos.z);
-
-			if (testsphere3.Intersects(testsphere4))
-			{
-				LOG("The spheres intersect.");
-			}
-			else
-			{
-				LOG("The spheres do not intersect.");
-			}
-		}
+		static bool show_console = false;
 
 		if (show_test_window)
 		{
 			ImGui::ShowTestWindow();
+		}
+
+		if (show_console)
+		{
+			App->console->active = true;
+		}
+		else
+		{
+			App->console->active = false;
 		}
 
 		if (ImGui::BeginMainMenuBar())
@@ -200,7 +150,67 @@ bool ModuleImGui::ImGuiUpdate()
 				if (ImGui::BeginMenu("3D object"))
 				{
 					ImGui::Text("Cube");
-					ImGui::Text("Sphere");
+					if (ImGui::BeginMenu("Spheres"))
+					{
+						if (ImGui::MenuItem("Create test sphere collision"))
+						{
+							math::Sphere testsphere1;
+							vec vector1(1.0f, 1.0f, 1.0f);
+							testsphere1.pos = vector1;
+							testsphere1.r = 5.0f;
+							App->console->AddLog("----------------------------");
+							App->console->AddLog("Sphere1 created");
+							App->console->AddLog("Sphere1 created: %f", testsphere1.r);
+							App->console->AddLog("Sphere1 position: (%f, %f, %f)", testsphere1.pos.x, testsphere1.pos.y, testsphere1.pos.z);
+
+							math::Sphere testsphere2;
+							vec vector2(1.0f, 2.0f, 1.0f);
+							testsphere2.pos = vector2;
+							testsphere2.r = 5.0f;
+							App->console->AddLog("Sphere2 created");
+							App->console->AddLog("Sphere2 radius: %f", testsphere2.r);
+							App->console->AddLog("Sphere2 position: (%f, %f, %f)", testsphere2.pos.x, testsphere2.pos.y, testsphere2.pos.z);
+
+							if (testsphere1.Intersects(testsphere2))
+							{
+								App->console->AddLog("The spheres intersect.");
+							}
+							else
+							{
+								App->console->AddLog("The spheres do not intersect.");
+							}
+						}
+
+						if (ImGui::MenuItem("Create test sphere no collision"))
+						{
+							math::Sphere testsphere3;
+							vec vector3(5.0f, 5.0f, 5.0f);
+							testsphere3.pos = vector3;
+							testsphere3.r = 1.0f;
+							App->console->AddLog("----------------------------");
+							App->console->AddLog("Sphere3 created");
+							App->console->AddLog("Sphere3 radius: %f", testsphere3.r);
+							App->console->AddLog("Sphere3 position: (%f, %f, %f)", testsphere3.pos.x, testsphere3.pos.y, testsphere3.pos.z);
+
+							math::Sphere testsphere4;
+							vec vector4(1.0f, 1.0f, 1.0f);
+							testsphere4.pos = vector4;
+							testsphere4.r = 1.0f;
+							App->console->AddLog("Sphere4 created");
+							App->console->AddLog("Sphere4 radius: %f", testsphere4.r);
+							App->console->AddLog("Sphere4 position: (%f, %f, %f)", testsphere4.pos.x, testsphere4.pos.y, testsphere4.pos.z);
+
+							if (testsphere3.Intersects(testsphere4))
+							{
+								App->console->AddLog("The spheres intersect.");
+							}
+							else
+							{
+								App->console->AddLog("The spheres do not intersect.");
+							}
+						}
+						ImGui::EndMenu();
+					}
 					ImGui::Text("Capsule");
 					ImGui::Text("Cylinder");
 					ImGui::Separator();
@@ -225,19 +235,9 @@ bool ModuleImGui::ImGuiUpdate()
 				{
 					App->camera->ShowGrid();
 				}
-
-				if (ImGui::MenuItem("Console"))
-				{
-					App->console->active = true;
-				}
-				ImGui::Checkbox("Create test sphere collision", &createspheresandcollide);
-				
-				ImGui::Checkbox("Create test sphere no collision", &createsphereandnotcollide);
-
 				ImGui::Separator();
-
+				ImGui::Checkbox("Show console", &show_console);
 				ImGui::Checkbox("Show test window", &show_test_window);
-
 				ImGui::EndMenu();
 			}
 
