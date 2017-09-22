@@ -160,7 +160,7 @@ bool ModuleImGui::ImGuiUpdate()
 							testsphere1.r = 5.0f;
 							App->console->AddLog("----------------------------");
 							App->console->AddLog("Sphere1 created");
-							App->console->AddLog("Sphere1 created: %f", testsphere1.r);
+							App->console->AddLog("Sphere1 radius: %f", testsphere1.r);
 							App->console->AddLog("Sphere1 position: (%f, %f, %f)", testsphere1.pos.x, testsphere1.pos.y, testsphere1.pos.z);
 
 							math::Sphere testsphere2;
