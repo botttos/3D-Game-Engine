@@ -1,4 +1,5 @@
 #include "ModuleConfig.h"
+#include "ModuleWindow.h"
 
 #define IM_ARRAYSIZE(_ARR)  ((int)(sizeof(_ARR)/sizeof(*_ARR)))
 
@@ -41,6 +42,11 @@ void Config::ClearLog()
 	ScrollToBottom = true;
 }
 
+int Config::GetFPS()
+{
+	return fps;
+}
+
 void Config::Draw(const char * title)
 {
 	ImGui::Begin(title);
@@ -51,6 +57,12 @@ void Config::Draw(const char * title)
 	ImGui::TextWrapped("Config Menu");
 	ImGui::Separator();
 
+	if (ImGui::CollapsingHeader("Configuration"))
+	{
+
+	}
+
+	ImGui::Separator();
 	if (ImGui::CollapsingHeader("Application"))
 	{
 		ImGui::TextWrapped("App Name: Coolgine");
@@ -79,6 +91,28 @@ void Config::Draw(const char * title)
 		char ms_title[25];
 		sprintf_s(ms_title, 25, "Milliseconds %.1f", ms_array[29]);
 		ImGui::PlotHistogram("", ms_array, IM_ARRAYSIZE(ms_array), 30, ms_title, 0.0f, 130.0f, ImVec2(0, 80));
+
+	}
+
+	if (ImGui::CollapsingHeader("Window"))
+	{
+		ImGuiStyle& style = ImGui::GetStyle();
+		ImGui::DragFloat("Global Alpha", &style.Alpha, 0.005f, 0.20f, 1.0f, "%.2f");
+
+		ImGui::SliderFloat("Brightness", &brightness, 0, 2, NULL);
+		App->window->SetWindowBrigthness(brightness);
+
+		//ImGui::SliderInt("Width", , 0, 2, NULL);
+
+		if (ImGui::Checkbox("Fullscreen", &App->window->fullscreen))
+		{
+			App->window->SetFullScreen(&App->window->fullscreen);
+		}
+
+		if (ImGui::Checkbox("Resizable", &App->window->borderless))
+		{
+			App->window->SetBorderless(&App->window->borderless);
+		}
 
 	}
 

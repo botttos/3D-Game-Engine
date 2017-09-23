@@ -15,6 +15,7 @@
 #include "ModuleImGui.h"
 #include "ModuleConsole.h"
 #include "ModuleConfig.h"
+#include "Globals.h"
 
 class Console;
 class Config;
@@ -37,6 +38,8 @@ public:
 private:
 
 	Timer	ms_timer;
+	Timer   frame_time;
+
 	float	dt;
 	p2List<Module*> list_modules;
 

@@ -1,4 +1,6 @@
 #include "Application.h"
+#include "ModuleConfig.h"
+
 
 Application::Application()
 {
@@ -82,11 +84,18 @@ void Application::PrepareUpdate()
 {
 	dt = (float)ms_timer.Read() / 1000.0f;
 	ms_timer.Start();
+	frame_time.Start();
 }
 
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
+	uint32 last_frame_ms = frame_time.Read();
+	if(config->GetFPS() > 0 && last_frame_ms < config->GetFPS() && config->GetFPS() <= 60)
+	{
+		Timer t;
+		SDL_Delay(1000/config->GetFPS() - last_frame_ms);
+	}
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules

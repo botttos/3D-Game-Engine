@@ -21,12 +21,14 @@ public:
 
 	void AddLog(const char*, ...) IM_FMTARGS(2);
 	void ClearLog();
+	int GetFPS();
 
 	void Draw(const char* title);
 
 	bool active = false;
 private:
 
+	float brightness = 1.0;
 	int fps = 0;
 	float			fps_array[GRAPH_ARRAY_SIZE];
 	float			ms_array[GRAPH_ARRAY_SIZE];
