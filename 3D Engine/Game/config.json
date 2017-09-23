@@ -1,0 +1,19 @@
+{
+	"audio": {},
+	"camera": {},
+	"console": {},
+	"imgui": {},
+	"input": {},
+	"physics": {},
+	"renderer": {},
+	"window": {
+		"wtitle": "3D Coolgine",
+        "wwidth": 1920,
+        "wheight": 1054,
+        "fullscreen": false,
+        "maximized": true,
+        "resizable": false,
+        "borderless": false,
+        "fborderless": false
+	}
+}
