@@ -13,7 +13,7 @@ Application::Application()
 	imgui = new ModuleImGui(this);
 	//Console
 	console = new Console(this);
-
+	config = new Config(this);
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
@@ -33,6 +33,7 @@ Application::Application()
 
 	//Console
 	AddModule(console);
+	AddModule(config);
 
 	// Renderer last!
 	AddModule(renderer3D);

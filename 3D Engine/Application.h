@@ -14,8 +14,10 @@
 #include "ModulePlayer.h"
 #include "ModuleImGui.h"
 #include "ModuleConsole.h"
+#include "ModuleConfig.h"
 
 class Console;
+class Config;
 
 class Application
 {
@@ -29,8 +31,8 @@ public:
 	ModulePhysics3D* physics;
 	ModulePlayer* player;
 	ModuleImGui* imgui;
-	//Console
 	Console* console;
+	Config* config;
 
 private:
 

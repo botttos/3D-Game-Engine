@@ -84,23 +84,38 @@ bool ModuleImGui::ImGuiUpdate()
 		App->console->Draw("TEST CONSOLE");
 	}
 
+	if (App->config->active == true)
+	{
+		App->config->Draw("CONFIG");
+	}
+
 	if (able_imgui == true)
 	{
 		static bool show_test_window = false;
-		static bool show_console = false;
+		static bool show_console_window = false;
+		static bool show_config_window = false;
 
 		if (show_test_window)
 		{
 			ImGui::ShowTestWindow();
 		}
 
-		if (show_console)
+		if (show_console_window)
 		{
 			App->console->active = true;
 		}
 		else
 		{
 			App->console->active = false;
+		}
+
+		if (show_config_window)
+		{
+			App->config->active = true;
+		}
+		else
+		{
+			App->config->active = false;
 		}
 
 		if (ImGui::BeginMainMenuBar())
@@ -236,8 +251,9 @@ bool ModuleImGui::ImGuiUpdate()
 					App->camera->ShowGrid();
 				}
 				ImGui::Separator();
-				ImGui::Checkbox("Show console", &show_console);
+				ImGui::Checkbox("Show console", &show_console_window);
 				ImGui::Checkbox("Show test window", &show_test_window);
+				ImGui::Checkbox("Config", &show_config_window);
 				ImGui::EndMenu();
 			}
 
@@ -279,6 +295,8 @@ bool ModuleImGui::ImGuiUpdate()
 
 			ImGui::EndMainMenuBar();
 		}
+
+
 
 		ImGui::Render();
 	}

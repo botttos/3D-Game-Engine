@@ -148,6 +148,7 @@
     <ClInclude Include="mmgr\mmgr.h" />
     <ClInclude Include="mmgr\nommgr.h" />
     <ClInclude Include="ModuleCamera3D.h" />
+    <ClInclude Include="ModuleConfig.h" />
     <ClInclude Include="ModuleConsole.h" />
     <ClInclude Include="ModuleImGui.h" />
     <ClInclude Include="ModulePhysics3D.h" />
@@ -216,6 +217,7 @@
     <ClCompile Include="mmgr\mmgr.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleCamera3D.cpp" />
+    <ClCompile Include="ModuleConfig.cpp" />
     <ClCompile Include="ModuleConsole.cpp" />
     <ClCompile Include="ModuleImGui.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
