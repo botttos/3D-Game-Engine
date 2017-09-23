@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleConfig.h"
+#include "Brofiler\include\Brofiler.h"
 
 
 Application::Application()
