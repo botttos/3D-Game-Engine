@@ -55,8 +55,11 @@ void Config::Draw(const char * title)
 	{
 		ImGui::TextWrapped("App Name: Coolgine");
 		ImGui::TextWrapped("Organization: UPC CITM");
-		ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+		//ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 		
+		ImGui::Separator();
+		ImGui::SliderInt("Max FPS", &fps, 0, 60, NULL);
+		ImGui::TextWrapped("Limit Framerate: %i", fps);
 		//FPS Graph
 		for (uint i = 0; i < GRAPH_ARRAY_SIZE; i++)
 		{
@@ -66,6 +69,17 @@ void Config::Draw(const char * title)
 		char fps_title[25];
 		sprintf_s(fps_title, 25, "Framerate %.1f", fps_array[29]);
 		ImGui::PlotHistogram("", fps_array, IM_ARRAYSIZE(fps_array), 30, fps_title, 0.0f, 130.0f, ImVec2(0, 80));
+		
+		//MS Graph
+		for (uint i = 0; i < GRAPH_ARRAY_SIZE; i++)
+		{
+			ms_array[i] = ms_array[i + 1];
+		}
+		ms_array[GRAPH_ARRAY_SIZE - 1] = 1000.0f / ImGui::GetIO().Framerate;
+		char ms_title[25];
+		sprintf_s(ms_title, 25, "Milliseconds %.1f", ms_array[29]);
+		ImGui::PlotHistogram("", ms_array, IM_ARRAYSIZE(ms_array), 30, ms_title, 0.0f, 130.0f, ImVec2(0, 80));
+
 	}
 
 

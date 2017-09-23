@@ -7,7 +7,7 @@
 #include "Globals.h"
 #include "imGUI\imgui.h"
 
-#define GRAPH_ARRAY_SIZE 30
+#define GRAPH_ARRAY_SIZE 60
 
 class Config : public Module
 {
@@ -27,7 +27,9 @@ public:
 	bool active = false;
 private:
 
+	int fps = 0;
 	float			fps_array[GRAPH_ARRAY_SIZE];
+	float			ms_array[GRAPH_ARRAY_SIZE];
 	char                  InputBuf[256];
 	ImVector<char*>       Items;
 	bool                  ScrollToBottom;
