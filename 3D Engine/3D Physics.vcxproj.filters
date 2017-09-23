@@ -43,6 +43,9 @@
     <Filter Include="Sources\Tools\mmgr">
       <UniqueIdentifier>{bdfd415e-c2bb-49ec-86ea-2c21daebfe2f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Tools\JSON">
+      <UniqueIdentifier>{234e8c0f-7543-4568-8b8f-35776ac123c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -321,6 +324,9 @@
     <ClInclude Include="ModuleConfig.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="JSON\parson.h">
+      <Filter>Sources\Tools\JSON</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -508,6 +514,9 @@
     </ClCompile>
     <ClCompile Include="ModuleConfig.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="JSON\parson.c">
+      <Filter>Sources\Tools\JSON</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
