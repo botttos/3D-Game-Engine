@@ -121,10 +121,10 @@ void ModuleWindow::SetWindowBrigthness(float brigthness)
 
 void ModuleWindow::SetWindowWidth(int w)
 {
-
+	SDL_SetWindowSize(window, w, screen_surface->h);
 }
 
 void ModuleWindow::SetWindowHeight(int h)
 {
-
+	SDL_SetWindowSize(window, screen_surface->w, h);
 }

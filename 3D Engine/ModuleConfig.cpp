@@ -102,7 +102,15 @@ void Config::Draw(const char * title)
 		ImGui::SliderFloat("Brightness", &brightness, 0, 2, NULL);
 		App->window->SetWindowBrigthness(brightness);
 
-		//ImGui::SliderInt("Width", , 0, 2, NULL);
+		if (ImGui::SliderInt("Width", &width, 0, 1920, NULL))
+		{
+			App->window->SetWindowWidth(width);
+		}
+		
+		if (ImGui::SliderInt("Height", &height, 0, 1080, NULL))
+		{
+			App->window->SetWindowHeight(height);
+		}
 
 		if (ImGui::Checkbox("Fullscreen", &App->window->fullscreen))
 		{

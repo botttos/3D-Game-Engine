@@ -28,6 +28,8 @@ public:
 	bool active = false;
 private:
 
+	int width = 1280;
+	int height = 1024;
 	float brightness = 1.0;
 	int fps = 0;
 	float			fps_array[GRAPH_ARRAY_SIZE];
