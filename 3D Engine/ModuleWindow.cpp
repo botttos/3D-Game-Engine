@@ -140,3 +140,8 @@ void ModuleWindow::SetWindowHeight(int h)
 {
 	SDL_SetWindowSize(window, screen_surface->w, h);
 }
+
+void ModuleWindow::SetWindowFullDesktop()
+{
+	SDL_SetWindowSize(window, 1920, 1080);
+}

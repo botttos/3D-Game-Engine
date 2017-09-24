@@ -25,12 +25,14 @@ public:
 	void SetWindowBrigthness(float brigthness);
 	void SetWindowWidth(int w);
 	void SetWindowHeight(int h);
+	void SetWindowFullDesktop();
 
 public:
 	//The window we'll be rendering to
 	SDL_Window* window;
 	bool fullscreen = false;
 	bool borderless = false;
+	bool full_desktop = false;
 	//The surface contained by the window
 	SDL_Surface* screen_surface;
 };

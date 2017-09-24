@@ -122,6 +122,13 @@ void Config::Draw(const char * title)
 			App->window->SetBorderless(&App->window->borderless);
 		}
 
+		if (ImGui::Checkbox("Full Desktop", &App->window->full_desktop))
+		{
+			App->window->SetWindowFullDesktop();
+			width = 1920;
+			height = 1080;
+		}
+
 	}
 
 
