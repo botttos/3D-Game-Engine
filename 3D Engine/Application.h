@@ -16,9 +16,11 @@
 #include "ModuleConsole.h"
 #include "ModuleConfig.h"
 #include "Globals.h"
+#include "ModuleHardware.h"
 
 class Console;
 class Config;
+class Hardware;
 
 class Application
 {
@@ -34,6 +36,7 @@ public:
 	ModuleImGui* imgui;
 	Console* console;
 	Config* config;
+	Hardware* hardware;
 
 private:
 

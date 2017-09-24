@@ -17,6 +17,8 @@ Application::Application()
 	//Console
 	console = new Console(this);
 	config = new Config(this);
+	//Hardware
+	hardware = new Hardware(this);
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
@@ -37,7 +39,7 @@ Application::Application()
 	//Console
 	AddModule(console);
 	AddModule(config);
-
+	AddModule(hardware);
 	// Renderer last!
 	AddModule(renderer3D);
 }

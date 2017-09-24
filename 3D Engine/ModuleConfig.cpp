@@ -1,5 +1,6 @@
 #include "ModuleConfig.h"
 #include "ModuleWindow.h"
+#include "Application.h"
 
 #define IM_ARRAYSIZE(_ARR)  ((int)(sizeof(_ARR)/sizeof(*_ARR)))
 
@@ -129,6 +130,10 @@ void Config::Draw(const char * title)
 			height = 1080;
 		}
 
+	}
+	if (ImGui::CollapsingHeader("Hardware"))
+	{
+		App->hardware->Draw();
 	}
 
 

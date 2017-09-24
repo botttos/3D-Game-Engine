@@ -34,7 +34,7 @@
 
 #ifndef _SDL_opengl_h
 #define _SDL_opengl_h
-
+#include "glew.h"
 #include "SDL_config.h"
 
 #ifndef __IPHONEOS__  /* No OpenGL on iOS. */
