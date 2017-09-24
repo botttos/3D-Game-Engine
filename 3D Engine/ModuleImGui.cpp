@@ -81,12 +81,12 @@ bool ModuleImGui::ImGuiUpdate()
 	
 	if (App->console->active == true)
 	{
-		App->console->Draw("TEST CONSOLE");
+		App->console->Draw("Console");
 	}
 
 	if (App->config->active == true)
 	{
-		App->config->Draw("CONFIG");
+		App->config->Draw("Configuration");
 	}
 
 	if (able_imgui == true)
@@ -122,17 +122,17 @@ bool ModuleImGui::ImGuiUpdate()
 		{
 			if (ImGui::BeginMenu("File"))
 			{
-				ImGui::Text("New file");
-				ImGui::Text("Open file");
+				ImGui::Text("- New file");
+				ImGui::Text("- Open file");
 				ImGui::Separator();
-				ImGui::Text("Save file");
+				ImGui::Text("- Save file");
 				ImGui::Separator();
-				if (ImGui::MenuItem("Hide GUI"))
+				if (ImGui::MenuItem("- Hide GUI"))
 				{
 					able_imgui = false;
 				}
 				ImGui::Separator();
-				if (ImGui::MenuItem("Exit"))
+				if (ImGui::MenuItem("- Exit"))
 				{
 					App->input->Quit();
 				}
@@ -141,33 +141,33 @@ bool ModuleImGui::ImGuiUpdate()
 
 			if (ImGui::BeginMenu("Edit"))
 			{
-				ImGui::Text("Undo");
-				ImGui::Text("Redo");
+				ImGui::Text("- Undo");
+				ImGui::Text("- Redo");
 				ImGui::Separator();
-				ImGui::Text("Cut");
-				ImGui::Text("Copy");
-				ImGui::Text("Paste");
+				ImGui::Text("- Cut");
+				ImGui::Text("- Copy");
+				ImGui::Text("- Paste");
 				ImGui::Separator();
-				ImGui::Text("Duplicate");
-				ImGui::Text("Delete");
+				ImGui::Text("- Duplicate");
+				ImGui::Text("- Delete");
 				ImGui::EndMenu();
 			}
 
 			if (ImGui::BeginMenu("Assets"))
 			{
-				ImGui::Text("Import new asset");
+				ImGui::Text("- Import new asset");
 				ImGui::EndMenu();
 			}
 
 			if (ImGui::BeginMenu("GameObject"))
 			{
-				ImGui::Text("Create empty");
-				if (ImGui::BeginMenu("3D object"))
+				ImGui::Text("- Create empty");
+				if (ImGui::BeginMenu("- 3D object"))
 				{
-					ImGui::Text("Cube");
-					if (ImGui::BeginMenu("Spheres"))
+					ImGui::Text("- Cube");
+					if (ImGui::BeginMenu("- Sphere"))
 					{
-						if (ImGui::MenuItem("Create test sphere collision"))
+						if (ImGui::MenuItem("- Create test sphere collision"))
 						{
 							math::Sphere testsphere1;
 							vec vector1(1.0f, 1.0f, 1.0f);
@@ -196,7 +196,7 @@ bool ModuleImGui::ImGuiUpdate()
 							}
 						}
 
-						if (ImGui::MenuItem("Create test sphere no collision"))
+						if (ImGui::MenuItem("- Create test sphere no collision"))
 						{
 							math::Sphere testsphere3;
 							vec vector3(5.0f, 5.0f, 5.0f);
@@ -226,11 +226,11 @@ bool ModuleImGui::ImGuiUpdate()
 						}
 						ImGui::EndMenu();
 					}
-					ImGui::Text("Capsule");
-					ImGui::Text("Cylinder");
+					ImGui::Text("- Capsule");
+					ImGui::Text("- Cylinder");
 					ImGui::Separator();
-					ImGui::Text("Plane");
-					ImGui::Text("Quad");
+					ImGui::Text("- Plane");
+					ImGui::Text("- Quad");
 					ImGui::EndMenu();
 				}
 				ImGui::EndMenu();
@@ -238,15 +238,15 @@ bool ModuleImGui::ImGuiUpdate()
 
 			if (ImGui::BeginMenu("Component"))
 			{
-				ImGui::Text("Mesh");
-				ImGui::Text("Physics");
+				ImGui::Text("- Mesh");
+				ImGui::Text("- Physics");
 				ImGui::EndMenu();
 			}
 
 			if (ImGui::BeginMenu("Window"))
 			{
 				//We can use ImGui::Button("Show grid") to don't close the window automatically
-				if (ImGui::MenuItem("Show grid"))
+				if (ImGui::MenuItem("- Show grid"))
 				{
 					App->camera->ShowGrid();
 				}
@@ -259,18 +259,70 @@ bool ModuleImGui::ImGuiUpdate()
 
 			if (ImGui::BeginMenu("About"))
 			{
-
+				ImGui::TextColored(ImVec4(1, 1, 0, 100), "=== Coolgine 3D ===");
 				ImGui::Text("This is a 3D game engine made by Alexis Cosano and Fran Ruiz,\ntwo college students from the CITM UPC, Terrassa.\nThis engine is made for educational purposes.");
 				ImGui::Separator();
-
-				if (ImGui::MenuItem("Link to repository"))
+				ImGui::TextColored(ImVec4(0, 1, 1, 100), "Project links");
+				if (ImGui::MenuItem("- Link to Coolgine 3D repository"))
 				{
 					ShellExecuteA(0, 0, "chrome.exe", "https://github.com/botttos/3D-Game-Engine", 0, SW_SHOWMAXIMIZED);
 				}
 
-				if (ImGui::MenuItem("Link to the latest release"))
+				if (ImGui::MenuItem("- Link to the latest release"))
 				{
 					ShellExecuteA(0, 0, "chrome.exe", "https://github.com/botttos/3D-Game-Engine/releases", 0, SW_SHOWMAXIMIZED);
+				}
+				ImGui::Separator();
+				ImGui::TextColored(ImVec4(0, 1, 0, 100), "=== Libraries used ===");
+				if (ImGui::MenuItem("- ImGui (v1.52)"))
+				{
+					ShellExecuteA(0, 0, "chrome.exe", "https://github.com/ocornut/imgui", 0, SW_SHOWMAXIMIZED);
+				}
+
+				if (ImGui::MenuItem("- Brofiler (v1.1.2)"))
+				{
+					ShellExecuteA(0, 0, "chrome.exe", "http://www.brofiler.com/", 0, SW_SHOWMAXIMIZED);
+				}
+				
+				if (ImGui::MenuItem("- Parson"))
+				{
+					ShellExecuteA(0, 0, "chrome.exe", "http://kgabis.github.io/parson/", 0, SW_SHOWMAXIMIZED);
+				}
+
+				if (ImGui::MenuItem("- MathGeoLib (v2.0)"))
+				{
+					ShellExecuteA(0, 0, "chrome.exe", "http://clb.demon.fi/MathGeoLib/nightly/", 0, SW_SHOWMAXIMIZED);
+				}
+
+				if (ImGui::MenuItem("- mmgr"))
+				{
+					ShellExecuteA(0, 0, "chrome.exe", "http://www.flipcode.com/archives/Presenting_A_Memory_Manager.shtml", 0, SW_SHOWMAXIMIZED);
+				}
+
+				ImGui::AlignFirstTextHeightToWidgets();
+				ImGui::Text("You can download it from"); ImGui::SameLine(); 
+				if (ImGui::Button("here", ImVec2(40, 20)))
+				{
+					ShellExecuteA(0, 0, "chrome.exe", "http://www.stratos-ad.com/forums/index.php?topic=9897.0", 0, SW_SHOWMAXIMIZED);
+				}
+				ImGui::Text("Just look for the first comment from the user:"); ImGui::SameLine();
+				ImGui::TextColored(ImVec4(1, 1, 0, 100), "Astat");
+
+				if (ImGui::MenuItem("- Bullet (v2.84)"))
+				{
+					ShellExecuteA(0, 0, "chrome.exe", "http://bulletphysics.org/wordpress/", 0, SW_SHOWMAXIMIZED);
+				}
+
+				if (ImGui::MenuItem("- Glew (v7.0)"))
+				{
+					ShellExecuteA(0, 0, "chrome.exe", "http://glew.sourceforge.net/", 0, SW_SHOWMAXIMIZED);
+				}
+				ImGui::Separator();
+				ImGui::Text("=== License ===");
+				ImGui::TextWrapped("Coolgine 3D is under The MIT License, see LICENSE for more information.");
+				if (ImGui::MenuItem("- The MIT License (MIT)"))
+				{
+					ShellExecuteA(0, 0, "chrome.exe", "https://opensource.org/licenses/mit-license.php", 0, SW_SHOWMAXIMIZED);
 				}
 
 				ImGui::EndMenu();
