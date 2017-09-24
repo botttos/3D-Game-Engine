@@ -118,9 +118,9 @@ void Config::Draw(const char * title)
 			App->window->SetFullScreen(&App->window->fullscreen);
 		}
 
-		if (ImGui::Checkbox("Resizable", &App->window->borderless))
+		if (ImGui::Checkbox("Windowed", &App->window->windowed))
 		{
-			App->window->SetBorderless(&App->window->borderless);
+			App->window->SetWindowed(&App->window->windowed);
 		}
 
 		if (ImGui::Checkbox("Full Desktop", &App->window->full_desktop))

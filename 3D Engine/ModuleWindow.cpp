@@ -113,16 +113,16 @@ void ModuleWindow::SetFullScreen(bool fullscreen)
 	}
 	else
 	{
-		
+		SDL_SetWindowFullscreen(window, 0);
 	}
 	
 }
 
-void ModuleWindow::SetBorderless(bool borderless)
+void ModuleWindow::SetWindowed(bool borderless)
 {
 	if (borderless == true)
 	{
-		
+		SDL_SetWindowFullscreen(window, 0);
 	}
 }
 
