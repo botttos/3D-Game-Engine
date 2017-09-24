@@ -23,7 +23,7 @@ bool ModuleImGui::Start()
 
 	glewInit();
 	ImGui_ImplSdlGL3_Init(App->window->window);
-
+	LOG("Loading Intro assets COMPLETE");
 	return ret;
 }
 

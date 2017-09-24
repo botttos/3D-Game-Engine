@@ -80,7 +80,7 @@ void Config::Draw(const char * title)
 		}
 		fps_array[GRAPH_ARRAY_SIZE - 1] = ImGui::GetIO().Framerate;
 		char fps_title[25];
-		sprintf_s(fps_title, 25, "Framerate %.1f", fps_array[29]);
+		sprintf_s(fps_title, 25, "Framerate %.1f", fps_array[GRAPH_ARRAY_SIZE-1]);
 		ImGui::PlotHistogram("", fps_array, IM_ARRAYSIZE(fps_array), 30, fps_title, 0.0f, 130.0f, ImVec2(0, 80));
 		
 		//MS Graph
@@ -90,7 +90,7 @@ void Config::Draw(const char * title)
 		}
 		ms_array[GRAPH_ARRAY_SIZE - 1] = 1000.0f / ImGui::GetIO().Framerate;
 		char ms_title[25];
-		sprintf_s(ms_title, 25, "Milliseconds %.1f", ms_array[29]);
+		sprintf_s(ms_title, 25, "Milliseconds %.1f", ms_array[GRAPH_ARRAY_SIZE-1]);
 		ImGui::PlotHistogram("", ms_array, IM_ARRAYSIZE(ms_array), 30, ms_title, 0.0f, 130.0f, ImVec2(0, 80));
 
 	}
