@@ -717,6 +717,13 @@ typedef double		GLclampd;	/* double precision float in [0,1] */
 #define GL_STACK_UNDERFLOW			0x0504
 #define GL_OUT_OF_MEMORY			0x0505
 
+/* Video Memory */
+#define GPU_MEMORY_INFO_DEDICATED_VIDMEM_NVX			0x9047
+#define GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX		0x9048
+#define GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX    0x9049
+#define GPU_MEMORY_INFO_EVICTION_COUNT_NVX				0x904A
+#define GPU_MEMORY_INFO_EVICTED_MEMORY_NVX				0x904B
+
 /* glPush/PopAttrib bits */
 #define GL_CURRENT_BIT				0x00000001
 #define GL_POINT_BIT				0x00000002
