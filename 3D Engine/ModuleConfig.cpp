@@ -60,7 +60,10 @@ void Config::Draw(const char * title)
 
 	if (ImGui::CollapsingHeader("Configuration"))
 	{
-
+		if (ImGui::SliderInt("Volume", &volume, 0, 100, NULL))
+		{
+			
+		}
 	}
 
 	ImGui::Separator();
