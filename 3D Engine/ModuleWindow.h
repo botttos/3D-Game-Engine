@@ -25,6 +25,7 @@ public:
 	void SetWindowBrigthness(float brigthness);
 	void SetWindowWidth(int w);
 	void SetWindowHeight(int h);
+	void SetWindowSize(int w, int h);
 	void SetWindowFullDesktop();
 
 public:

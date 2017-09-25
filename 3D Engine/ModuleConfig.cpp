@@ -58,14 +58,6 @@ void Config::Draw(const char * title)
 	ImGui::TextWrapped("Config Menu");
 	ImGui::Separator();
 
-	if (ImGui::CollapsingHeader("Configuration"))
-	{
-		if (ImGui::SliderInt("Volume", &volume, 0, 100, NULL))
-		{
-			
-		}
-	}
-
 	ImGui::Separator();
 	if (ImGui::CollapsingHeader("Application"))
 	{
@@ -105,17 +97,11 @@ void Config::Draw(const char * title)
 		ImGui::DragFloat("Global Alpha", &style.Alpha, 0.005f, 0.20f, 1.0f, "%.2f");
 
 		ImGui::SliderFloat("Brightness", &brightness, 0, 2, NULL);
-		App->window->SetWindowBrigthness(brightness);
 
-		if (ImGui::SliderInt("Width", &width, 0, 1920, NULL))
-		{
-			App->window->SetWindowWidth(width);
-		}
+		ImGui::SliderInt("Width", &width, 0, 1920, NULL);
 		
-		if (ImGui::SliderInt("Height", &height, 0, 1080, NULL))
-		{
-			App->window->SetWindowHeight(height);
-		}
+		ImGui::SliderInt("Height", &height, 0, 1080, NULL);
+		
 
 		if (ImGui::Checkbox("Fullscreen", &App->window->fullscreen))
 		{
@@ -134,10 +120,37 @@ void Config::Draw(const char * title)
 			height = 1080;
 		}
 
+		
+		if (ImGui::Button("Apply"))
+		{
+			// Window size
+			App->window->SetWindowSize(width, height);
+
+			// Brigthness
+			App->window->SetWindowBrigthness(brightness);
+		}
+
 	}
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
 		App->hardware->Draw();
+	}
+
+	if (ImGui::CollapsingHeader("Volume"))
+	{
+
+		ImGui::SliderInt("Volume", &volume, 0, 100, NULL);
+
+		if (ImGui::Checkbox("Mute", &mute))
+		{
+
+		}
+
+		if (ImGui::Button("Apply"))
+		{
+
+		}
+
 	}
 
 
