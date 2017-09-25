@@ -1,8 +1,8 @@
+#include "Glew\include\glew.h"
 #include "Application.h"
 #include "ModuleImGui.h"
 #include "imGUI\imgui.h"
 #include "imGUI\imgui_impl_sdl_gl3.h"
-#include "Glew\include\glew.h"
 #include "MathGeoLib\MathGeoLib.h"
 #include "ModuleConsole.h"
 
@@ -316,6 +316,20 @@ bool ModuleImGui::ImGuiUpdate()
 				if (ImGui::MenuItem("- Glew (v7.0)"))
 				{
 					ShellExecuteA(0, 0, "chrome.exe", "http://glew.sourceforge.net/", 0, SW_SHOWMAXIMIZED);
+				}
+				if (ImGui::MenuItem("- GLUT (v3.7)"))
+				{
+					ShellExecuteA(0, 0, "chrome.exe", "https://www.opengl.org/resources/libraries/glut/", 0, SW_SHOWMAXIMIZED);
+				}
+
+				if (ImGui::MenuItem("- SDL (v2.0.6)"))
+				{
+					ShellExecuteA(0, 0, "chrome.exe", "https://www.libsdl.org/", 0, SW_SHOWMAXIMIZED);
+				}
+
+				if (ImGui::MenuItem("- SDL_mixer (v2.0.0)"))
+				{
+					ShellExecuteA(0, 0, "chrome.exe", "https://www.libsdl.org/projects/SDL_mixer/", 0, SW_SHOWMAXIMIZED);
 				}
 				ImGui::Separator();
 				ImGui::Text("=== License ===");

@@ -2,7 +2,7 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "imGUI\imgui.h"
-#include"imGUI\imgui_impl_sdl_gl3.h"
+#include "imGUI\imgui_impl_sdl_gl3.h"
 
 /* Video Memory */
 #define GPU_MEMORY_INFO_DEDICATED_VIDMEM_NVX			0x9047
