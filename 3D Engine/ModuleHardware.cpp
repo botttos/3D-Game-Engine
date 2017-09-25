@@ -92,14 +92,13 @@ void Hardware::Draw()
 
 	if (sse2)
 	{
-		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(0, 1, 0, 100), "SSE2");
-		
+		ImGui::SameLine();
 	}
 
 	if (sse3)
 	{
-		ImGui::TextColored(ImVec4(0, 1, 0, 100), "	   SSE3");
+		ImGui::TextColored(ImVec4(0, 1, 0, 100), "SSE3");
 		ImGui::SameLine();
 	}
 
@@ -120,7 +119,7 @@ void Hardware::Draw()
 	{
 		ImGui::TextColored(ImVec4(0, 1, 0, 100), "AVX");
 	}
-
+	
 	// GPU
 	ImGui::Separator();
 	ImGui::Text("GPU: ");
