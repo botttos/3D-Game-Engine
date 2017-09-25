@@ -2,11 +2,11 @@
 #include "ModuleImGui.h"
 #include "imGUI\imgui.h"
 #include "imGUI\imgui_impl_sdl_gl3.h"
-#include "glew\include\GL\glew.h"
+#include "Glew\include\glew.h"
 #include "MathGeoLib\MathGeoLib.h"
 #include "ModuleConsole.h"
 
-#pragma comment( lib, "glew/lib/Release/Win32/glew32.lib" )
+#pragma comment( lib, "Glew/libx86/glew32.lib" )
 
 ModuleImGui::ModuleImGui(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -313,7 +313,7 @@ bool ModuleImGui::ImGuiUpdate()
 					ShellExecuteA(0, 0, "chrome.exe", "http://bulletphysics.org/wordpress/", 0, SW_SHOWMAXIMIZED);
 				}
 
-				if (ImGui::MenuItem("- Glew (v2.1.0)"))
+				if (ImGui::MenuItem("- Glew (v7.0)"))
 				{
 					ShellExecuteA(0, 0, "chrome.exe", "http://glew.sourceforge.net/", 0, SW_SHOWMAXIMIZED);
 				}

@@ -12,7 +12,7 @@
 // SDL,GL3W
 #include "../SDL/include/SDL.h"
 #include "../SDL/include/SDL_syswm.h"
-#include "../glew/include/GL/glew.h"
+#include "../Glew/include/glew.h"
 
 // Data
 static double       g_Time = 0.0f;
