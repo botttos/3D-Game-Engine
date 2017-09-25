@@ -94,10 +94,10 @@ void Application::PrepareUpdate()
 void Application::FinishUpdate()
 {
 	uint32 last_frame_ms = frame_time.Read();
-	if(config->GetFPS() > 0 && last_frame_ms < config->GetFPS() && config->GetFPS() <= 60)
+	if(config->GetFPS() > 0 && last_frame_ms < config->GetFPS())
 	{
-		Timer t;
-		SDL_Delay(1000/config->GetFPS() - last_frame_ms);
+		float cap_fps = 1000 / (float)config->GetFPS();
+		SDL_Delay(cap_fps - last_frame_ms);
 	}
 }
 

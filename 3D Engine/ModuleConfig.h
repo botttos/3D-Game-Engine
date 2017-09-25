@@ -8,7 +8,7 @@
 #include "imGUI\imgui.h"
 #include "ModuleHardware.h"
 
-#define GRAPH_ARRAY_SIZE 60
+#define GRAPH_ARRAY_SIZE 70
 
 class Config : public Module
 {

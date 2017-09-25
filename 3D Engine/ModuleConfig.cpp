@@ -76,6 +76,7 @@ void Config::Draw(const char * title)
 		ImGui::Separator();
 		ImGui::SliderInt("Max FPS", &fps, 0, 60, NULL);
 		ImGui::TextWrapped("Limit Framerate: %i", fps);
+		if (fps > 60) fps = 0;
 		//FPS Graph
 		for (uint i = 0; i < GRAPH_ARRAY_SIZE; i++)
 		{
