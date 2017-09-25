@@ -5,6 +5,9 @@
 #include "imGUI\imgui_impl_sdl_gl3.h"
 #include "MathGeoLib\MathGeoLib.h"
 #include "ModuleConsole.h"
+#include "SDL\include\SDL_opengl.h"
+#include "gl\GL.h"
+#include "gl\GLU.h"
 
 #pragma comment( lib, "Glew/libx86/glew32.lib" )
 
@@ -22,6 +25,7 @@ bool ModuleImGui::Start()
 	bool ret = true;
 
 	glewInit();
+	LOG("Using Glew %s", glewGetString(GLEW_VERSION));
 	ImGui_ImplSdlGL3_Init(App->window->window);
 	LOG("Loading Intro assets COMPLETE");
 	return ret;
@@ -313,7 +317,7 @@ bool ModuleImGui::ImGuiUpdate()
 					ShellExecuteA(0, 0, "chrome.exe", "http://bulletphysics.org/wordpress/", 0, SW_SHOWMAXIMIZED);
 				}
 
-				if (ImGui::MenuItem("- Glew (v7.0)"))
+				if (ImGui::MenuItem("- Glew (v2.0.0)"))
 				{
 					ShellExecuteA(0, 0, "chrome.exe", "http://glew.sourceforge.net/", 0, SW_SHOWMAXIMIZED);
 				}
