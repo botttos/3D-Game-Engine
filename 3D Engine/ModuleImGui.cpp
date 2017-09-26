@@ -250,11 +250,36 @@ bool ModuleImGui::ImGuiUpdate()
 					ImGui::EndMenu();
 				}
 
-				if (ImGui::Button("Triangle"))
+				if (ImGui::BeginMenu("- 2D object"))
 				{
-					blit_triangle = Trigger(blit_triangle);
+					if (ImGui::MenuItem("Triangle"))
+					{
+						blit_triangle = Trigger(blit_triangle);
+					}
+					ImGui::EndMenu();
 				}
+				
 
+				if (ImGui::BeginMenu("- OpenGL info"))
+				{
+					ImGui::Text("Vendor: ");
+					ImGui::SameLine();
+					ImGui::TextColored(ImVec4(0, 1, 0, 100), "%s", glGetString(GL_VENDOR));
+
+					ImGui::Text("Renderer: ");
+					ImGui::SameLine();
+					ImGui::TextColored(ImVec4(0, 1, 0, 100), "%s", glGetString(GL_RENDERER));
+
+					ImGui::Text("OpenGL version supported: ");
+					ImGui::SameLine();
+					ImGui::TextColored(ImVec4(0, 1, 0, 100), "%s", glGetString(GL_VERSION));
+
+					ImGui::Text("GLSL: ");
+					ImGui::SameLine();
+					ImGui::TextColored(ImVec4(0, 1, 0, 100), "%s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+
+					ImGui::EndMenu();
+				}
 				ImGui::EndMenu();
 			}
 
