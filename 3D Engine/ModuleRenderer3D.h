@@ -25,4 +25,13 @@ public:
 	SDL_GLContext context;
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+
+	//Render booleans to ImGui
+	bool enable_depth = false;
+	bool enable_cull_face = false;
+	bool enable_light = false;
+	bool enable_color_material = false;
+	bool enable_texture = false;
+	bool enable_wireframe = false;
+	bool enable_hardpoly = false;
 };

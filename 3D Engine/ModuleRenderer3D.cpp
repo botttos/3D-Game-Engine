@@ -94,12 +94,29 @@ bool ModuleRenderer3D::Init()
 				ret = false;
 			}
 
-			//Render Settings
+			//Light
+			GLfloat light_mode[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+			glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light_mode);
 
-			
+			lights[0].ref = GL_LIGHT0;
+			lights[0].diffuse.Set(0.5f, 0.5f, 0.5f, 1.0f);
+			lights[0].ambient.Set(0.5f, 0.5f, 0.5f, 1.0f);
+			lights[0].SetPos(0.0f, 0.5f, 0.0f);
+			lights[0].Init();
+
+			//Materials
+			GLfloat diffuse_material[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse_material);
+
+			GLfloat ambient_material[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient_material);
+
+			glEnable(GL_COLOR_MATERIAL);
+			glEnable(GL_DEPTH_TEST);
+			glDisable(GL_CULL_FACE);
+			glEnable(GL_LIGHTING);
+			lights[0].Active(true);
 		}
-
-
 
 		// Projection matrix for
 		OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
