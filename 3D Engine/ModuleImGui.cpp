@@ -449,6 +449,13 @@ bool ModuleImGui::ImGuiUpdate()
 				ImGui::EndMenu();
 			}
 
+			//Mouse position
+			ImGui::TextWrapped("                                                              Mouse position:");
+			ImGui::SameLine();
+			ImGui::TextColored({ 255, 255, 0, 255 }, "X: %i ", App->input->GetMouseX());
+			ImGui::SameLine();
+			ImGui::TextColored({ 255, 255, 0, 255 }, "Y: %i", App->input->GetMouseY());
+
 			ImGui::EndMainMenuBar();
 		}
 
