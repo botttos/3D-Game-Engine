@@ -180,7 +180,10 @@ bool ModuleImGui::ImGuiUpdate()
 				ImGui::Text("- Create empty");
 				if (ImGui::BeginMenu("- 3D object"))
 				{
-					ImGui::Text("- Cube");
+					if (ImGui::MenuItem("- Cube"))
+					{
+						blit_cube = Trigger(blit_cube);
+					}
 					if (ImGui::BeginMenu("- Sphere"))
 					{
 						if (ImGui::MenuItem("- Create test sphere collision"))
@@ -442,8 +445,75 @@ bool ModuleImGui::ImGuiUpdate()
 			0,                  
 			(void*)0            // buffer gap
 		);
-		// Dibujar el triángulo !
+		
 		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDisableVertexAttribArray(0);
+	}
+
+	if (blit_cube == true)
+	{
+		GLuint VertexArrayID;
+		glGenVertexArrays(1, &VertexArrayID);
+		glBindVertexArray(VertexArrayID);
+
+		static const GLfloat g_vertex_buffer_data[] = {
+			-1.0f,-1.0f,-1.0f, 
+			-1.0f,-1.0f, 1.0f,
+			-1.0f, 1.0f, 1.0f,
+			1.0f, 1.0f,-1.0f, 
+			-1.0f,-1.0f,-1.0f,
+			-1.0f, 1.0f,-1.0f, 
+			1.0f,-1.0f, 1.0f,
+			-1.0f,-1.0f,-1.0f,
+			1.0f,-1.0f,-1.0f,
+			1.0f, 1.0f,-1.0f,
+			1.0f,-1.0f,-1.0f,
+			-1.0f,-1.0f,-1.0f,
+			-1.0f,-1.0f,-1.0f,
+			-1.0f, 1.0f, 1.0f,
+			-1.0f, 1.0f,-1.0f,
+			1.0f,-1.0f, 1.0f,
+			-1.0f,-1.0f, 1.0f,
+			-1.0f,-1.0f,-1.0f,
+			-1.0f, 1.0f, 1.0f,
+			-1.0f,-1.0f, 1.0f,
+			1.0f,-1.0f, 1.0f,
+			1.0f, 1.0f, 1.0f,
+			1.0f,-1.0f,-1.0f,
+			1.0f, 1.0f,-1.0f,
+			1.0f,-1.0f,-1.0f,
+			1.0f, 1.0f, 1.0f,
+			1.0f,-1.0f, 1.0f,
+			1.0f, 1.0f, 1.0f,
+			1.0f, 1.0f,-1.0f,
+			-1.0f, 1.0f,-1.0f,
+			1.0f, 1.0f, 1.0f,
+			-1.0f, 1.0f,-1.0f,
+			-1.0f, 1.0f, 1.0f,
+			1.0f, 1.0f, 1.0f,
+			-1.0f, 1.0f, 1.0f,
+			1.0f,-1.0f, 1.0f
+		};
+
+		// 
+		GLuint vertexbuffer;
+		glGenBuffers(1, &vertexbuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+
+		// 1rst attribute buffer : vertex
+		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+		glVertexAttribPointer(
+			0,
+			3,                  // size
+			GL_FLOAT,           // class
+			GL_FALSE,           // normalized??
+			0,
+			(void*)0            // buffer gap
+		);
+		
+		glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
 		glDisableVertexAttribArray(0);
 	}
 	return true;
