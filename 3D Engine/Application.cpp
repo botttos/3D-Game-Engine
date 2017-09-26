@@ -59,6 +59,20 @@ bool Application::Init()
 {
 	bool ret = true;
 
+	// JSON data from config
+	void json_set_allocation_functions(JSON_Malloc_Function malloc_fun, JSON_Free_Function free_fun);
+	configuration = json_parse_file("config.json");
+
+	if (configuration == NULL)
+	{
+		LOG("=================================== Specified file could not load");
+		ret = false;
+	}
+	else
+	{
+		LOG("=================================== COnfiguration file opened without any problem");
+	}
+	
 	// Call Init() in all modules
 	p2List_item<Module*>* item = list_modules.getFirst();
 

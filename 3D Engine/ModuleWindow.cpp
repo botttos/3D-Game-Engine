@@ -27,6 +27,7 @@ bool ModuleWindow::Init()
 	}
 	else
 	{
+
 		//Create window
 		int width = SCREEN_WIDTH * SCREEN_SIZE;
 		int height = SCREEN_HEIGHT * SCREEN_SIZE;
@@ -57,6 +58,10 @@ bool ModuleWindow::Init()
 		}
 
 		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+
+		JSON_Object * configuration_object = json_value_get_object(App->configuration);
+		JSON_Object * window_object = json_object_dotget_object(configuration_object, "window");
+		SetTitle(json_object_dotget_string(window_object, "wtitle"));
 
 		if(window == NULL)
 		{

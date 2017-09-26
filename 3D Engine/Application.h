@@ -17,6 +17,8 @@
 #include "ModuleConfig.h"
 #include "Globals.h"
 #include "ModuleHardware.h"
+#include "JSON\parson.h"
+
 
 class Console;
 class Config;
@@ -60,4 +62,7 @@ private:
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
+
+public:
+	JSON_Value * configuration;
 };

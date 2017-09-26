@@ -4,7 +4,6 @@
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
-#include "JSON\parson.h"
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -30,19 +29,6 @@ bool ModuleRenderer3D::Init()
 	}
 	else 
 	{
-		// JSON data from config
-		void json_set_allocation_functions(JSON_Malloc_Function malloc_fun, JSON_Free_Function free_fun);
-		JSON_Value *configuration = json_parse_file("config.json");
-
-		if (configuration == NULL)
-		{
-			LOG("============================ Specified file could not load");
-		}
-		else
-		{
-			LOG("============================ The file has been loaded");
-		}
-
 		//Create context
 		context = SDL_GL_CreateContext(App->window->window);
 		if (context == NULL)
