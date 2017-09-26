@@ -10,6 +10,7 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	update_status PreUpdate(float dt);
+	bool Trigger(bool bolean);
 	bool CleanUp();
 
 	bool able_imgui = true;
@@ -17,4 +18,5 @@ public:
 private:
 	int rand = 0;
 	bool ImGuiUpdate();
+	bool blit_triangle = false;
 };
