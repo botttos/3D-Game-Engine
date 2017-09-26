@@ -33,6 +33,7 @@ bool ModuleRenderer3D::Init()
 		// JSON data from config
 		void json_set_allocation_functions(JSON_Malloc_Function malloc_fun, JSON_Free_Function free_fun);
 		JSON_Value *configuration = json_parse_file("config.json");
+
 		if (configuration == NULL)
 		{
 			LOG("============================ Specified file could not load");

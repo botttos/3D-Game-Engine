@@ -429,6 +429,7 @@ bool ModuleImGui::ImGuiUpdate()
 				{
 					(App->renderer3D->enable_texture) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
 				}
+
 				ImGui::EndMenu();
 			}
 
@@ -459,10 +460,12 @@ bool ModuleImGui::ImGuiUpdate()
 			ImGui::EndMainMenuBar();
 		}
 
-
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 		ImGui::Render();
 	}
+
+	(App->renderer3D->enable_wireframe) ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	if (blit_triangle == true)
 	{
