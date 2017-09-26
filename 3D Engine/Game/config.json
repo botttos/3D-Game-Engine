@@ -7,7 +7,7 @@
 	"physics": {},
 	"renderer": {},
 	"window": {
-		"wtitle": "3D Coolgine",
+		"wtitle": "Coolgine 3D",
         "wwidth": 1920,
         "wheight": 1054,
         "fullscreen": false,
