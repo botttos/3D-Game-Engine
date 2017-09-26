@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
-#include "JSON\parson.h"
+
 
 ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -19,17 +19,6 @@ bool ModuleWindow::Init()
 {
 	LOG("Init SDL window & surface");
 	bool ret = true;
-
-	void json_set_allocation_functions(JSON_Malloc_Function malloc_fun, JSON_Free_Function free_fun);
-	JSON_Value *configuration = json_parse_file("config.json");
-	if (configuration == NULL)
-	{
-		LOG("============================ Specified file could not load");
-	}
-	else
-	{
-		LOG("============================ The file has been loaded");
-	}
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
