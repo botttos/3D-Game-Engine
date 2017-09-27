@@ -1,6 +1,7 @@
 #include "ModuleConfig.h"
 #include "ModuleWindow.h"
 #include "Application.h"
+#include "MathGeoLib\MathGeoLib.h"
 
 #define IM_ARRAYSIZE(_ARR)  ((int)(sizeof(_ARR)/sizeof(*_ARR)))
 
@@ -138,7 +139,6 @@ void Config::Draw(const char * title)
 
 	if (ImGui::CollapsingHeader("Volume"))
 	{
-
 		ImGui::SliderInt("Volume", &volume, 0, 100, NULL);
 
 		if (ImGui::Checkbox("Mute", &mute))
@@ -150,9 +150,31 @@ void Config::Draw(const char * title)
 		{
 
 		}
-
 	}
 
+	if (ImGui::CollapsingHeader("Input"))
+	{
+		//Mouse position
+		ImGui::TextWrapped("Mouse position:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255, 255, 0, 255 }, "X: %i ", App->input->GetMouseX());
+		ImGui::SameLine();
+		ImGui::TextColored({ 255, 255, 0, 255 }, "Y: %i", App->input->GetMouseY());
+	}
+
+	if (ImGui::CollapsingHeader("Others"))
+	{
+
+		ImGui::Text("Random number between 1 and 100.");
+		ImGui::Separator();
+
+		LCG rand_number;
+		if (ImGui::Button("Randomize"))
+		{
+			rand = rand_number.Int(0, 100);
+		}
+		ImGui::Text("%i", rand);
+	}
 
 	ImGui::End();
 }

@@ -16,7 +16,6 @@ public:
 	bool able_imgui = true;
 
 private:
-	int rand = 0;
 	bool ImGuiUpdate();
 	bool blit_triangle = false;
 	bool blit_cube = false;
