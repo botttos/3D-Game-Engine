@@ -1,13 +1,19 @@
 #pragma once
 #pragma once
 #include "Module.h"
+#include <stdlib.h> 
+#include <vector>
+#include "Glew\include\glew.h"
+
+using namespace std;
 
 enum Type
 {
 	EMPTY = 0,
 	TRIANGLE,
 	CUBE_INDICE,
-	CUBE
+	CUBE,
+	SPHERE
 };
 
 class ModulePrimitive : public Module
@@ -25,10 +31,14 @@ public:
 
 private:
 	int type;
-	void CreateTriangle();
-	void CreateCube();
-	void CreateCubeIndice();
-
-	int array = 0;
-	uint my_indices = 0;
+	void Triangle();
+	void CubeVertex();
+	void CubeIndice();
+	void Sphere();
+	
+	//Sphere
+	std::vector<GLfloat> vertices;
+	std::vector<GLfloat> normals;
+	std::vector<GLfloat> texcoords;
+	std::vector<GLushort> indices;
 };

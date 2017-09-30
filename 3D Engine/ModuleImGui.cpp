@@ -179,6 +179,10 @@ bool ModuleImGui::ImGuiUpdate()
 					}
 					if (ImGui::BeginMenu("- Sphere"))
 					{
+						if (ImGui::MenuItem("- Sphere"))
+						{
+							App->primitive->SetType(SPHERE);
+						}
 						if (ImGui::MenuItem("- Create test sphere collision"))
 						{
 							math::Sphere testsphere1;
