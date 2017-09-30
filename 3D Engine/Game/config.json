@@ -4,8 +4,9 @@
 	"console": {},
 	"imgui": {},
 	"input": {},
-	"physics": {},
 	"renderer": {},
+	"hardware": {},
+	"config": {},
 	"window": {
 		"wtitle": "Coolgine 3D",
         "wwidth": 1920,
