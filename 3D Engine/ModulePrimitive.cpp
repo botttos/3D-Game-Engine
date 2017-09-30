@@ -25,12 +25,12 @@ bool ModulePrimitive::Start()
 	float const S = 1. / (float)(sectors - 1);
 	int r, s;
 
-	vertices.resize(rings * sectors * 3);
-	normals.resize(rings * sectors * 3);
-	texcoords.resize(rings * sectors * 2);
-	std::vector<GLfloat>::iterator v = vertices.begin();
-	std::vector<GLfloat>::iterator n = normals.begin();
-	std::vector<GLfloat>::iterator t = texcoords.begin();
+	sphere_vertices.resize(rings * sectors * 3);
+	sphere_normals.resize(rings * sectors * 3);
+	sphere_texcoords.resize(rings * sectors * 2);
+	std::vector<GLfloat>::iterator v = sphere_vertices.begin();
+	std::vector<GLfloat>::iterator n = sphere_normals.begin();
+	std::vector<GLfloat>::iterator t = sphere_texcoords.begin();
 
 	for (r = 0; r < rings; r++) for (s = 0; s < sectors; s++)
 	{
@@ -50,8 +50,8 @@ bool ModulePrimitive::Start()
 		*n++ = z;
 	}
 
-	indices.resize(rings * sectors * 4);
-	std::vector<GLushort>::iterator i = indices.begin();
+	sphere_indices.resize(rings * sectors * 4);
+	std::vector<GLushort>::iterator i = sphere_indices.begin();
 	for (r = 0; r < rings - 1; r++) for (s = 0; s < sectors - 1; s++) {
 		*i++ = r * sectors + s;
 		*i++ = r * sectors + (s + 1);
@@ -80,6 +80,35 @@ bool ModulePrimitive::Update()
 	{
 		Sphere();
 	}
+	else if (this->type == CYLINDER)
+	{
+		Cylinder();
+	}
+	else if (this->type == ARROW)
+	{
+		
+	}
+	else if (this->type == AXIS)
+	{
+		
+	}
+	else if (this->type == RAY)
+	{
+		
+	}
+	else if (this->type == PLANE)
+	{
+		
+	}
+	else if (this->type == CAPSULE)
+	{
+		
+	}
+	else if (this->type == FRUSTUM)
+	{
+		
+	}
+
 
 	return UPDATE_CONTINUE;
 }
@@ -234,11 +263,49 @@ void ModulePrimitive::Sphere()
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	glVertexPointer(3, GL_FLOAT, 0, &vertices[0]);
-	glNormalPointer(GL_FLOAT, 0, &normals[0]);
-	glTexCoordPointer(2, GL_FLOAT, 0, &texcoords[0]);
-	glDrawElements(GL_QUADS, indices.size(), GL_UNSIGNED_SHORT, &indices[0]);
+	glVertexPointer(3, GL_FLOAT, 0, &sphere_vertices[0]);
+	glNormalPointer(GL_FLOAT, 0, &sphere_normals[0]);
+	glTexCoordPointer(2, GL_FLOAT, 0, &sphere_texcoords[0]);
+	glDrawElements(GL_QUADS, sphere_indices.size(), GL_UNSIGNED_SHORT, &sphere_indices[0]);
 	glPopMatrix();
 
+}
+
+void ModulePrimitive::Cylinder()
+{
+	GLfloat x = 0.0;
+	GLfloat y = 0.0;
+	GLfloat angle = 0.0;
+	GLfloat angle_stepsize = 0.1;
+
+	float radius = 1.0f;
+	float height = 3.0f;
+
+	/** Draw the tube */
+	glBegin(GL_QUAD_STRIP);
+	angle = 0.0;
+	while (angle < 2 * 3.14f) {
+		x = radius * cos(angle);
+		y = radius * sin(angle);
+		glVertex3f(x, y, height);
+		glVertex3f(x, y, 0.0);
+		angle = angle + angle_stepsize;
+	}
+	glVertex3f(radius, 0.0, height);
+	glVertex3f(radius, 0.0, 0.0);
+	glEnd();
+
+	/** Draw the circle on top of cylinder */
+	glBegin(GL_POLYGON);
+	angle = 0.0;
+	while (angle < 2 * 3.14f) {
+		x = radius * cos(angle);
+		y = radius * sin(angle);
+		glVertex3f(x, y, height);
+		angle = angle + angle_stepsize;
+	}
+
+	glVertex3f(radius, 0.0, height);
+	glEnd();
 }
 

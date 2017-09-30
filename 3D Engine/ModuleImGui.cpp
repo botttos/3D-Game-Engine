@@ -242,11 +242,17 @@ bool ModuleImGui::ImGuiUpdate()
 						}
 						ImGui::EndMenu();
 					}
-					ImGui::Text("- Capsule");
-					ImGui::Text("- Cylinder");
+					if (ImGui::MenuItem("- Capsule"))
+					{
+						
+					}
+					if (ImGui::MenuItem("- Cylinder"))
+					{
+						App->primitive->SetType(CYLINDER);
+					}
 					ImGui::Separator();
-					ImGui::Text("- Plane");
-					ImGui::Text("- Quad");
+					ImGui::MenuItem("- Plane");
+					ImGui::MenuItem("- Quad");
 					ImGui::EndMenu();
 				}
 

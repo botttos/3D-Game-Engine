@@ -13,7 +13,14 @@ enum Type
 	TRIANGLE,
 	CUBE_INDICE,
 	CUBE,
-	SPHERE
+	SPHERE,
+	CYLINDER,
+	ARROW,
+	AXIS,
+	RAY,
+	PLANE,
+	CAPSULE,
+	FRUSTUM,
 };
 
 class ModulePrimitive : public Module
@@ -35,10 +42,11 @@ private:
 	void CubeVertex();
 	void CubeIndice();
 	void Sphere();
+	void Cylinder();
 	
 	//Sphere
-	std::vector<GLfloat> vertices;
-	std::vector<GLfloat> normals;
-	std::vector<GLfloat> texcoords;
-	std::vector<GLushort> indices;
+	std::vector<GLfloat> sphere_vertices;
+	std::vector<GLfloat> sphere_normals;
+	std::vector<GLfloat> sphere_texcoords;
+	std::vector<GLushort> sphere_indices;
 };
