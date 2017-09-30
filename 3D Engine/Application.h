@@ -1,6 +1,5 @@
 #pragma once
 
-#include "p2List.h"
 #include "Globals.h"
 #include "Timer.h"
 #include "Module.h"
@@ -10,7 +9,7 @@
 #include "ModuleSceneIntro.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
-#include "ModulePhysics3D.h"
+//#include "ModulePhysics3D.h"
 #include "ModulePlayer.h"
 #include "ModuleImGui.h"
 #include "ModuleConsole.h"
@@ -18,11 +17,14 @@
 #include "Globals.h"
 #include "ModuleHardware.h"
 #include "JSON\parson.h"
+#include <list>
 
 
 class Console;
 class Config;
 class Hardware;
+
+using namespace std;
 
 class Application
 {
@@ -33,7 +35,7 @@ public:
 	ModuleSceneIntro* scene_intro;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
-	ModulePhysics3D* physics;
+	//ModulePhysics3D* physics;
 	ModulePlayer* player;
 	ModuleImGui* imgui;
 	Console* console;
@@ -46,8 +48,8 @@ private:
 	Timer   frame_time;
 
 	float	dt;
-	p2List<Module*> list_modules;
-
+	list<Module*> list_modules;
+	
 public:
 
 	Application();

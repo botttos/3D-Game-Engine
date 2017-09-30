@@ -1,3 +1,4 @@
+/*
 #include "Globals.h"
 #include "Application.h"
 #include "ModulePhysics3D.h"
@@ -395,3 +396,4 @@ int	 DebugDrawer::getDebugMode() const
 {
 	return mode;
 }
+*/

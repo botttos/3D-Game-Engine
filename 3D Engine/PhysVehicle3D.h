@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 #include "PhysBody3D.h"
@@ -55,3 +56,4 @@ public:
 	VehicleInfo info;
 	btRaycastVehicle* vehicle;
 };
+*/

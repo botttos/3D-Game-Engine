@@ -1,7 +1,8 @@
+/*
 #ifndef __PhysBody3D_H__
 #define __PhysBody3D_H__
 
-#include "p2List.h"
+#include <list>
 
 class btRigidBody;
 class Module;
@@ -23,7 +24,8 @@ private:
 	btRigidBody* body = nullptr;
 
 public:
-	p2List<Module*> collision_listeners;
+	list<Module*> collision_listeners;
 };
 
 #endif // __PhysBody3D_H__
+*/

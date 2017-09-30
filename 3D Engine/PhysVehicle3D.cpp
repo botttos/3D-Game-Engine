@@ -1,3 +1,4 @@
+/*
 #include "PhysVehicle3D.h"
 #include "Primitive.h"
 #include "Bullet/include/btBulletDynamicsCommon.h"
@@ -93,3 +94,4 @@ float PhysVehicle3D::GetKmh() const
 {
 	return vehicle->getCurrentSpeedKmHour();
 }
+*/
