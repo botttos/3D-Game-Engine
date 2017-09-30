@@ -1,4 +1,5 @@
 #include "Globals.h"
+#include "Glew\include\glew.h"
 #include "Light.h"
 #include <gl/GL.h>
 //#include <gl/GLU.h>

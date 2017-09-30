@@ -2,6 +2,7 @@
 #define _MODULE_HARDWARE_H_
 
 #include "Module.h"
+#include "Glew\include\glew.h"
 #include "SDL/include/SDL_cpuinfo.h"
 #include "SDL/include/SDL_opengl.h"
 
