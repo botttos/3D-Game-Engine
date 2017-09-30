@@ -321,6 +321,9 @@
     <ClInclude Include="ModuleHardware.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModulePrimitive.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -513,6 +516,9 @@
       <Filter>Sources\Tools\JSON</Filter>
     </ClCompile>
     <ClCompile Include="ModuleHardware.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModulePrimitive.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>

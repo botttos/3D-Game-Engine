@@ -14,12 +14,14 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	//physics = new ModulePhysics3D(this);
 	player = new ModulePlayer(this);
+	primitive = new ModulePrimitive(this);
 	imgui = new ModuleImGui(this);
 	//Console
 	console = new Console(this);
 	config = new Config(this);
 	//Hardware
 	hardware = new Hardware(this);
+	
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
@@ -35,6 +37,7 @@ Application::Application()
 	// Scenes
 	AddModule(scene_intro);
 	AddModule(player);
+	AddModule(primitive);
 	AddModule(imgui);
 
 	//Console
@@ -43,6 +46,7 @@ Application::Application()
 	AddModule(hardware);
 	// Renderer last!
 	AddModule(renderer3D);
+	
 }
 
 Application::~Application()
