@@ -46,18 +46,6 @@ update_status ModuleImGui::PreUpdate(float dt)
 	return(UPDATE_CONTINUE);
 }
 
-bool ModuleImGui::Trigger(bool bolean)
-{
-	if (bolean == true)
-	{
-		return false;
-	}
-	else
-	{
-		return true;
-	}
-}
-
 // Update
 update_status ModuleImGui::Update(float dt)
 {
@@ -185,6 +173,10 @@ bool ModuleImGui::ImGuiUpdate()
 					{
 						App->primitive->SetType(CUBE);
 					}
+					if (ImGui::MenuItem("- Cube optimized"))
+					{
+						App->primitive->SetType(CUBE_INDICE);
+					}
 					if (ImGui::BeginMenu("- Sphere"))
 					{
 						if (ImGui::MenuItem("- Create test sphere collision"))
@@ -274,7 +266,6 @@ bool ModuleImGui::ImGuiUpdate()
 
 			if (ImGui::BeginMenu("Window"))
 			{
-				//We can use ImGui::Button("Show grid") to don't close the window automatically
 				if (ImGui::MenuItem("- Show grid"))
 				{
 					App->camera->ShowGrid();
@@ -285,8 +276,6 @@ bool ModuleImGui::ImGuiUpdate()
 				ImGui::Checkbox("Config", &show_config_window);
 				ImGui::EndMenu();
 			}
-
-			
 
 			if (ImGui::BeginMenu("Rendering"))
 			{
@@ -448,4 +437,16 @@ bool ModuleImGui::ImGuiUpdate()
 
 	
 	return true;
+}
+
+bool ModuleImGui::Trigger(bool bolean)
+{
+	if (bolean == true)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 }

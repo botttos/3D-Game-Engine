@@ -10,7 +10,7 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	update_status PreUpdate(float dt);
-	bool Trigger(bool bolean);
+	bool Trigger(bool);
 	bool CleanUp();
 
 	bool able_imgui = true;

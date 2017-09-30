@@ -4,8 +4,10 @@
 
 enum Type
 {
-	CUBE = 0,
-	TRIANGLE
+	EMPTY = 0,
+	TRIANGLE,
+	CUBE_INDICE,
+	CUBE
 };
 
 class ModulePrimitive : public Module
@@ -25,4 +27,8 @@ private:
 	int type;
 	void CreateTriangle();
 	void CreateCube();
+	void CreateCubeIndice();
+
+	int array = 0;
+	uint my_indices = 0;
 };
