@@ -19,6 +19,8 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
+	App->camera->show_axis = true;
+
 	return ret;
 }
 
@@ -38,10 +40,13 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	if (App->camera->active == true)
+	Plane p(0, 1, 0, 0);
+	if (App->camera->show_grid == true)
 	{
-		Plane p(0, 1, 0, 0);
-		p.axis = true;
+		if (App->camera->show_axis == true)
+		{
+			p.axis = true;
+		}
 		p.Render();
 	}
 	

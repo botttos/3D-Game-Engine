@@ -18,8 +18,10 @@ public:
 	void Move(const vec3 &Movement);
 	float* GetViewMatrix();
 	bool ShowGrid();
+	bool ShowAxis();
 
-	bool active = false;
+	bool show_grid = false;
+	bool show_axis = false;
 
 private:
 

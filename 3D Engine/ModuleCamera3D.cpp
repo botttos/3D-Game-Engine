@@ -150,18 +150,31 @@ float* ModuleCamera3D::GetViewMatrix()
 
 bool ModuleCamera3D::ShowGrid()
 {
-	if (active == false)
+	if (show_grid == false)
 	{
-		active = true;
+		show_grid = true;
 	}
 	else
 	{
-		active = false;
+		show_grid = false;
 	}
 
-	return active;
+	return show_grid;
 }
 
+bool ModuleCamera3D::ShowAxis()
+{
+	if (show_axis == false)
+	{
+		show_axis = true;
+	}
+	else
+	{
+		show_axis = false;
+	}
+
+	return show_axis;
+}
 // -----------------------------------------------------------------
 void ModuleCamera3D::CalculateViewMatrix()
 {

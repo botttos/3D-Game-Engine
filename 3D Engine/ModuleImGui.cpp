@@ -295,7 +295,7 @@ bool ModuleImGui::ImGuiUpdate()
 					}
 					if (ImGui::MenuItem("- Show axis"))
 					{
-
+						App->camera->ShowAxis();
 					}
 					ImGui::EndMenu();
 				}
