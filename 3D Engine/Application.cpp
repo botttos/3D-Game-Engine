@@ -12,8 +12,6 @@ Application::Application()
 	scene_intro = new ModuleSceneIntro(this);
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
-	//physics = new ModulePhysics3D(this);
-	player = new ModulePlayer(this);
 	primitive = new ModulePrimitive(this);
 	imgui = new ModuleImGui(this);
 	//Console
@@ -31,12 +29,10 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
-	//AddModule(physics);
 	
 
 	// Scenes
 	AddModule(scene_intro);
-	AddModule(player);
 	AddModule(primitive);
 	AddModule(imgui);
 
