@@ -167,6 +167,7 @@ bool ModuleImGui::ImGuiUpdate()
 			if (ImGui::BeginMenu("GameObject"))
 			{
 				ImGui::Text("- Create empty");
+				ImGui::MenuItem("- Camera");
 				if (ImGui::BeginMenu("- 3D object"))
 				{
 					if (ImGui::MenuItem("- Cube"))
@@ -258,10 +259,16 @@ bool ModuleImGui::ImGuiUpdate()
 
 				if (ImGui::BeginMenu("- 2D object"))
 				{
-					if (ImGui::MenuItem("Triangle"))
+					if (ImGui::MenuItem("- Triangle"))
 					{
 						App->primitive->SetType(TRIANGLE);
 					}
+					ImGui::EndMenu();
+				}
+
+				if (ImGui::BeginMenu("- Effects"))
+				{
+					ImGui::MenuItem("- Arrow");
 					ImGui::EndMenu();
 				}
 				ImGui::EndMenu();
@@ -276,9 +283,21 @@ bool ModuleImGui::ImGuiUpdate()
 
 			if (ImGui::BeginMenu("Window"))
 			{
-				if (ImGui::MenuItem("- Show grid"))
+				if (ImGui::MenuItem("- Show rays"))
 				{
-					App->camera->ShowGrid();
+					
+				}
+				if (ImGui::BeginMenu("- Grid"))
+				{
+					if (ImGui::MenuItem("- Show grid"))
+					{
+						App->camera->ShowGrid();
+					}
+					if (ImGui::MenuItem("- Show axis"))
+					{
+
+					}
+					ImGui::EndMenu();
 				}
 				ImGui::Separator();
 				ImGui::Checkbox("Show console", &show_console_window);
