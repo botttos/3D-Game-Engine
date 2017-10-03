@@ -1,7 +1,6 @@
 #ifndef __ModuleConsole_H__
 #define __ModuleConsole_H__
 
-#include "Application.h"
 #include "Module.h"
 #include "Globals.h"
 #include "imGUI\imgui.h"
