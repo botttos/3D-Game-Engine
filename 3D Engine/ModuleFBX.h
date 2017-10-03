@@ -4,7 +4,6 @@
 
 struct ModelConfig
 {
-private:
 	uint id_vertices = 0;
 	uint num_indices = 0;
 	uint* indices = nullptr;
@@ -23,4 +22,6 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
+
+	void LoadFBX(const char* file_name);
 };
