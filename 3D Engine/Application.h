@@ -14,6 +14,7 @@
 #include "ModuleConfig.h"
 #include "Globals.h"
 #include "ModuleHardware.h"
+#include "ModuleFBX.h"
 #include "JSON\parson.h"
 #include <list>
 #include "ModulePrimitive.h"
@@ -40,6 +41,7 @@ public:
 	Config* config;
 	Hardware* hardware;
 	ModulePrimitive* primitive;
+	ModuleFBX* fbx_loader;
 
 private:
 
