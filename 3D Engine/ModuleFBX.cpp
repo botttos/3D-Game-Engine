@@ -18,6 +18,9 @@ ModuleFBX::~ModuleFBX()
 bool ModuleFBX::Start()
 {
 	bool ret = true;
+	struct aiLogStream stream;
+	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
+	aiAttachLogStream(&stream);
 
 	return ret;
 }
@@ -25,7 +28,7 @@ bool ModuleFBX::Start()
 // -----------------------------------------------------------------
 bool ModuleFBX::CleanUp()
 {
-
+	aiDetachAllLogStreams();
 
 	return true;
 }
