@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include <string>
 
 #define MAX_MOUSE_BUTTONS 5
 
@@ -57,7 +58,7 @@ public:
 	{
 		return mouse_y_motion;
 	}
-	
+
 	bool Quit();
 	
 private:
@@ -70,4 +71,6 @@ private:
 	int mouse_y_motion;
 	bool quit_app = false;
 	//int mouse_z_motion;
+
+	std::string file_path;
 };

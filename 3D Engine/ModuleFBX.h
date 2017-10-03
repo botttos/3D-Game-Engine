@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Module.h"
+#include <string>
 
 struct ModelConfig
 {
@@ -23,5 +24,5 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void LoadFBX(const char* file_name);
+	void LoadFBX(std::string file_name);
 };

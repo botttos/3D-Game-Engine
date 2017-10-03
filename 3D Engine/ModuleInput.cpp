@@ -14,6 +14,7 @@ ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, sta
 // Destructor
 ModuleInput::~ModuleInput()
 {
+	file_path.clear();
 	delete[] keyboard;
 }
 
@@ -105,6 +106,10 @@ update_status ModuleInput::PreUpdate(float dt)
 			case SDL_QUIT:
 			quit = true;
 			break;
+
+			case SDL_DROPFILE:
+				file_path = e.drop.file;
+				//App->fbx_loader->LoadFBX(file_path);
 
 			case SDL_WINDOWEVENT:
 			{

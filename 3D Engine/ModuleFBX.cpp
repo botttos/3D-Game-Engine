@@ -41,9 +41,9 @@ update_status ModuleFBX::Update(float dt)
 }
 
 // -----------------------------------------------------------------
-void ModuleFBX::LoadFBX(const char* file_name)
+void ModuleFBX::LoadFBX(std::string file_name)
 {
-	const aiScene* scene = aiImportFile(file_name, aiProcessPreset_TargetRealtime_MaxQuality);
+	const aiScene* scene = aiImportFile(file_name.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
@@ -55,7 +55,7 @@ void ModuleFBX::LoadFBX(const char* file_name)
 		aiReleaseImport(scene);
 	}
 	else
-		LOG("Error loading scene %s", file_name);
+		LOG("Error loading scene %s", file_name.c_str());
 
 	aiMesh* new_mesh;
 	ModelConfig model;
