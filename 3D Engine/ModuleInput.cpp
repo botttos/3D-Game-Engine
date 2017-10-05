@@ -109,7 +109,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 			case SDL_DROPFILE:
 				file_path = e.drop.file;
-				//App->fbx_loader->LoadFBX(file_path);
+				App->fbx_loader->LoadFBX(file_path.c_str());
 
 			case SDL_WINDOWEVENT:
 			{

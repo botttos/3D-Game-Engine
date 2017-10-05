@@ -4,24 +4,9 @@
 #include <stdlib.h> 
 #include <vector>
 #include "Glew\include\glew.h"
+#include "GeometryBase.h"
 
 using namespace std;
-
-enum Type
-{
-	EMPTY = 0,
-	TRIANGLE,
-	CUBE_INDICE,
-	CUBE,
-	SPHERE,
-	CYLINDER,
-	ARROW,
-	AXIS,
-	RAY,
-	PLANE,
-	CAPSULE,
-	FRUSTUM,
-};
 
 class ModulePrimitive : public Module
 {
@@ -34,10 +19,11 @@ public:
 	bool Update();
 	bool CleanUp();
 
-	bool SetType(int type);
+	bool SetType(GeomType type);
 
 private:
-	int type;
+	GeomType type;
+
 	void Triangle();
 	void CubeVertex();
 	void CubeIndice();

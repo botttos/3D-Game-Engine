@@ -118,7 +118,7 @@ bool ModulePrimitive::CleanUp()
 	return false;
 }
 
-bool ModulePrimitive::SetType(int type)
+bool ModulePrimitive::SetType(GeomType type)
 {
 	if (type != this->type)
 	{

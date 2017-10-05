@@ -22,6 +22,7 @@ bool ModuleFBX::Start()
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 
+	
 	return ret;
 }
 
@@ -36,52 +37,63 @@ bool ModuleFBX::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleFBX::Update(float dt)
 {
-
+	for (uint i = 0; i < meshes.size(); i++)
+	{
+		meshes[i]->Draw();
+	}
 	return UPDATE_CONTINUE;
 }
 
 // -----------------------------------------------------------------
-void ModuleFBX::LoadFBX(std::string file_name)
+bool ModuleFBX::LoadFBX(const char* file_name)
 {
-	const aiScene* scene = aiImportFile(file_name.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
+	bool ret = false;
+	aiMesh* new_mesh = nullptr;
+	const aiScene* scene = aiImportFile(file_name, aiProcessPreset_TargetRealtime_MaxQuality);
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		for (int i = 0; i <= scene->mNumMeshes; ++i)
+		//iterate all aiMesh structs
+		for (uint i = 0; i < scene->mNumMeshes; i++)
 		{
-			//I don't really know what to do here, I know that we have to use scene->nMeshes[i] somewhere (?).
-			//As said on the pdf: "Use scene->mNumMeshes to iterate on scene->mMeshes array, but I don't know what to do here yet.
+			m = new GeometryBase(MESH);
+			new_mesh = scene->mMeshes[i];
+
+			m->object_mesh.num_vertices = new_mesh->mNumVertices;
+			m->object_mesh.vertices = new float[m->object_mesh.num_vertices * 3];
+			memcpy(m->object_mesh.vertices, new_mesh->mVertices, sizeof(float) * m->object_mesh.num_vertices * 3);
+
+			LOG("New mesh with %d vertices", m->object_mesh.num_vertices);
+
+			if (new_mesh->HasFaces())
+			{
+				m->object_mesh.num_indices = new_mesh->mNumFaces * 3;
+				m->object_mesh.indices = new uint[m->object_mesh.num_indices]; //Each face is a triangle
+
+				for (uint j = 0; j < new_mesh->mNumFaces; j++)
+				{
+					if (new_mesh->mFaces[j].mNumIndices != 3)
+					{
+						LOG("WARNING, geometry face with != 3 indices!");
+					}
+					else
+					{
+						memcpy(&m->object_mesh.indices[j * 3], new_mesh->mFaces[j].mIndices, 3 * sizeof(uint));
+					}
+				}
+
+				//Save space in VRAM and add the new mesh in the vector
+				m->Start();
+				meshes.push_back(m);
+			}
 		}
 		aiReleaseImport(scene);
 	}
+
 	else
-		LOG("Error loading scene %s", file_name.c_str());
-
-	aiMesh* new_mesh;
-	ModelConfig model;
-	
-	model.num_vertices = new_mesh->mNumVertices;
-	model.vertices = new float[model.num_vertices * 3];
-	memcpy(model.vertices, new_mesh->mVertices, sizeof(float) * model.num_vertices * 3);
-	LOG("New mesh with %d vertices", model.num_vertices);
-
-	if (new_mesh->HasFaces())
 	{
-		model.num_indices = new_mesh->mNumFaces * 3;
-		model.indices = new uint[model.num_indices];
-
-		for (uint i = 0; i < new_mesh->mNumFaces; ++i)
-		{
-			if (new_mesh->mFaces[i].mNumIndices != 3)
-			{
-				LOG("WARNING, geometry face with != 3 inidces!");
-			}
-			else
-			{
-				memcpy(&model.indices[i * 3], new_mesh->mFaces[i].mIndices, 3 * sizeof(uint));
-			}
-		}
+		LOG("Error loading scene %s", file_name);
 	}
 
-
+	return ret;
 }
