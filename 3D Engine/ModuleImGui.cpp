@@ -389,6 +389,11 @@ bool ModuleImGui::ImGuiUpdate()
 					ShellExecuteA(0, 0, "chrome.exe", "http://www.flipcode.com/archives/Presenting_A_Memory_Manager.shtml", 0, SW_SHOWMAXIMIZED);
 				}
 
+				if (ImGui::MenuItem("- Devil (v1.7.8)"))
+				{
+					ShellExecuteA(0, 0, "chrome.exe", " http://openil.sourceforge.net", 0, SW_SHOWMAXIMIZED);
+				}
+
 				ImGui::AlignFirstTextHeightToWidgets();
 				ImGui::Text("You can download it from"); ImGui::SameLine();
 				if (ImGui::Button("here", ImVec2(40, 20)))
