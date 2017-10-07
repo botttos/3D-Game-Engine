@@ -8,6 +8,7 @@
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
+
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 }
@@ -102,7 +103,7 @@ bool ModuleRenderer3D::Init()
 			glEnable(GL_DEPTH_TEST);
 			glDisable(GL_CULL_FACE);
 			glEnable(GL_LIGHTING);
-			lights[0].Active(true);
+			lights[0].Active(true);			
 		}
 
 		// Projection matrix for
