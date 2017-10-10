@@ -11,104 +11,20 @@ ModulePrimitive::ModulePrimitive(Application * app, bool start_enabled) : Module
 {}
 
 ModulePrimitive::~ModulePrimitive()
-{}
+{
+}
 
 bool ModulePrimitive::Start()
 {
-
-	// - Sphere
-	unsigned int rings = 10;
-	unsigned int sectors = 10;
-	float radius = 1;
-
-	float const R = 1. / (float)(rings - 1);
-	float const S = 1. / (float)(sectors - 1);
-	int r, s;
-
-	sphere_vertices.resize(rings * sectors * 3);
-	sphere_normals.resize(rings * sectors * 3);
-	sphere_texcoords.resize(rings * sectors * 2);
-	std::vector<GLfloat>::iterator v = sphere_vertices.begin();
-	std::vector<GLfloat>::iterator n = sphere_normals.begin();
-	std::vector<GLfloat>::iterator t = sphere_texcoords.begin();
-
-	for (r = 0; r < rings; r++) for (s = 0; s < sectors; s++)
-	{
-		float const y = sin(-M_PI_2 + M_PI * r * R);
-		float const x = cos(2 * M_PI * s * S) * sin(M_PI * r * R);
-		float const z = sin(2 * M_PI * s * S) * sin(M_PI * r * R);
-
-		*t++ = s*S;
-		*t++ = r*R;
-
-		*v++ = x * radius;
-		*v++ = y * radius;
-		*v++ = z * radius;
-
-		*n++ = x;
-		*n++ = y;
-		*n++ = z;
-	}
-
-	sphere_indices.resize(rings * sectors * 4);
-	std::vector<GLushort>::iterator i = sphere_indices.begin();
-	for (r = 0; r < rings - 1; r++) for (s = 0; s < sectors - 1; s++) {
-		*i++ = r * sectors + s;
-		*i++ = r * sectors + (s + 1);
-		*i++ = (r + 1) * sectors + (s + 1);
-		*i++ = (r + 1) * sectors + s;
-	}
-
 	return true;
 }
 
 bool ModulePrimitive::Update()
 {
-	if (this->type == CUBE)
+	for (int i = 0; i < spheres.size(); i++)
 	{
-		CubeVertex();
+		spheres[i]->UpdateSph();
 	}
-	else if (this->type == TRIANGLE)
-	{
-		Triangle();
-	}
-	else if (this->type == CUBE_INDICE)
-	{
-		CubeIndice();
-	}
-	else if (this->type == SPHERE)
-	{
-		Sphere();
-	}
-	else if (this->type == CYLINDER)
-	{
-		Cylinder();
-	}
-	else if (this->type == ARROW)
-	{
-		
-	}
-	else if (this->type == AXIS)
-	{
-		
-	}
-	else if (this->type == RAY)
-	{
-		
-	}
-	else if (this->type == PLANE)
-	{
-		
-	}
-	else if (this->type == CAPSULE)
-	{
-		
-	}
-	else if (this->type == FRUSTUM)
-	{
-		
-	}
-
 	return UPDATE_CONTINUE;
 }
 
@@ -117,15 +33,65 @@ bool ModulePrimitive::CleanUp()
 	return false;
 }
 
+void ModulePrimitive::CreatePrimitive(GeomType primitive)
+{
+	if (primitive == CUBE)
+	{
+		CubeVertex();
+	}
+	else if (primitive == TRIANGLE)
+	{
+		Triangle();
+	}
+	else if (primitive == CUBE_INDICE)
+	{
+		CubeIndice();
+	}
+	else if (primitive == SPHERE)
+	{
+		SpherePrim* sphere;
+		sphere = new SpherePrim(10, 10, 1);
+		spheres.push_back(sphere);
+	}
+	else if (primitive == CYLINDER)
+	{
+		Cylinder();
+	}
+	else if (primitive == ARROW)
+	{
+
+	}
+	else if (primitive == AXIS)
+	{
+
+	}
+	else if (primitive == RAY)
+	{
+
+	}
+	else if (primitive == PLANE)
+	{
+
+	}
+	else if (primitive == CAPSULE)
+	{
+
+	}
+	else if (primitive == FRUSTUM)
+	{
+
+	}
+}
+
 bool ModulePrimitive::SetType(GeomType type)
 {
-	if (type != this->type)
+	/*if (type != this->type)
 	{
 		this->type = type;
 	}
 	else
 		this->type = EMPTY;
-
+		*/
 	return true;
 }
 
@@ -259,15 +225,7 @@ void ModulePrimitive::CubeIndice()
 void ModulePrimitive::Sphere()
 {
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	glVertexPointer(3, GL_FLOAT, 0, &sphere_vertices[0]);
-	glNormalPointer(GL_FLOAT, 0, &sphere_normals[0]);
-	glTexCoordPointer(2, GL_FLOAT, 0, &sphere_texcoords[0]);
-	glDrawElements(GL_QUADS, sphere_indices.size(), GL_UNSIGNED_SHORT, &sphere_indices[0]);
-	glPopMatrix();
+	
 
 }
 
@@ -309,3 +267,67 @@ void ModulePrimitive::Cylinder()
 	glEnd();
 }
 
+SpherePrim::SpherePrim()
+{
+	 SpherePrim(10, 10, 1);
+}
+
+SpherePrim::SpherePrim(int rings, int sectors, float radius) : rings(rings), sectors(sectors), radius(radius)
+{
+	float const R = 1. / (float)(rings - 1);
+	float const S = 1. / (float)(sectors - 1);
+	int r, s;
+
+	sphere_vertices.resize(rings * sectors * 3);
+	sphere_normals.resize(rings * sectors * 3);
+	sphere_texcoords.resize(rings * sectors * 2);
+	std::vector<GLfloat>::iterator v = sphere_vertices.begin();
+	std::vector<GLfloat>::iterator n = sphere_normals.begin();
+	std::vector<GLfloat>::iterator t = sphere_texcoords.begin();
+
+	for (r = 0; r < rings; r++) for (s = 0; s < sectors; s++)
+	{
+		float const y = sin(-M_PI_2 + M_PI * r * R);
+		float const x = cos(2 * M_PI * s * S) * sin(M_PI * r * R);
+		float const z = sin(2 * M_PI * s * S) * sin(M_PI * r * R);
+
+		*t++ = s*S;
+		*t++ = r*R;
+
+		*v++ = x * radius;
+		*v++ = y * radius;
+		*v++ = z * radius;
+
+		*n++ = x;
+		*n++ = y;
+		*n++ = z;
+	}
+
+	sphere_indices.resize(rings * sectors * 4);
+	std::vector<GLushort>::iterator i = sphere_indices.begin();
+	for (r = 0; r < rings - 1; r++) for (s = 0; s < sectors - 1; s++) {
+		*i++ = r * sectors + s;
+		*i++ = r * sectors + (s + 1);
+		*i++ = (r + 1) * sectors + (s + 1);
+		*i++ = (r + 1) * sectors + s;
+	}
+}
+
+SpherePrim::~SpherePrim()
+{
+}
+
+bool SpherePrim::UpdateSph()
+{
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glVertexPointer(3, GL_FLOAT, 0, &sphere_vertices[0]);
+	glNormalPointer(GL_FLOAT, 0, &sphere_normals[0]);
+	glTexCoordPointer(2, GL_FLOAT, 0, &sphere_texcoords[0]);
+	glDrawElements(GL_QUADS, sphere_indices.size(), GL_UNSIGNED_SHORT, &sphere_indices[0]);
+	glPopMatrix();
+	
+	return true;
+}

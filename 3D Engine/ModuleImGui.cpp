@@ -182,7 +182,7 @@ bool ModuleImGui::ImGuiUpdate()
 					{
 						if (ImGui::MenuItem("- Sphere"))
 						{
-							App->primitive->SetType(SPHERE);
+							App->primitive->CreatePrimitive(SPHERE);
 						}
 						if (ImGui::MenuItem("- Create test sphere collision"))
 						{
