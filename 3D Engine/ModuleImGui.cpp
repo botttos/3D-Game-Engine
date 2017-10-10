@@ -170,10 +170,10 @@ bool ModuleImGui::ImGuiUpdate()
 				ImGui::MenuItem("- Camera");
 				if (ImGui::BeginMenu("- 3D object"))
 				{
-					if (ImGui::MenuItem("- Cube"))
+					/*if (ImGui::MenuItem("- Cube"))
 					{
-						App->primitive->SetType(CUBE);
-					}
+						App->primitive->CreatePrimitive(CUBE);
+					}*/
 					if (ImGui::MenuItem("- Cube optimized"))
 					{
 						App->primitive->CreatePrimitive(CUBE_INDICE);
@@ -249,7 +249,7 @@ bool ModuleImGui::ImGuiUpdate()
 					}
 					if (ImGui::MenuItem("- Cylinder"))
 					{
-						App->primitive->SetType(CYLINDER);
+						App->primitive->CreatePrimitive(CYLINDER);
 					}
 					ImGui::Separator();
 					ImGui::MenuItem("- Plane");
@@ -261,7 +261,7 @@ bool ModuleImGui::ImGuiUpdate()
 				{
 					if (ImGui::MenuItem("- Triangle"))
 					{
-						App->primitive->SetType(TRIANGLE);
+						App->primitive->CreatePrimitive(TRIANGLE);
 					}
 					ImGui::EndMenu();
 				}

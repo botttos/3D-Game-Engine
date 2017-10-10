@@ -21,6 +21,16 @@ ModulePrimitive::~ModulePrimitive()
 	{
 		cubes_indices.pop_back();
 	}
+
+	for (int i = cylinders.size(); cylinders.size() != 0; i--)
+	{
+		cylinders.pop_back();
+	}
+
+	/*for (int i = normal_cubes.size(); normal_cubes.size() != 0; i--)
+	{
+		normal_cubes.pop_back();
+	}*/
 }	
 
 bool ModulePrimitive::Start()
@@ -40,6 +50,15 @@ bool ModulePrimitive::Update()
 		cubes_indices[i]->UpdateCubeIndice();
 	}
 
+	for (int i = 0; i < cylinders.size(); i++)
+	{
+		cylinders[i]->UpdateCylinder();
+	}
+	/*for (int i = 0; i < normal_cubes.size(); i++)
+	{
+		normal_cubes[i]->UpdateNormalCube();
+	}*/
+
 	return UPDATE_CONTINUE;
 }
 
@@ -52,7 +71,9 @@ void ModulePrimitive::CreatePrimitive(GeomType primitive)
 {
 	if (primitive == CUBE)
 	{
-		CubeVertex();
+		/*NormalCubePrim* cube;
+		cube = new NormalCubePrim();
+		normal_cubes.push_back(cube);*/
 	}
 	else if (primitive == TRIANGLE)
 	{
@@ -72,7 +93,9 @@ void ModulePrimitive::CreatePrimitive(GeomType primitive)
 	}
 	else if (primitive == CYLINDER)
 	{
-		Cylinder();
+		CylinderPrim* cylinder;
+		cylinder = new CylinderPrim();
+		cylinders.push_back(cylinder);
 	}
 	else if (primitive == ARROW)
 	{
@@ -98,18 +121,6 @@ void ModulePrimitive::CreatePrimitive(GeomType primitive)
 	{
 
 	}
-}
-
-bool ModulePrimitive::SetType(GeomType type)
-{
-	/*if (type != this->type)
-	{
-		this->type = type;
-	}
-	else
-		this->type = EMPTY;
-		*/
-	return true;
 }
 
 void ModulePrimitive::Triangle()
@@ -145,123 +156,7 @@ void ModulePrimitive::Triangle()
 	glDisableVertexAttribArray(0);
 }
 
-void ModulePrimitive::CubeVertex()
-{
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);
-	glBindVertexArray(VertexArrayID);
-
-	static const GLfloat g_vertex_buffer_data[] = {
-		-1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f, 1.0f,
-		-1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f,-1.0f,
-		1.0f,-1.0f,-1.0f,
-		1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		-1.0f,-1.0f, 1.0f,
-		1.0f,-1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f,-1.0f,-1.0f,
-		1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f,-1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f,-1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f,-1.0f,
-		-1.0f, 1.0f,-1.0f,
-		1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f, 1.0f,
-		1.0f,-1.0f, 1.0f
-	};
-
-	// 
-	GLuint vertexbuffer;
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-
-	// 1rst attribute buffer : vertex
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glVertexAttribPointer(
-		0,
-		3,                  // size
-		GL_FLOAT,           // class
-		GL_FALSE,           // normalized??
-		0,
-		(void*)0            // buffer gap
-	);
-
-
-}
-
-void ModulePrimitive::CubeIndice()
-{
-	
-	
-	
-
-	
-}
-
-void ModulePrimitive::Cylinder()
-{
-	GLfloat x = 0.0;
-	GLfloat y = 0.0;
-	GLfloat angle = 0.0;
-	GLfloat angle_stepsize = 0.1;
-
-	float radius = 1.0f;
-	float height = 3.0f;
-
-	/** Draw the tube */
-	glBegin(GL_QUAD_STRIP);
-	angle = 0.0;
-	while (angle < 2 * 3.14f) {
-		x = radius * cos(angle);
-		y = radius * sin(angle);
-		glVertex3f(x, y, height);
-		glVertex3f(x, y, 0.0);
-		angle = angle + angle_stepsize;
-	}
-	glVertex3f(radius, 0.0, height);
-	glVertex3f(radius, 0.0, 0.0);
-	glEnd();
-
-	/** Draw the circle on top of cylinder */
-	glBegin(GL_POLYGON);
-	angle = 0.0;
-	while (angle < 2 * 3.14f) {
-		x = radius * cos(angle);
-		y = radius * sin(angle);
-		glVertex3f(x, y, height);
-		angle = angle + angle_stepsize;
-	}
-
-	glVertex3f(radius, 0.0, height);
-	glEnd();
-}
-
-SpherePrim::SpherePrim()
-{
-	 SpherePrim(10, 10, 1);
-}
+// -------------------------------------------
 
 SpherePrim::SpherePrim(int rings, int sectors, float radius) : rings(rings), sectors(sectors), radius(radius)
 {
@@ -325,7 +220,7 @@ bool SpherePrim::UpdateSph()
 
 CubeIndicePrim::CubeIndicePrim()
 {
-	vertices = { -1.0f,-1.0f,-1.0f, // triangle 1 : begin
+	vertex = { -1.0f,-1.0f,-1.0f, // triangle 1 : begin
 		-1.0f,-1.0f, 1.0f,
 		-1.0f, 1.0f, 1.0f, // triangle 1 : end
 		1.0f, 1.0f,-1.0f, // triangle 2 : begin
@@ -377,7 +272,7 @@ CubeIndicePrim::~CubeIndicePrim()
 bool CubeIndicePrim::UpdateCubeIndice()
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, &vertices[0]);
+	glVertexPointer(3, GL_FLOAT, 0, &vertex[0]);
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, &indices[0]);
 	glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
 
@@ -387,3 +282,122 @@ bool CubeIndicePrim::UpdateCubeIndice()
 
 	return true;
 }
+
+CylinderPrim::CylinderPrim()
+{}
+
+CylinderPrim::~CylinderPrim()
+{
+}
+
+bool CylinderPrim::UpdateCylinder()
+{
+	GLfloat x = 0.0;
+	GLfloat y = 0.0;
+	GLfloat angle = 0.0;
+	GLfloat angle_stepsize = 0.1;
+
+	/** Draw the tube */
+	glBegin(GL_QUAD_STRIP);
+	angle = 0.0;
+	while (angle < 2 * 3.14f) {
+		x = radius * cos(angle);
+		y = radius * sin(angle);
+		glVertex3f(x, y, height);
+		glVertex3f(x, y, 0.0);
+		angle = angle + angle_stepsize;
+	}
+	glVertex3f(radius, 0.0, height);
+	glVertex3f(radius, 0.0, 0.0);
+	glEnd();
+
+	/** Draw the circle on top of cylinder */
+	glBegin(GL_POLYGON);
+	angle = 0.0;
+	while (angle < 2 * 3.14f) {
+		x = radius * cos(angle);
+		y = radius * sin(angle);
+		glVertex3f(x, y, height);
+		angle = angle + angle_stepsize;
+	}
+
+	glVertex3f(radius, 0.0, height);
+	glEnd();
+	return true;
+}
+
+
+/*NormalCubePrim::NormalCubePrim()
+{
+	GLuint VertexArrayID;
+	glGenVertexArrays(1, &VertexArrayID);
+	glBindVertexArray(VertexArrayID);
+
+	vertex = {
+		-1.0f,-1.0f,-1.0f, 
+		-1.0f,-1.0f, 1.0f,
+		-1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f,-1.0f, 
+		-1.0f,-1.0f,-1.0f,
+		-1.0f, 1.0f,-1.0f, 
+		1.0f,-1.0f, 1.0f,
+		-1.0f,-1.0f,-1.0f,
+		1.0f,-1.0f,-1.0f,
+		1.0f, 1.0f,-1.0f,
+		1.0f,-1.0f,-1.0f,
+		-1.0f,-1.0f,-1.0f,
+		-1.0f,-1.0f,-1.0f,
+		-1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f,-1.0f,
+		1.0f,-1.0f, 1.0f,
+		-1.0f,-1.0f, 1.0f,
+		-1.0f,-1.0f,-1.0f,
+		-1.0f, 1.0f, 1.0f,
+		-1.0f,-1.0f, 1.0f,
+		1.0f,-1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f,-1.0f,-1.0f,
+		1.0f, 1.0f,-1.0f,
+		1.0f,-1.0f,-1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f,-1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f,-1.0f,
+		-1.0f, 1.0f,-1.0f,
+		1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f,-1.0f,
+		-1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, 1.0f,
+		1.0f,-1.0f, 1.0f
+	};
+}
+
+NormalCubePrim::~NormalCubePrim()
+{
+}
+
+bool NormalCubePrim::UpdateNormalCube()
+{
+	GLuint vertexbuffer;
+	glGenBuffers(1, &vertexbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex), &vertex[0], GL_STATIC_DRAW);
+
+	// 1rst attribute buffer : vertex
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glVertexAttribPointer(
+		0,
+		3,                  // size
+		GL_FLOAT,           // class
+		GL_FALSE,           // normalized??
+		0,
+		(void*)0            // buffer gap
+	);
+	glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
+
+	return true;
+}
+*/
+

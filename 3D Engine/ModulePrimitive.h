@@ -11,7 +11,6 @@ using namespace std;
 struct SpherePrim
 {
 public:
-	SpherePrim();
 	SpherePrim(int rings, int sectors, float radius);
 	~SpherePrim();
 
@@ -42,9 +41,25 @@ public:
 public:
 	GeomType type = CUBE_INDICE;
 
-	std::vector<GLfloat> vertices;
+	std::vector<GLfloat> vertex;
 	std::vector<GLfloat> indices;
 };
+
+struct CylinderPrim
+{
+public:
+	CylinderPrim();
+	~CylinderPrim();
+
+	bool UpdateCylinder();
+
+public:
+	GeomType type = CYLINDER;
+
+	float radius = 1.0f;
+	float height = 3.0f;
+};
+
 
 class ModulePrimitive : public Module
 {
@@ -59,15 +74,27 @@ public:
 
 	void CreatePrimitive(GeomType primitive);
 
-	bool SetType(GeomType type);
-
 	std::vector<SpherePrim*> spheres;
 	std::vector<CubeIndicePrim*> cubes_indices;
+	std::vector<CylinderPrim*> cylinders;
+	//std::vector<NormalCubePrim*> normal_cubes;
 private:
 
 	void Triangle();
-	void CubeVertex();
-	void CubeIndice();
-	void Cylinder();
-
 };
+
+
+
+/*struct NormalCubePrim
+{
+public:
+	NormalCubePrim();
+	~NormalCubePrim();
+
+	bool UpdateNormalCube();
+
+public:
+	GeomType type = CUBE;
+
+	std::vector<GLfloat> vertex;
+};*/
