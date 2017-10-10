@@ -31,6 +31,7 @@ public:
 	std::vector<GLushort> sphere_indices;
 };
 
+
 class ModulePrimitive : public Module
 {
 public:

@@ -12,7 +12,11 @@ ModulePrimitive::ModulePrimitive(Application * app, bool start_enabled) : Module
 
 ModulePrimitive::~ModulePrimitive()
 {
-}
+	for (int i = spheres.size(); spheres.size() != 0; i--)
+	{
+		spheres.pop_back();
+	}
+}	
 
 bool ModulePrimitive::Start()
 {
@@ -220,13 +224,6 @@ void ModulePrimitive::CubeIndice()
 	glDisableVertexAttribArray(0);
 
 	glDisableClientState(0);  // disable vertex arrays
-}
-
-void ModulePrimitive::Sphere()
-{
-
-	
-
 }
 
 void ModulePrimitive::Cylinder()
