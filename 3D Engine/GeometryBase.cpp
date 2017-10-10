@@ -22,31 +22,13 @@ void GeometryBase::Start()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object_mesh.id_indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float)*object_mesh.num_indices, object_mesh.indices, GL_STATIC_DRAW);
 
-}
+	//Normalss Buffer
+	glGenBuffers(1, (GLuint*) &(object_mesh.id_normals));
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object_mesh.id_normals);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float)*object_mesh.num_normals, object_mesh.normals, GL_STATIC_DRAW);
 
-bool GeometryBase::Draw()
-{
-	bool ret = false;
-
-	if (object_mesh.num_vertices > 0 && object_mesh.num_indices > 0)
-	{
-		glEnableClientState(GL_VERTEX_ARRAY);
-
-		glBindBuffer(GL_ARRAY_BUFFER, object_mesh.id_vertices);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object_mesh.id_indices);
-
-		glVertexPointer(3, GL_FLOAT, 0, NULL);
-		glDrawElements(GL_TRIANGLES, object_mesh.num_indices, GL_UNSIGNED_INT, NULL);
-
-		glDisableClientState(GL_VERTEX_ARRAY);
-		
-		ret = true;
-	}
-
-	else
-	{
-		LOG("Fail drawing mesh");
-	}
-
-	return ret;
+	//UVs Buffer
+	glGenBuffers(1, (GLuint*) &(object_mesh.id_uvs));
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object_mesh.id_uvs);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float)*object_mesh.num_uvs, object_mesh.uvs, GL_STATIC_DRAW);
 }

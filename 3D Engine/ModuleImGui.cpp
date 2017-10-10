@@ -178,10 +178,6 @@ bool ModuleImGui::ImGuiUpdate()
 					{
 						App->primitive->SetType(CUBE_INDICE);
 					}
-					if (ImGui::MenuItem("- Cube texturized"))
-					{
-						App->primitive->SetType(CUBE_TEXTURIZED);
-					}
 					if (ImGui::BeginMenu("- Sphere"))
 					{
 						if (ImGui::MenuItem("- Sphere"))

@@ -4,12 +4,6 @@
 #include "SDL\include\SDL_opengl.h"
 #include "gl\GL.h"
 #include "gl\GLU.h"
-#include "Devil/include/il.h"
-#include "Devil/include/ilut.h"
-
-#pragma comment (lib, "Devil/libx86/DevIL.lib")
-#pragma comment ( lib, "Devil/libx86/ILU.lib" )
-#pragma comment ( lib, "Devil/libx86/ILUT.lib" )
 
 #define BUFFER_OFFSET(i) ((void*)(i))
 
@@ -30,10 +24,6 @@ bool ModulePrimitive::Start()
 	float const R = 1. / (float)(rings - 1);
 	float const S = 1. / (float)(sectors - 1);
 	int r, s;
-
-	ilInit();
-	iluInit();
-	ilutInit();
 
 	sphere_vertices.resize(rings * sectors * 3);
 	sphere_normals.resize(rings * sectors * 3);
@@ -69,31 +59,6 @@ bool ModulePrimitive::Start()
 		*i++ = (r + 1) * sectors + s;
 	}
 
-	// Checkered texture creation
-	GLubyte checkered_texture[64][64][4];
-	for (int i = 0; i < 64; i++)
-	{
-		for (int j = 0; j < 64; j++)
-		{
-			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
-			checkered_texture[i][j][0] = (GLubyte)c;
-			checkered_texture[i][j][1] = (GLubyte)c;
-			checkered_texture[i][j][2] = (GLubyte)c;
-			checkered_texture[i][j][3] = (GLubyte)255;
-		}
-	}
-
-	// Generate and bind a texture buffer
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(1, NULL);
-	glBindTexture(GL_TEXTURE_2D, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 64, 64,
-		0, GL_RGBA, GL_UNSIGNED_BYTE, checkered_texture);
-
 	return true;
 }
 
@@ -110,10 +75,6 @@ bool ModulePrimitive::Update()
 	else if (this->type == CUBE_INDICE)
 	{
 		CubeIndice();
-	}
-	else if (this->type == CUBE_TEXTURIZED)
-	{
-		CubeDirect();
 	}
 	else if (this->type == SPHERE)
 	{
@@ -293,104 +254,6 @@ void ModulePrimitive::CubeIndice()
 	glDisableVertexAttribArray(0);
 
 	glDisableClientState(0);  // disable vertex arrays
-}
-
-void ModulePrimitive::CubeDirect()
-{
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glBegin(GL_TRIANGLES);
-	
-	// Front -----------------------
-	glTexCoord2d(0.f, 0.f); 
-	glVertex3f(0.f, 0.f, 1.f);
-	glTexCoord2d(0.f, 1.f);
-	glVertex3f(1.f, 0.f, 1.f);
-	glTexCoord2d(1.f, 1.f);
-	glVertex3f(1.f, 1.f, 1.f);
-	
-	glTexCoord2d(0.f, 0.f);
-	glVertex3f(0.f, 0.f, 1.f);
-	glTexCoord2d(1.f, 1.f);
-	glVertex3f(1.f, 1.f, 1.f);
-	glTexCoord2d(1.f, 0.f);
-	glVertex3f(0.f, 1.f, 1.f);
-	
-	//Right ------------------------
-	glTexCoord2d(0.f, 0.f);
-	glVertex3f(1.f, 0.f, 1.f); 
-	glTexCoord2d(0.f, 1.f);
-	glVertex3f(1.f, 0.f, 0.f);
-	glTexCoord2d(1.f, 0.f);
-	glVertex3f(1.f, 1.f, 1.f);
-	
-	glTexCoord2d(0.f, 1.f);
-	glVertex3f(1.f, 0.f, 0.f);
-	glTexCoord2d(1.f, 1.f);
-	glVertex3f(1.f, 1.f, 0.f);
-	glTexCoord2d(1.f, 0.f);
-	glVertex3f(1.f, 1.f, 1.f);
-	
-	//Left -------------------------
-	glTexCoord2d(0.f, 0.f);
-	glVertex3f(0.f, 0.f, 0.f); 
-	glTexCoord2d(0.f, 1.f);
-	glVertex3f(0.f, 0.f, 1.f);
-	glTexCoord2d(1.f, 0.f);
-	glVertex3f(0.f, 1.f, 0.f);
-	
-	glTexCoord2d(0.f, 1.f);
-	glVertex3f(0.f, 0.f, 1.f);
-	glTexCoord2d(1.f, 1.f);
-	glVertex3f(0.f, 1.f, 1.f);
-	glTexCoord2d(1.f, 0.f);
-	glVertex3f(0.f, 1.f, 0.f);
-	
-	//Back -------------------------
-	glTexCoord2d(0.f, 0.f);
-	glVertex3f(1.f, 0.f, 0.f); 
-	glTexCoord2d(1.f, 1.f);
-	glVertex3f(0.f, 1.f, 0.f);
-	glTexCoord2d(1.f, 0.f);
-	glVertex3f(1.f, 1.f, 0.f);
-	
-	glTexCoord2d(0.f, 1.f);
-	glVertex3f(0.f, 0.f, 0.f);
-	glTexCoord2d(1.f, 1.f);
-	glVertex3f(0.f, 1.f, 0.f);
-	glTexCoord2d(0.f, 0.f);
-	glVertex3f(1.f, 0.f, 0.f);
-	
-	//Up ---------------------------
-	glTexCoord2d(0.f, 1.f);
-	glVertex3f(1.f, 1.f, 1.f); 
-	glTexCoord2d(0.f, 0.f);
-	glVertex3f(1.f, 1.f, 0.f);
-	glTexCoord2d(1.f, 0.f);
-	glVertex3f(0.f, 1.f, 0.f);
-	
-	glTexCoord2d(0.f, 1.f);
-	glVertex3f(1.f, 1.f, 1.f);
-	glTexCoord2d(1.f, 0.f);
-	glVertex3f(0.f, 1.f, 0.f);
-	glTexCoord2d(1.f, 1.f);
-	glVertex3f(0.f, 1.f, 1.f);
-	
-	//Bottom -----------------------
-	glTexCoord2d(1.f, 1.f);
-	glVertex3f(1.f, 0.f, 1.f); 
-	glTexCoord2d(0.f, 1.f);
-	glVertex3f(0.f, 0.f, 1.f);
-	glTexCoord2d(0.f, 0.f);
-	glVertex3f(0.f, 0.f, 0.f);
-	
-	glTexCoord2d(1.f, 1.f);
-	glVertex3f(1.f, 0.f, 1.f);
-	glTexCoord2d(0.f, 0.f);
-	glVertex3f(0.f, 0.f, 0.f);
-	glTexCoord2d(1.f, 0.f);
-	glVertex3f(1.f, 0.f, 0.f);
-	
-	glEnd();
 }
 
 void ModulePrimitive::Sphere()

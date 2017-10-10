@@ -27,11 +27,8 @@ private:
 	void Triangle();
 	void CubeVertex();
 	void CubeIndice();
-	void CubeDirect();
 	void Sphere();
 	void Cylinder();
-
-	GLuint texture;
 	
 	//Sphere
 	std::vector<GLfloat> sphere_vertices;

@@ -6,7 +6,6 @@ enum GeomType
 	EMPTY = 0,
 	TRIANGLE,
 	CUBE_INDICE,
-	CUBE_TEXTURIZED,
 	CUBE,
 	SPHERE,
 	CYLINDER,
@@ -30,6 +29,13 @@ struct ModelConfig
 	uint num_vertices = 0;
 	float* vertices = nullptr;
 
+	uint id_normals = 0;
+	uint num_normals = 0;
+	float* normals = nullptr;
+
+	uint id_uvs = 0;
+	uint num_uvs = 0;
+	float* uvs = nullptr;
 };
 
 class GeometryBase
@@ -39,7 +45,6 @@ public:
 	virtual ~GeometryBase();
 
 	virtual void Start();
-	bool Draw();
 
 	ModelConfig object_mesh;
 	GeomType type;

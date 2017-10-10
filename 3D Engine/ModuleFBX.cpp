@@ -1,4 +1,5 @@
 #include "ModuleFBX.h"
+#include "Application.h"
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
@@ -27,6 +28,9 @@ bool ModuleFBX::Start()
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 
+	ilInit();
+	iluInit();
+	ilutInit();
 	
 	return ret;
 }
@@ -44,7 +48,7 @@ update_status ModuleFBX::Update(float dt)
 {
 	for (uint i = 0; i < meshes.size(); i++)
 	{
-		meshes[i]->Draw();
+		App->renderer3D->DrawMeshes(meshes[i]);
 	}
 	return UPDATE_CONTINUE;
 }
@@ -86,11 +90,38 @@ bool ModuleFBX::LoadFBX(const char* file_name)
 						memcpy(&m->object_mesh.indices[j * 3], new_mesh->mFaces[j].mIndices, 3 * sizeof(uint));
 					}
 				}
-
-				//Save space in VRAM and add the new mesh in the vector
-				m->Start();
-				meshes.push_back(m);
 			}
+
+			if (new_mesh->HasNormals())
+			{
+				m->object_mesh.num_normals = new_mesh->mNumVertices;
+				m->object_mesh.normals = new float[m->object_mesh.num_normals * 3];
+				memcpy(m->object_mesh.normals, new_mesh->mNormals, sizeof(float) * m->object_mesh.num_normals * 3);
+			}
+
+			if (new_mesh->HasTextureCoords(m->object_mesh.id_uvs))
+			{
+				m->object_mesh.num_uvs = new_mesh->mNumVertices;
+				m->object_mesh.uvs = new float[m->object_mesh.num_uvs * 2];
+
+				for (uint j = 0; j < new_mesh->mNumVertices; j++)
+				{
+					if (new_mesh->mNumVertices == 0)
+					{
+						LOG("WARNING, geometry with 0 vertices!");
+					}
+					else
+					{
+						memcpy(&m->object_mesh.uvs[i * 2], &new_mesh->mTextureCoords[0][i].x, sizeof(float));
+						memcpy(&m->object_mesh.uvs[(i * 2) + 1], &new_mesh->mTextureCoords[0][i].y, sizeof(float));
+					}
+				}
+			}
+
+			//Save space in VRAM and add the new mesh in the vector
+			m->Start();
+			meshes.push_back(m);
+
 		}
 		aiReleaseImport(scene);
 	}

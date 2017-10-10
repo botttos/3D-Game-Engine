@@ -6,6 +6,8 @@
 
 #define MAX_LIGHTS 8
 
+class GeometryBase;
+
 class ModuleRenderer3D : public Module
 {
 public:
@@ -16,6 +18,7 @@ public:
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
+	bool DrawMeshes(GeometryBase* mesh);
 
 	void OnResize(int width, int height);
 	
