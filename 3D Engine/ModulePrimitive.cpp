@@ -16,6 +16,11 @@ ModulePrimitive::~ModulePrimitive()
 	{
 		spheres.pop_back();
 	}
+
+	for (int i = cubes_indices.size(); cubes_indices.size() != 0; i--)
+	{
+		cubes_indices.pop_back();
+	}
 }	
 
 bool ModulePrimitive::Start()
@@ -29,6 +34,12 @@ bool ModulePrimitive::Update()
 	{
 		spheres[i]->UpdateSph();
 	}
+
+	for (int i = 0; i < cubes_indices.size(); i++)
+	{
+		cubes_indices[i]->UpdateCubeIndice();
+	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -49,7 +60,9 @@ void ModulePrimitive::CreatePrimitive(GeomType primitive)
 	}
 	else if (primitive == CUBE_INDICE)
 	{
-		CubeIndice();
+		CubeIndicePrim* cube_indice;
+		cube_indice = new CubeIndicePrim();
+		cubes_indices.push_back(cube_indice);
 	}
 	else if (primitive == SPHERE)
 	{
@@ -200,30 +213,11 @@ void ModulePrimitive::CubeVertex()
 
 void ModulePrimitive::CubeIndice()
 {
-	static const GLfloat vertices2[] = { 1, 1, 1,  -1, 1, 1,  -1,-1, 1,   1,-1, 1,   // v0,v1,v2,v3 (front)
-		1, 1, 1,   1,-1, 1,   1,-1,-1,   1, 1,-1,   // v0,v3,v4,v5 (right)
-		1, 1, 1,   1, 1,-1,  -1, 1,-1,  -1, 1, 1,   // v0,v5,v6,v1 (top)
-		-1, 1, 1,  -1, 1,-1,  -1,-1,-1,  -1,-1, 1,   // v1,v6,v7,v2 (left)
-		-1,-1,-1,   1,-1,-1,   1,-1, 1,  -1,-1, 1,   // v7,v4,v3,v2 (bottom)
-		1,-1,-1,  -1,-1,-1,  -1, 1,-1,   1, 1,-1 }; // v4,v7,v6,v5 (back)
-
-	static const GLubyte indices[] = { 0, 1, 2,   2, 3, 0,      // front
-		4, 5, 6,   6, 7, 4,      // right
-		8, 9,10,  10,11, 8,      // top
-		12,13,14,  14,15,12,      // left
-		16,17,18,  18,19,16,      // bottom
-		20,21,22,  22,23,20 };    // back
+	
 	
 	
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, vertices2);
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, indices);
-	glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
-
-	glDisableVertexAttribArray(0);
-
-	glDisableClientState(0);  // disable vertex arrays
+	
 }
 
 void ModulePrimitive::Cylinder()
@@ -326,5 +320,70 @@ bool SpherePrim::UpdateSph()
 	glDrawElements(GL_QUADS, sphere_indices.size(), GL_UNSIGNED_SHORT, &sphere_indices[0]);
 	glPopMatrix();
 	
+	return true;
+}
+
+CubeIndicePrim::CubeIndicePrim()
+{
+	vertices = { -1.0f,-1.0f,-1.0f, // triangle 1 : begin
+		-1.0f,-1.0f, 1.0f,
+		-1.0f, 1.0f, 1.0f, // triangle 1 : end
+		1.0f, 1.0f,-1.0f, // triangle 2 : begin
+		-1.0f,-1.0f,-1.0f,
+		-1.0f, 1.0f,-1.0f, // triangle 2 : end
+		1.0f,-1.0f, 1.0f,
+		-1.0f,-1.0f,-1.0f,
+		1.0f,-1.0f,-1.0f,
+		1.0f, 1.0f,-1.0f,
+		1.0f,-1.0f,-1.0f,
+		-1.0f,-1.0f,-1.0f,
+		-1.0f,-1.0f,-1.0f,
+		-1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f,-1.0f,
+		1.0f,-1.0f, 1.0f,
+		-1.0f,-1.0f, 1.0f,
+		-1.0f,-1.0f,-1.0f,
+		-1.0f, 1.0f, 1.0f,
+		-1.0f,-1.0f, 1.0f,
+		1.0f,-1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f,-1.0f,-1.0f,
+		1.0f, 1.0f,-1.0f,
+		1.0f,-1.0f,-1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f,-1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f,-1.0f,
+		-1.0f, 1.0f,-1.0f,
+		1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f,-1.0f,
+		-1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, 1.0f,
+		1.0f,-1.0f, 1.0f };
+
+	indices = { 0, 1, 2,   2, 3, 0,      // front
+		4, 5, 6,   6, 7, 4,      // right
+		8, 9,10,  10,11, 8,      // top
+		12,13,14,  14,15,12,      // left
+		16,17,18,  18,19,16,      // bottom
+		20,21,22,  22,23,20 };    // back
+}
+
+CubeIndicePrim::~CubeIndicePrim()
+{
+}
+
+bool CubeIndicePrim::UpdateCubeIndice()
+{
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, &vertices[0]);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, &indices[0]);
+	glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
+
+	glDisableVertexAttribArray(0);
+
+	glDisableClientState(0);  // disable vertex arrays
+
 	return true;
 }

@@ -31,6 +31,20 @@ public:
 	std::vector<GLushort> sphere_indices;
 };
 
+struct CubeIndicePrim
+{
+public:
+	CubeIndicePrim();
+	~CubeIndicePrim();
+
+	bool UpdateCubeIndice();
+
+public:
+	GeomType type = CUBE_INDICE;
+
+	std::vector<GLfloat> vertices;
+	std::vector<GLfloat> indices;
+};
 
 class ModulePrimitive : public Module
 {
@@ -46,8 +60,9 @@ public:
 	void CreatePrimitive(GeomType primitive);
 
 	bool SetType(GeomType type);
-	std::vector<SpherePrim*> spheres;
 
+	std::vector<SpherePrim*> spheres;
+	std::vector<CubeIndicePrim*> cubes_indices;
 private:
 
 	void Triangle();
