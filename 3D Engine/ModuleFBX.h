@@ -8,7 +8,7 @@ class ModuleFBX : public Module
 {
 public:
 
-	ModuleFBX(Application* app, bool start_enabled = true);
+	ModuleFBX(bool start_enabled = true);
 	virtual ~ModuleFBX();
 
 	bool Start();

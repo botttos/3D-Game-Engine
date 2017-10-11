@@ -6,7 +6,7 @@
 #define IM_ARRAYSIZE(_ARR)  ((int)(sizeof(_ARR)/sizeof(*_ARR)))
 
 
-Config::Config(Application * app, bool start_enabled) : Module(app, start_enabled)
+Config::Config(bool start_enabled) : Module(start_enabled)
 {
 	ClearLog();
 	memset(InputBuf, 0, sizeof(InputBuf));

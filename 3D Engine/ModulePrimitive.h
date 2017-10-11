@@ -65,7 +65,7 @@ class ModulePrimitive : public Module
 {
 public:
 
-	ModulePrimitive(Application* app, bool start_enabled = true);
+	ModulePrimitive(bool start_enabled = true);
 	~ModulePrimitive();
 
 	bool Start();
@@ -77,6 +77,7 @@ public:
 	std::vector<SpherePrim*> spheres;
 	std::vector<CubeIndicePrim*> cubes_indices;
 	std::vector<CylinderPrim*> cylinders;
+
 	//std::vector<NormalCubePrim*> normal_cubes;
 private:
 

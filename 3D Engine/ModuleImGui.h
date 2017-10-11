@@ -4,7 +4,7 @@
 class ModuleImGui : public Module
 {
 public:
-	ModuleImGui(Application* app, bool start_enabled = true);
+	ModuleImGui(bool start_enabled = true);
 	~ModuleImGui();
 
 	bool Start();

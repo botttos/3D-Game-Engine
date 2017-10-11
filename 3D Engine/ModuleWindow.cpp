@@ -3,7 +3,7 @@
 #include "ModuleWindow.h"
 
 
-ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleWindow::ModuleWindow(bool start_enabled) : Module(start_enabled)
 {
 	window = NULL;
 	screen_surface = NULL;
@@ -59,6 +59,7 @@ bool ModuleWindow::Init()
 
 		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
+		
 		JSON_Object * configuration_object = json_value_get_object(App->configuration);
 		JSON_Object * window_object = json_object_dotget_object(configuration_object, "window");
 		SetTitle(json_object_dotget_string(window_object, "wtitle"));

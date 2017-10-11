@@ -7,7 +7,7 @@
 
 #define BUFFER_OFFSET(i) ((void*)(i))
 
-ModulePrimitive::ModulePrimitive(Application * app, bool start_enabled) : Module(app, start_enabled)
+ModulePrimitive::ModulePrimitive(bool start_enabled) : Module(start_enabled)
 {}
 
 ModulePrimitive::~ModulePrimitive()

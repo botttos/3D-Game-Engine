@@ -10,7 +10,7 @@ class Hardware : public Module
 {
 public:
 
-	Hardware(Application* app, bool start_enabled = false);
+	Hardware(bool start_enabled = false);
 	~Hardware() {};
 
 	bool Start();

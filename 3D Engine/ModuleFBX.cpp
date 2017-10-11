@@ -12,7 +12,7 @@
 #pragma comment ( lib, "Devil/libx86/ILU.lib" )
 #pragma comment ( lib, "Devil/libx86/ILUT.lib" )
 
-ModuleFBX::ModuleFBX(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleFBX::ModuleFBX(bool start_enabled) : Module(start_enabled)
 {
 	
 }

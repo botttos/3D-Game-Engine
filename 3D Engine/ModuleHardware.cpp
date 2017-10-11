@@ -12,7 +12,7 @@
 #define GPU_MEMORY_INFO_EVICTION_COUNT_NVX				0x904A
 #define GPU_MEMORY_INFO_EVICTED_MEMORY_NVX				0x904B
 
-Hardware::Hardware(Application * app, bool start_enabled) : Module(app, start_enabled)
+Hardware::Hardware(bool start_enabled) : Module(start_enabled)
 {
 }
 

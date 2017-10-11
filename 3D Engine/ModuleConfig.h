@@ -10,7 +10,7 @@
 class Config : public Module
 {
 public:
-	Config(Application* app, bool start_enabled = false);
+	Config(bool start_enabled = false);
 	~Config();
 
 	bool Start();

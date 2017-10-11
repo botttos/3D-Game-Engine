@@ -6,21 +6,20 @@
 
 Application::Application()
 {
-	window = new ModuleWindow(this);
-	input = new ModuleInput(this);
-	audio = new ModuleAudio(this, true);
-	scene_intro = new ModuleSceneIntro(this);
-	renderer3D = new ModuleRenderer3D(this);
-	camera = new ModuleCamera3D(this);
-	primitive = new ModulePrimitive(this);
-	fbx_loader = new ModuleFBX(this);
-	imgui = new ModuleImGui(this);
+	window = new ModuleWindow();
+	input = new ModuleInput();
+	audio = new ModuleAudio();
+	scene_intro = new ModuleSceneIntro();
+	renderer3D = new ModuleRenderer3D();
+	camera = new ModuleCamera3D();
+	primitive = new ModulePrimitive();
+	fbx_loader = new ModuleFBX();
+	imgui = new ModuleImGui();
 	//Console
-	console = new Console(this);
-	config = new Config(this);
+	console = new Console();
+	config = new Config();
 	//Hardware
-	hardware = new Hardware(this);
-
+	hardware = new Hardware();
 	
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -45,7 +44,7 @@ Application::Application()
 	AddModule(hardware);
 	// Renderer last!
 	AddModule(renderer3D);
-	
+
 }
 
 Application::~Application()

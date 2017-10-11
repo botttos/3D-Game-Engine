@@ -69,3 +69,5 @@ private:
 public:
 	JSON_Value * configuration;
 };
+
+extern Application* App;
