@@ -12,6 +12,7 @@ ModulePrimitive::ModulePrimitive(bool start_enabled) : Module(start_enabled)
 
 ModulePrimitive::~ModulePrimitive()
 {
+	LOG("Delete primitives");
 	for (int i = spheres.size(); spheres.size() != 0; i--)
 	{
 		spheres.pop_back();
@@ -77,22 +78,26 @@ void ModulePrimitive::CreatePrimitive(GeomType primitive)
 	}
 	else if (primitive == TRIANGLE)
 	{
+		LOG("Creating triangle");
 		Triangle();
 	}
 	else if (primitive == CUBE_INDICE)
 	{
+		LOG("Creating cube with indices");
 		CubeIndicePrim* cube_indice;
 		cube_indice = new CubeIndicePrim();
 		cubes_indices.push_back(cube_indice);
 	}
 	else if (primitive == SPHERE)
 	{
+		LOG("Creating sphere");
 		SpherePrim* sphere;
 		sphere = new SpherePrim(10, 10, 1);
 		spheres.push_back(sphere);
 	}
 	else if (primitive == CYLINDER)
 	{
+		LOG("Creating cylinder")
 		CylinderPrim* cylinder;
 		cylinder = new CylinderPrim();
 		cylinders.push_back(cylinder);
