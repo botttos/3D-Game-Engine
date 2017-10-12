@@ -27,7 +27,7 @@ struct ModelConfig
 
 	uint id_indices = 0;
 	uint num_vertices = 0;
-	float* vertices = nullptr;
+	uint* vertices = nullptr;
 
 	uint id_normals = 0;
 	uint num_normals = 0;

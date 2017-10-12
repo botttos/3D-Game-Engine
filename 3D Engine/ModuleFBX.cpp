@@ -73,25 +73,47 @@ uint ModuleFBX::GenerateTextureId(const char* path)
 	return texture_id;
 }
 
-// -----------------------------------------------------------------
-bool ModuleFBX::LoadFBX(const char* file_name)
+// LoadFBX ---------------------------------------------------------
+bool ModuleFBX::LoadFBX(const char* path)
 {
-	bool ret = false;
-	aiMesh* new_mesh = nullptr;
-	const aiScene* scene = aiImportFile(file_name, aiProcessPreset_TargetRealtime_MaxQuality);
+	bool ret = true;
+	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
+		aiNode* rootNode = scene->mRootNode;
+
+		for (int i = 0; i < rootNode->mNumChildren; ++i)
+			LoadModel(scene, rootNode->mChildren[i], path);
+
+		aiReleaseImport(scene);
+	}
+	else
+	{
+		aiReleaseImport(scene);
+		ret = false;
+	}
+
+	return ret;
+}
+
+// LoadModel -------------------------------------------------------
+bool ModuleFBX::LoadModel(const aiScene* scene, aiNode* node, const char* file_name)
+{
+	bool ret = false;
+	
+	if (scene != nullptr && scene->HasMeshes())
+	{
 		//iterate all aiMesh structs
-		for (uint i = 0; i < scene->mNumMeshes; i++)
+		for (int i = 0; i < node->mNumMeshes; i++)
 		{
 			m = new GeometryBase(MESH);
-			new_mesh = scene->mMeshes[i];
+			aiMesh* new_mesh = scene->mMeshes[node->mMeshes[i]];
 
 			m->object_mesh.num_vertices = new_mesh->mNumVertices;
-			m->object_mesh.vertices = new float[m->object_mesh.num_vertices * 3];
+			m->object_mesh.vertices = new uint[m->object_mesh.num_vertices * 3];
 			memcpy(m->object_mesh.vertices, new_mesh->mVertices, sizeof(float) * m->object_mesh.num_vertices * 3);
-
+			
 			glGenBuffers(1, (GLuint*)&(m->object_mesh.id_vertices));
 			glBindBuffer(GL_ARRAY_BUFFER, m->object_mesh.id_vertices);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m->object_mesh.num_vertices, m->object_mesh.vertices, GL_STATIC_DRAW);
@@ -120,17 +142,6 @@ bool ModuleFBX::LoadFBX(const char* file_name)
 				glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * m->object_mesh.num_indices, m->object_mesh.indices, GL_STATIC_DRAW);
 			}
 
-			if (new_mesh->HasNormals())
-			{
-				m->object_mesh.num_normals = new_mesh->mNumVertices;
-				m->object_mesh.normals = new float[m->object_mesh.num_normals * 3];
-				memcpy(m->object_mesh.normals, new_mesh->mNormals, sizeof(float) * m->object_mesh.num_normals * 3);
-
-				glGenBuffers(1, (GLuint*)&(m->object_mesh.id_normals));
-				glBindBuffer(GL_ARRAY_BUFFER, m->object_mesh.id_normals);
-				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m->object_mesh.num_normals, m->object_mesh.normals, GL_STATIC_DRAW);
-			}
-
 			if (new_mesh->HasTextureCoords(m->object_mesh.id_uvs))
 			{
 				m->object_mesh.num_uvs = new_mesh->mNumVertices;
@@ -142,21 +153,39 @@ bool ModuleFBX::LoadFBX(const char* file_name)
 					memcpy(&m->object_mesh.uvs[i * 2], &new_mesh->mTextureCoords[0][i].x, sizeof(float));
 					memcpy(&m->object_mesh.uvs[(i * 2) + 1], &new_mesh->mTextureCoords[0][i].y, sizeof(float));
 				}
-					glGenBuffers(1, (GLuint*)&(m->object_mesh.id_uvs));
-					glBindBuffer(GL_ARRAY_BUFFER, m->object_mesh.id_uvs);
-					glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * m->object_mesh.num_uvs, m->object_mesh.uvs, GL_STATIC_DRAW);
+				glGenBuffers(1, (GLuint*)&(m->object_mesh.id_uvs));
+				glBindBuffer(GL_ARRAY_BUFFER, m->object_mesh.id_uvs);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * m->object_mesh.num_uvs, m->object_mesh.uvs, GL_STATIC_DRAW);
 			}
+
+			if (new_mesh->HasNormals())
+			{
+				m->object_mesh.num_normals = new_mesh->mNumVertices;
+				m->object_mesh.normals = new float[m->object_mesh.num_normals * 3];
+				memcpy(m->object_mesh.normals, new_mesh->mNormals, sizeof(float) * m->object_mesh.num_normals * 3);
+
+				glGenBuffers(1, (GLuint*)&(m->object_mesh.id_normals));
+				glBindBuffer(GL_ARRAY_BUFFER, m->object_mesh.id_normals);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m->object_mesh.num_normals, m->object_mesh.normals, GL_STATIC_DRAW);
+			}
+
+			
 
 			//Save space in VRAM and add the new mesh in the vector
 			m->Start();
 			meshes.push_back(m);
 		}
-		aiReleaseImport(scene);
+		//aiReleaseImport(scene);
 	}
 
 	else
 	{
 		LOG("Error loading scene %s", file_name);
+	}
+
+	for (int i = 0; i < node->mNumChildren; i++)
+	{
+		LoadModel(scene, node->mChildren[i], file_name);
 	}
 
 	return ret;

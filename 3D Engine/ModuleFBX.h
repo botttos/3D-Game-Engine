@@ -4,6 +4,8 @@
 #include "GeometryBase.h"
 #include <vector>
 
+class aiScene;
+class aiNode;
 
 class ModuleFBX : public Module
 {
@@ -16,7 +18,8 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	bool LoadFBX(const char* filename);
+	bool LoadFBX(const char* path);
+	bool LoadModel(const aiScene* scene, aiNode* node, const char* filename);
 
 	uint GenerateTextureId(const char* path);
 

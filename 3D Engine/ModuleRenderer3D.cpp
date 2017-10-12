@@ -153,8 +153,11 @@ bool ModuleRenderer3D::DrawMeshes(GeometryBase* mesh, uint texture_id)
 
 	if (mesh->object_mesh.num_vertices > 0 && mesh->object_mesh.num_indices > 0)
 	{
+		glPushMatrix();
+
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		glEnable(GL_TEXTURE_2D);
 
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->object_mesh.id_vertices);
 		glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -168,6 +171,9 @@ bool ModuleRenderer3D::DrawMeshes(GeometryBase* mesh, uint texture_id)
 
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glDisable(GL_TEXTURE_2D);
+
+		glPopMatrix();
 
 		ret = true;
 	}
