@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleFBX.h"
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -93,16 +94,16 @@ bool ModuleRenderer3D::Init()
 			lights[0].Init();
 
 			//Materials
-			GLfloat diffuse_material[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse_material);
-
 			GLfloat ambient_material[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient_material);
+
+			GLfloat diffuse_material[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse_material);
 
 			glEnable(GL_COLOR_MATERIAL);
 			glEnable(GL_DEPTH_TEST);
 			glDisable(GL_CULL_FACE);
-			glEnable(GL_LIGHTING);
+			glDisable(GL_LIGHTING);
 			lights[0].Active(true);			
 		}
 
@@ -130,6 +131,14 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
+update_status ModuleRenderer3D::Update(float dt)
+{
+	for (vector<ModelConfig>::iterator item = App->fbx_loader->meshes.begin(); item != App->fbx_loader->meshes.end(); ++item)
+		App->renderer3D->DrawMeshes(*item);
+	
+	return UPDATE_CONTINUE;
+}
+
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
@@ -147,41 +156,27 @@ bool ModuleRenderer3D::CleanUp()
 	return true;
 }
 
-bool ModuleRenderer3D::DrawMeshes(GeometryBase* mesh, uint texture_id)
+bool ModuleRenderer3D::DrawMeshes(ModelConfig mesh)
 {
 	bool ret = false;
 
-	if (mesh->object_mesh.num_vertices > 0 && mesh->object_mesh.num_indices > 0)
-	{
-		glPushMatrix();
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glEnable(GL_TEXTURE_2D);
 
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glEnable(GL_TEXTURE_2D);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_vertices);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_uvs);
+	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->object_mesh.id_vertices);
-		glVertexPointer(3, GL_FLOAT, 0, NULL);
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->object_mesh.id_uvs);
-		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+	glBindTexture(GL_TEXTURE_2D, mesh.texture_id);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.id_indices);
+	glDrawElements(GL_TRIANGLES, mesh.num_indices, GL_UNSIGNED_INT, NULL);
 
-		glBindTexture(GL_TEXTURE_2D, texture_id);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->object_mesh.id_indices);
-		glDrawElements(GL_TRIANGLES, mesh->object_mesh.num_indices, GL_UNSIGNED_INT, NULL);
-
-		glDisableClientState(GL_VERTEX_ARRAY);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		glDisable(GL_TEXTURE_2D);
-
-		glPopMatrix();
-
-		ret = true;
-	}
-
-	else
-	{
-		LOG("Fail drawing mesh");
-	}
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
 
 	return ret;
 }

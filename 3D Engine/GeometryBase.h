@@ -14,29 +14,8 @@ enum GeomType
 	RAY,
 	PLANE,
 	CAPSULE,
-	FRUSTUM,
-	MESH
+	FRUSTUM
 }; 
-
-
-struct ModelConfig
-{
-	uint id_vertices = 0;
-	uint num_indices = 0;
-	uint* indices = nullptr;
-
-	uint id_indices = 0;
-	uint num_vertices = 0;
-	uint* vertices = nullptr;
-
-	uint id_normals = 0;
-	uint num_normals = 0;
-	float* normals = nullptr;
-
-	uint id_uvs = 0;
-	uint num_uvs = 0;
-	float* uvs = nullptr;
-};
 
 class GeometryBase
 {
@@ -46,7 +25,6 @@ public:
 
 	virtual void Start();
 
-	ModelConfig object_mesh;
 	GeomType type;
 	
 };

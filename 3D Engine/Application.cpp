@@ -30,13 +30,11 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
-	
 
 	// Scenes
 	AddModule(scene_intro);
 	AddModule(primitive);
 	AddModule(fbx_loader);
-	AddModule(imgui);
 
 	//Console
 	AddModule(console);
@@ -44,7 +42,7 @@ Application::Application()
 	AddModule(hardware);
 	// Renderer last!
 	AddModule(renderer3D);
-
+	AddModule(imgui);
 }
 
 Application::~Application()

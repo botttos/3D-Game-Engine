@@ -6,7 +6,7 @@
 
 #define MAX_LIGHTS 8
 
-class GeometryBase;
+struct ModelConfig;
 
 class ModuleRenderer3D : public Module
 {
@@ -17,8 +17,9 @@ public:
 	bool Init();
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
+	update_status Update(float dt);
 	bool CleanUp();
-	bool DrawMeshes(GeometryBase* mesh, uint texture_id);
+	bool DrawMeshes(ModelConfig mesh);
 
 	void OnResize(int width, int height);
 	
