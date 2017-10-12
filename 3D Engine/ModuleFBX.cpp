@@ -54,6 +54,68 @@ update_status ModuleFBX::Update(float dt)
 }
 
 // -----------------------------------------------------------------
+uint ModuleFBX::GenerateTextureId(const char* path)
+{
+	ILuint image_id;
+	uint texture_id;
+	ILboolean success;
+	ILenum error;
+
+	ilGenImages(1, &image_id);
+	ilBindImage(image_id);
+
+	success = ilLoadImage(path);
+
+	if (success)
+	{
+		ILinfo image_info;
+		iluGetImageInfo(&image_info);
+		if (image_info.Origin == IL_ORIGIN_UPPER_LEFT)
+			iluFlipImage();
+
+		success = ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE);
+
+		if (!success)
+		{
+			error = ilGetError();
+			LOG("IMAGE CONVERSION FAILED! ===========================");
+			LOG("Error: %s", error);
+			LOG("%s", iluErrorString(error));
+			exit(-1);
+		}
+
+		glGenTextures(1, &texture_id);
+		glBindTexture(GL_TEXTURE_2D, texture_id);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexImage2D(GL_TEXTURE_2D,
+			0,
+			ilGetInteger(IL_IMAGE_FORMAT),
+			ilGetInteger(IL_IMAGE_WIDTH),
+			ilGetInteger(IL_IMAGE_HEIGHT),
+			0,
+			ilGetInteger(IL_IMAGE_FORMAT),
+			GL_UNSIGNED_BYTE,
+			ilGetData());
+	}
+	else
+	{
+		error = ilGetError();
+		LOG("IMAGE LOADING FAILED! ===========================");
+		LOG("Error: %s", error);
+		LOG("%s", iluErrorString(error));
+		exit(-1);
+	}
+
+	ilDeleteImages(1, &image_id);
+	LOG("TEXTURE CREATION SUCCESFUL ============================");
+
+	return texture_id;
+}
+
+// -----------------------------------------------------------------
 bool ModuleFBX::LoadFBX(const char* file_name)
 {
 	bool ret = false;

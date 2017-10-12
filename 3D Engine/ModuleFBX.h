@@ -4,6 +4,7 @@
 #include "GeometryBase.h"
 #include <vector>
 
+
 class ModuleFBX : public Module
 {
 public:
@@ -16,6 +17,8 @@ public:
 	bool CleanUp();
 
 	bool LoadFBX(const char* filename);
+
+	uint GenerateTextureId(const char* path);
 
 private:
 
