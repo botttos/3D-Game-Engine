@@ -147,27 +147,27 @@ bool ModuleRenderer3D::CleanUp()
 	return true;
 }
 
-bool ModuleRenderer3D::DrawMeshes(GeometryBase* mesh)
+bool ModuleRenderer3D::DrawMeshes(GeometryBase* mesh, uint texture_id)
 {
 	bool ret = false;
 
 	if (mesh->object_mesh.num_vertices > 0 && mesh->object_mesh.num_indices > 0)
 	{
 		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->object_mesh.id_vertices); // vertices
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->object_mesh.id_vertices);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->object_mesh.id_uvs);
+		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+
+		glBindTexture(GL_TEXTURE_2D, texture_id);
+
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->object_mesh.id_indices);
-
-		glVertexPointer(3, GL_FLOAT, 0, NULL); // indices
 		glDrawElements(GL_TRIANGLES, mesh->object_mesh.num_indices, GL_UNSIGNED_INT, NULL);
 
-		glVertexPointer(3, GL_FLOAT, 0, NULL); // normals
-		glDrawElements(GL_TRIANGLES, mesh->object_mesh.num_normals, GL_UNSIGNED_INT, NULL);
-
-		glVertexPointer(3, GL_FLOAT, 0, NULL); // uvs
-		glDrawElements(GL_TRIANGLES, mesh->object_mesh.num_uvs, GL_UNSIGNED_INT, NULL);
-
 		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 		ret = true;
 	}

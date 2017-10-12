@@ -28,10 +28,12 @@ bool ModuleFBX::Start()
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 
+	ilutRenderer(ILUT_OPENGL);
 	ilInit();
 	iluInit();
 	ilutInit();
-	
+	ilutRenderer(ILUT_OPENGL);
+
 	return ret;
 }
 
@@ -48,7 +50,7 @@ update_status ModuleFBX::Update(float dt)
 {
 	for (uint i = 0; i < meshes.size(); i++)
 	{
-		App->renderer3D->DrawMeshes(meshes[i]);
+		App->renderer3D->DrawMeshes(meshes[i], GenerateTextureId("Baker_house.png"));
 	}
 	return UPDATE_CONTINUE;
 }
@@ -58,56 +60,12 @@ uint ModuleFBX::GenerateTextureId(const char* path)
 {
 	ILuint image_id;
 	uint texture_id;
-	ILboolean success;
-	ILenum error;
 
 	ilGenImages(1, &image_id);
 	ilBindImage(image_id);
-
-	success = ilLoadImage(path);
-
-	if (success)
-	{
-		ILinfo image_info;
-		iluGetImageInfo(&image_info);
-		if (image_info.Origin == IL_ORIGIN_UPPER_LEFT)
-			iluFlipImage();
-
-		success = ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE);
-
-		if (!success)
-		{
-			error = ilGetError();
-			LOG("IMAGE CONVERSION FAILED! ===========================");
-			LOG("Error: %s", error);
-			LOG("%s", iluErrorString(error));
-			exit(-1);
-		}
-
-		glGenTextures(1, &texture_id);
-		glBindTexture(GL_TEXTURE_2D, texture_id);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexImage2D(GL_TEXTURE_2D,
-			0,
-			ilGetInteger(IL_IMAGE_FORMAT),
-			ilGetInteger(IL_IMAGE_WIDTH),
-			ilGetInteger(IL_IMAGE_HEIGHT),
-			0,
-			ilGetInteger(IL_IMAGE_FORMAT),
-			GL_UNSIGNED_BYTE,
-			ilGetData());
-	}
-	else
-	{
-		error = ilGetError();
-		LOG("IMAGE LOADING FAILED! ===========================");
-		LOG("Error: %s", error);
-		LOG("%s", iluErrorString(error));
-		exit(-1);
-	}
+	ilLoadImage(path);
+	
+	texture_id = ilutGLBindTexImage();
 
 	ilDeleteImages(1, &image_id);
 	LOG("TEXTURE CREATION SUCCESFUL ============================");
@@ -134,6 +92,10 @@ bool ModuleFBX::LoadFBX(const char* file_name)
 			m->object_mesh.vertices = new float[m->object_mesh.num_vertices * 3];
 			memcpy(m->object_mesh.vertices, new_mesh->mVertices, sizeof(float) * m->object_mesh.num_vertices * 3);
 
+			glGenBuffers(1, (GLuint*)&(m->object_mesh.id_vertices));
+			glBindBuffer(GL_ARRAY_BUFFER, m->object_mesh.id_vertices);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m->object_mesh.num_vertices, m->object_mesh.vertices, GL_STATIC_DRAW);
+
 			LOG("New mesh with %d vertices", m->object_mesh.num_vertices);
 
 			if (new_mesh->HasFaces())
@@ -152,6 +114,10 @@ bool ModuleFBX::LoadFBX(const char* file_name)
 						memcpy(&m->object_mesh.indices[j * 3], new_mesh->mFaces[j].mIndices, 3 * sizeof(uint));
 					}
 				}
+
+				glGenBuffers(1, (GLuint*)&(m->object_mesh.id_indices));
+				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m->object_mesh.id_indices);
+				glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * m->object_mesh.num_indices, m->object_mesh.indices, GL_STATIC_DRAW);
 			}
 
 			if (new_mesh->HasNormals())
@@ -159,6 +125,10 @@ bool ModuleFBX::LoadFBX(const char* file_name)
 				m->object_mesh.num_normals = new_mesh->mNumVertices;
 				m->object_mesh.normals = new float[m->object_mesh.num_normals * 3];
 				memcpy(m->object_mesh.normals, new_mesh->mNormals, sizeof(float) * m->object_mesh.num_normals * 3);
+
+				glGenBuffers(1, (GLuint*)&(m->object_mesh.id_normals));
+				glBindBuffer(GL_ARRAY_BUFFER, m->object_mesh.id_normals);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m->object_mesh.num_normals, m->object_mesh.normals, GL_STATIC_DRAW);
 			}
 
 			if (new_mesh->HasTextureCoords(m->object_mesh.id_uvs))
@@ -168,22 +138,18 @@ bool ModuleFBX::LoadFBX(const char* file_name)
 
 				for (uint j = 0; j < new_mesh->mNumVertices; j++)
 				{
-					if (new_mesh->mNumVertices == 0)
-					{
-						LOG("WARNING, geometry with 0 vertices!");
-					}
-					else
-					{
-						memcpy(&m->object_mesh.uvs[i * 2], &new_mesh->mTextureCoords[0][i].x, sizeof(float));
-						memcpy(&m->object_mesh.uvs[(i * 2) + 1], &new_mesh->mTextureCoords[0][i].y, sizeof(float));
-					}
+
+					memcpy(&m->object_mesh.uvs[i * 2], &new_mesh->mTextureCoords[0][i].x, sizeof(float));
+					memcpy(&m->object_mesh.uvs[(i * 2) + 1], &new_mesh->mTextureCoords[0][i].y, sizeof(float));
 				}
+					glGenBuffers(1, (GLuint*)&(m->object_mesh.id_uvs));
+					glBindBuffer(GL_ARRAY_BUFFER, m->object_mesh.id_uvs);
+					glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * m->object_mesh.num_uvs, m->object_mesh.uvs, GL_STATIC_DRAW);
 			}
 
 			//Save space in VRAM and add the new mesh in the vector
 			m->Start();
 			meshes.push_back(m);
-
 		}
 		aiReleaseImport(scene);
 	}

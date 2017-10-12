@@ -18,7 +18,7 @@ public:
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
-	bool DrawMeshes(GeometryBase* mesh);
+	bool DrawMeshes(GeometryBase* mesh, uint texture_id);
 
 	void OnResize(int width, int height);
 	
