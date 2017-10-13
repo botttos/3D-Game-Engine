@@ -60,6 +60,20 @@ public:
 	float height = 3.0f;
 };
 
+struct NormalCubePrim
+{
+public:
+	NormalCubePrim();
+	~NormalCubePrim();
+
+	bool UpdateNormalCube();
+
+public:
+	GeomType type = CUBE;
+
+	std::vector<GLfloat> vertex;
+};
+
 
 class ModulePrimitive : public Module
 {
