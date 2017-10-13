@@ -33,4 +33,5 @@ public:
 private:
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;
+	bool fps_camera = false;
 };
