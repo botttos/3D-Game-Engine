@@ -91,6 +91,7 @@ update_status ModuleInput::PreUpdate(float dt)
 	{
 		switch(e.type)
 		{
+			FILE_TYPE file_type;
 			case SDL_MOUSEWHEEL:
 			mouse_z = e.wheel.y;
 			break;
@@ -108,9 +109,19 @@ update_status ModuleInput::PreUpdate(float dt)
 			break;
 
 			case SDL_DROPFILE:
-				file_path = e.drop.file;
+			file_path = e.drop.file;
+			file_type = GetFileType(file_path.c_str());
+			if (file_type == GEOMETRY_MODEL)
+			{
 				App->fbx_loader->LoadFBX(file_path.c_str());
-
+			}
+			else if (file_type == TEXTURE)
+			{
+				//Call load texture method
+				//Need to edit LoadTexture() attributes
+				App->fbx_loader->LoadFBX(file_path.c_str());
+			}
+				
 			case SDL_WINDOWEVENT:
 			{
 				if(e.window.event == SDL_WINDOWEVENT_RESIZED)
@@ -132,6 +143,39 @@ bool ModuleInput::CleanUp()
 	LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
+}
+
+FILE_TYPE ModuleInput::GetFileType(const char * dir)
+{
+	if (dir != nullptr)
+	{
+		std::string type;
+		//From const char* to std::string
+		std::string path(dir);
+
+		//Find extension
+		type = path.substr(path.find_last_of("."));
+
+		if (type == ".fbx" || type == ".obj" || 
+			type == ".FBX" || type == ".OBJ")
+		{
+			return GEOMETRY_MODEL;
+		}
+
+		else if (type == ".png" || type == ".jpg" || type == ".bmp" || type == ".dds" ||
+			     type == ".PNG" || type == ".JPG" || type == ".BMP" || type == ".DDS")
+		{
+			return TEXTURE;
+		}
+
+		else
+		{
+			return UNKNOWN;
+		}
+	}
+
+	LOG("File directory ERROR. Is nullptr.");
+	return DIR_NULLPTR;
 }
 
 bool ModuleInput::Quit()

@@ -174,3 +174,8 @@ void ModuleFBX::LoadModel(const aiScene* scene, aiNode* node, const char* path)
 		LoadModel(scene, node->mChildren[i], path);
 	}
 }
+
+void ModuleFBX::LoadTexture()
+{
+
+}

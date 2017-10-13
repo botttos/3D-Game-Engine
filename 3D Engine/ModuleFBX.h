@@ -38,6 +38,7 @@ public:
 	bool CleanUp();
 	bool LoadFBX(const char* path);
 	void LoadModel(const aiScene* scene, aiNode* node, const char* path);
+	void LoadTexture();
 	uint GenerateTextureId(const char* texture_path);
 
 	vector<ModelConfig> meshes;
