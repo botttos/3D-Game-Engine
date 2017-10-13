@@ -28,10 +28,10 @@ ModulePrimitive::~ModulePrimitive()
 		cylinders.pop_back();
 	}
 
-	/*for (int i = normal_cubes.size(); normal_cubes.size() != 0; i--)
+	for (int i = normal_cubes.size(); normal_cubes.size() != 0; i--)
 	{
 		normal_cubes.pop_back();
-	}*/
+	}
 }	
 
 bool ModulePrimitive::Start()
@@ -55,10 +55,10 @@ bool ModulePrimitive::Update()
 	{
 		cylinders[i]->UpdateCylinder();
 	}
-	/*for (int i = 0; i < normal_cubes.size(); i++)
+	for (int i = 0; i < normal_cubes.size(); i++)
 	{
 		normal_cubes[i]->UpdateNormalCube();
-	}*/
+	}
 
 	return UPDATE_CONTINUE;
 }
@@ -72,9 +72,9 @@ void ModulePrimitive::CreatePrimitive(GeomType primitive)
 {
 	if (primitive == CUBE)
 	{
-		/*NormalCubePrim* cube;
+		NormalCubePrim* cube;
 		cube = new NormalCubePrim();
-		normal_cubes.push_back(cube);*/
+		normal_cubes.push_back(cube);
 	}
 	else if (primitive == TRIANGLE)
 	{
@@ -262,12 +262,12 @@ CubeIndicePrim::CubeIndicePrim()
 		-1.0f, 1.0f, 1.0f,
 		1.0f,-1.0f, 1.0f };
 
-	indices = { 0, 1, 2,   2, 3, 0,      // front
+	/*indices = { 0, 1, 2,   2, 3, 0,      // front
 		4, 5, 6,   6, 7, 4,      // right
 		8, 9,10,  10,11, 8,      // top
 		12,13,14,  14,15,12,      // left
 		16,17,18,  18,19,16,      // bottom
-		20,21,22,  22,23,20 };    // back
+		20,21,22,  22,23,20 };    // back*/
 }
 
 CubeIndicePrim::~CubeIndicePrim()
@@ -278,7 +278,7 @@ bool CubeIndicePrim::UpdateCubeIndice()
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 0, &vertex[0]);
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, &indices[0]);
+	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, &indices[0]);
 	glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
 
 	glDisableVertexAttribArray(0);
@@ -332,19 +332,15 @@ bool CylinderPrim::UpdateCylinder()
 }
 
 
-/*NormalCubePrim::NormalCubePrim()
+NormalCubePrim::NormalCubePrim()
 {
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);
-	glBindVertexArray(VertexArrayID);
-
 	vertex = {
-		-1.0f,-1.0f,-1.0f, 
+		-1.0f,-1.0f,-1.0f,
 		-1.0f,-1.0f, 1.0f,
 		-1.0f, 1.0f, 1.0f,
 		1.0f, 1.0f,-1.0f, 
 		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f,-1.0f, 
+		-1.0f, 1.0f,-1.0f,
 		1.0f,-1.0f, 1.0f,
 		-1.0f,-1.0f,-1.0f,
 		1.0f,-1.0f,-1.0f,
@@ -376,33 +372,23 @@ bool CylinderPrim::UpdateCylinder()
 		-1.0f, 1.0f, 1.0f,
 		1.0f,-1.0f, 1.0f
 	};
+
 }
 
 NormalCubePrim::~NormalCubePrim()
-{
-}
+{}
 
 bool NormalCubePrim::UpdateNormalCube()
 {
-	GLuint vertexbuffer;
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex), &vertex[0], GL_STATIC_DRAW);
-
-	// 1rst attribute buffer : vertex
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glVertexAttribPointer(
-		0,
-		3,                  // size
-		GL_FLOAT,           // class
-		GL_FALSE,           // normalized??
-		0,
-		(void*)0            // buffer gap
-	);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, &vertex[0]);
 	glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
+
+	glDisableVertexAttribArray(0);
+
+	glDisableClientState(0);
 
 	return true;
 }
-*/
+
 

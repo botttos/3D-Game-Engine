@@ -170,10 +170,10 @@ bool ModuleImGui::ImGuiUpdate()
 				ImGui::MenuItem("- Camera");
 				if (ImGui::BeginMenu("- 3D object"))
 				{
-					/*if (ImGui::MenuItem("- Cube"))
+					if (ImGui::MenuItem("- Cube"))
 					{
 						App->primitive->CreatePrimitive(CUBE);
-					}*/
+					}
 					if (ImGui::MenuItem("- Cube optimized"))
 					{
 						App->primitive->CreatePrimitive(CUBE_INDICE);

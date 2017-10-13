@@ -78,24 +78,10 @@ public:
 	std::vector<CubeIndicePrim*> cubes_indices;
 	std::vector<CylinderPrim*> cylinders;
 
-	//std::vector<NormalCubePrim*> normal_cubes;
+	std::vector<NormalCubePrim*> normal_cubes;
 private:
 
 	void Triangle();
 };
 
 
-
-/*struct NormalCubePrim
-{
-public:
-	NormalCubePrim();
-	~NormalCubePrim();
-
-	bool UpdateNormalCube();
-
-public:
-	GeomType type = CUBE;
-
-	std::vector<GLfloat> vertex;
-};*/
