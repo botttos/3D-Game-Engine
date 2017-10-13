@@ -37,17 +37,20 @@ bool ModuleCamera3D::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleCamera3D::Update(float dt)
 {
-	// Implement a debug camera with keys and mouse
-	// Now we can make this movememnt frame rate independant!
-
 	vec3 newPos(0, 0, 0);
 	float speed = 3.0f * dt;
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_DOWN)
 	{
 		if (fps_camera == false)
+		{
 			fps_camera = true;
+			LOG("WASD camera movement enabled.");
+		}
 		else
+		{
 			fps_camera = false;
+			LOG("WASD camera movement disabled.");
+		}
 	}
 
 	if (fps_camera == true)
@@ -68,8 +71,7 @@ update_status ModuleCamera3D::Update(float dt)
 		Reference += newPos;
 	}
 
-	// Mouse motion ----------------
-
+	// Mouse motion
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 	{
 		int dx = -App->input->GetMouseXMotion();
@@ -105,7 +107,19 @@ update_status ModuleCamera3D::Update(float dt)
 		Position = Reference + Z * length(Position);
 	}
 
-	// Recalculate matrix -------------
+	// Zoom out
+	if (App->input->GetMouseZ() == -1)
+	{
+		LOG("Zoomin' out!");
+	}
+
+	// Zoom in
+	if(App->input->GetMouseZ() == 1)
+	{ 
+		LOG("Zoomin' in!");
+	}
+
+	// Recalculate matrix
 	CalculateViewMatrix();
 
 	return UPDATE_CONTINUE;
@@ -158,6 +172,7 @@ float* ModuleCamera3D::GetViewMatrix()
 	return &ViewMatrix;
 }
 
+// -----------------------------------------------------------------
 bool ModuleCamera3D::ShowGrid()
 {
 	if (show_grid == false)
@@ -172,6 +187,7 @@ bool ModuleCamera3D::ShowGrid()
 	return show_grid;
 }
 
+// -----------------------------------------------------------------
 bool ModuleCamera3D::ShowAxis()
 {
 	if (show_axis == false)
@@ -185,6 +201,7 @@ bool ModuleCamera3D::ShowAxis()
 
 	return show_axis;
 }
+
 // -----------------------------------------------------------------
 void ModuleCamera3D::CalculateViewMatrix()
 {
