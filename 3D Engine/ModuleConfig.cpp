@@ -162,19 +162,5 @@ void Config::Draw(const char * title)
 		ImGui::TextColored({ 255, 255, 0, 255 }, "Y: %i", App->input->GetMouseY());
 	}
 
-	if (ImGui::CollapsingHeader("Others"))
-	{
-
-		ImGui::Text("Random number between 1 and 100.");
-		ImGui::Separator();
-
-		LCG rand_number;
-		if (ImGui::Button("Randomize"))
-		{
-			rand = rand_number.Int(0, 100);
-		}
-		ImGui::Text("%i", rand);
-	}
-
 	ImGui::End();
 }

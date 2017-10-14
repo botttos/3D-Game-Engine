@@ -57,33 +57,7 @@ update_status ModuleImGui::Update(float dt)
 }
 
 bool ModuleImGui::ImGuiUpdate()
-{
-	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
-	{
-		if (able_imgui == false)
-		{
-			able_imgui = true;
-			ImGui_ImplSdlGL3_Init(App->window->window);
-		}
-		else
-		{
-			able_imgui = false;
-			ImGui_ImplSdlGL3_Shutdown();
-		}
-	}
-	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
-	{
-		if (App->console->active == false)
-		{
-			App->console->active = true;
-
-		}
-		else
-		{
-			App->console->active = false;
-		}
-	}
-	
+{	
 	if (App->console->active == true)
 	{
 		App->console->Draw("Console");
@@ -241,34 +215,30 @@ bool ModuleImGui::ImGuiUpdate()
 						}
 						ImGui::EndMenu();
 					}
-					if (ImGui::MenuItem("- Capsule"))
-					{
-						
-					}
 					if (ImGui::MenuItem("- Cylinder"))
 					{
 						App->primitive->CreatePrimitive(CYLINDER);
 					}
-					ImGui::Separator();
+					/*ImGui::Separator();
 					ImGui::MenuItem("- Plane");
-					ImGui::MenuItem("- Quad");
+					ImGui::MenuItem("- Quad");*/
 					ImGui::EndMenu();
 				}
 
-				if (ImGui::BeginMenu("- 2D object"))
+				/*if (ImGui::BeginMenu("- 2D object"))
 				{
 					if (ImGui::MenuItem("- Triangle"))
 					{
 						App->primitive->CreatePrimitive(TRIANGLE);
 					}
 					ImGui::EndMenu();
-				}
+				}*/
 
-				if (ImGui::BeginMenu("- Effects"))
+				/*if (ImGui::BeginMenu("- Effects"))
 				{
 					ImGui::MenuItem("- Arrow");
 					ImGui::EndMenu();
-				}
+				}*/
 				ImGui::EndMenu();
 			}
 
@@ -281,10 +251,7 @@ bool ModuleImGui::ImGuiUpdate()
 
 			if (ImGui::BeginMenu("Window"))
 			{
-				if (ImGui::MenuItem("- Show rays"))
-				{
-					
-				}
+				
 				if (ImGui::BeginMenu("- Grid"))
 				{
 					if (ImGui::MenuItem("- Show grid"))
@@ -297,10 +264,14 @@ bool ModuleImGui::ImGuiUpdate()
 					}
 					ImGui::EndMenu();
 				}
+				if (ImGui::MenuItem("- Show rays"))
+				{
+
+				}
 				ImGui::Separator();
+				ImGui::Checkbox("Configuration", &show_config_window);
 				ImGui::Checkbox("Show console", &show_console_window);
-				ImGui::Checkbox("Show test window", &show_test_window);
-				ImGui::Checkbox("Config", &show_config_window);
+				//ImGui::Checkbox("Show test window", &show_test_window);		
 				ImGui::EndMenu();
 			}
 
