@@ -52,6 +52,8 @@ public:
 
 public:
 	uint last_texture_id = 0;
+	std::string path;
+	std::string file_name;
 
 private:
 	ModelConfig data;

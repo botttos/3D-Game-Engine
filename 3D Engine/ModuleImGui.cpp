@@ -493,7 +493,8 @@ void ModuleImGui::Inspector()
 	ImGui::Begin("Inspector");
 	ImGui::SetWindowSize(ImVec2(400, 700), 0);
 
-	ImGui::Text("Open model %s, with path: %s");
+	ImGui::Text("Model Name: %s", App->fbx_loader->file_name.c_str());
+	ImGui::Text("Model Path: %s", App->fbx_loader->path.c_str());
 
 	if (ImGui::CollapsingHeader("Transform"), ImGuiTreeNodeFlags_DefaultOpen)
 	{
