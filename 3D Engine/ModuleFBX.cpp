@@ -91,7 +91,7 @@ void ModuleFBX::LoadModel(const aiScene* scene, aiNode* node, const char* path)
 		for (int i = 0; i < node->mNumMeshes; i++)
 		{
 			aiMesh* new_mesh = scene->mMeshes[node->mMeshes[i]];
-			ModelConfig mesh = ModelConfig();
+			mesh = ModelConfig();
 			mesh.num_vertices = new_mesh->mNumVertices;
 			mesh.vertices = new uint[mesh.num_vertices * 3];
 			memcpy(mesh.vertices, new_mesh->mVertices, sizeof(float)*mesh.num_vertices * 3);
@@ -144,7 +144,7 @@ void ModuleFBX::LoadModel(const aiScene* scene, aiNode* node, const char* path)
 				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * mesh.num_normals, mesh.normals, GL_STATIC_DRAW);
 			}
 
-			aiMaterial* material = scene->mMaterials[new_mesh->mMaterialIndex];
+			material = scene->mMaterials[new_mesh->mMaterialIndex];
 
 			if (material)
 			{
@@ -153,15 +153,15 @@ void ModuleFBX::LoadModel(const aiScene* scene, aiNode* node, const char* path)
 
 				if (path.length > 0)
 				{
-					std::string basePath = "House/";
-					std::string finalpath = path.data;
-					finalpath.erase(0, finalpath.find_last_of("\\") + 1);
-					basePath += finalpath;
+					std::string base_path = "Textures/";
+					std::string final_path = path.data;
+					final_path.erase(0, final_path.find_last_of("\\") + 1);
+					base_path += final_path;
 
-					mesh.texture_id = GenerateTextureId(basePath.c_str());
+					mesh.texture_id = GenerateTextureId(base_path.c_str());
 
-					finalpath.clear();
-					basePath.clear();
+					final_path.clear();
+					base_path.clear();
 				}
 			}
 
@@ -175,7 +175,12 @@ void ModuleFBX::LoadModel(const aiScene* scene, aiNode* node, const char* path)
 	}
 }
 
-void ModuleFBX::LoadTexture()
+void ModuleFBX::ApplyTexture(const char* path)
 {
+	ILuint id;
+	ilGenImages(1, &id);
+	ilBindImage(id);
+	ilLoadImage(path);
 
+	last_texture_id = ilutGLBindTexImage();
 }

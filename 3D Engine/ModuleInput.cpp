@@ -117,9 +117,7 @@ update_status ModuleInput::PreUpdate(float dt)
 			}
 			else if (file_type == TEXTURE)
 			{
-				//Call load texture method
-				//Need to edit LoadTexture() attributes
-				App->fbx_loader->LoadFBX(file_path.c_str());
+				App->fbx_loader->ApplyTexture(file_path.c_str());
 			}
 				
 			case SDL_WINDOWEVENT:

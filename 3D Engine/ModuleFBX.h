@@ -5,6 +5,7 @@
 
 class aiScene;
 class aiNode;
+class aiMaterial;
 
 struct ModelConfig
 {
@@ -38,11 +39,16 @@ public:
 	bool CleanUp();
 	bool LoadFBX(const char* path);
 	void LoadModel(const aiScene* scene, aiNode* node, const char* path);
-	void LoadTexture();
+	void ApplyTexture(const char* path);
 	uint GenerateTextureId(const char* texture_path);
 
 	vector<ModelConfig> meshes;
 
+public:
+	uint last_texture_id = 0;
+
 private:
 	ModelConfig data;
+	aiMaterial* material;
+	ModelConfig mesh;
 };
