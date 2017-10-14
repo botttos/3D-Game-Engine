@@ -56,6 +56,17 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (fps_camera == true)
 	{
+		// Wheel scroll
+		if (App->input->GetMouseZ() == -1)
+		{
+			newPos += Z * speed*5;
+		}
+		else if (App->input->GetMouseZ() == 1)
+		{
+			newPos -= Z * speed*5;
+		}
+
+		// Keyboard inputs
 		if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
 			speed = 8.0f * dt;
 
