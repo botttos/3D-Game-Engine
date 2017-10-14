@@ -97,7 +97,7 @@ bool ModuleImGui::ImGuiUpdate()
 	if (able_imgui == true)
 	{
 		static bool show_test_window = false;
-		static bool show_console_window = false;
+		static bool show_console_window = true;
 		static bool show_config_window = false;
 
 		Inspector();
@@ -491,7 +491,7 @@ bool ModuleImGui::Trigger(bool bolean)
 void ModuleImGui::Inspector()
 {
 	ImGui::Begin("Inspector");
-	ImGui::SetWindowSize(ImVec2(400, 700), 0);
+	ImGui::SetWindowSize(ImVec2(500, 500), 0);
 
 	ImGui::Text("Model Name: %s", App->fbx_loader->file_name.c_str());
 	ImGui::Text("Model Path: %s", App->fbx_loader->path.c_str());
@@ -524,6 +524,7 @@ void ModuleImGui::Inspector()
 		else
 			ImGui::Image((ImTextureID)App->fbx_loader->last_texture_id, ImVec2(200, 200));
 	}
-
+	if (ImGui::IsItemHovered() || (ImGui::IsRootWindowOrAnyChildFocused() && !ImGui::IsAnyItemActive() && !ImGui::IsMouseClicked(0)))
+		ImGui::SetKeyboardFocusHere(-1); // Auto focus previous widget
 	ImGui::End();
 }

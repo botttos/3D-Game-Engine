@@ -119,18 +119,6 @@ update_status ModuleCamera3D::Update(float dt)
 		Position = Reference + Z * length(Position);
 	}
 
-	// Zoom out
-	if (App->input->GetMouseZ() == -1)
-	{
-		LOG("Zoomin' out!");
-	}
-
-	// Zoom in
-	if(App->input->GetMouseZ() == 1)
-	{ 
-		LOG("Zoomin' in!");
-	}
-	
 	// Recalculate matrix
 	CalculateViewMatrix();
 

@@ -75,6 +75,7 @@ void ModulePrimitive::CreatePrimitive(BaseGeomType primitive)
 		NormalCubePrim* cube;
 		cube = new NormalCubePrim();
 		normal_cubes.push_back(cube);
+		LOG("Creating cube");
 	}
 	else if (primitive == TRIANGLE)
 	{

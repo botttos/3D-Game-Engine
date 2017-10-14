@@ -61,6 +61,7 @@ bool ModuleFBX::CleanUp()
 
 bool ModuleFBX::LoadFBX(const char* path)
 {
+	LOG("LOADING FBX ---------------");
 	this->path = path;
 	std::string name(path);
 	this->file_name = name.substr(name.find_last_of('\\') + 1);
@@ -77,9 +78,11 @@ bool ModuleFBX::LoadFBX(const char* path)
 		}
 
 		aiReleaseImport(scene);
-		return ret;
+		LOG("LOAD FBX COMPLETED ---------------");
+			return ret;
 	}
 	else
+		LOG("ERROR LOADING FBX ---------------");
 		return false;
 }
 

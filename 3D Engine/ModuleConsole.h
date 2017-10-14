@@ -24,7 +24,7 @@ public:
 
 	static int TextEditCallbackStub(ImGuiTextEditCallbackData* data); // In C++11 you are better off using lambdas for this sort of forwarding callbacks
 	int TextEditCallback(ImGuiTextEditCallbackData* data); // In C++11 you are better off using lambdas for this sort of forwarding callbacks
-	bool active = false;
+	bool active = true;
 private:
 	
 
