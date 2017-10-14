@@ -152,6 +152,11 @@ void Config::Draw(const char * title)
 		}
 	}
 
+	if (ImGui::CollapsingHeader("Camera"))
+	{
+		ImGui::SliderFloat("Speed", &App->camera->speed, 0, 10, NULL);
+	}
+
 	if (ImGui::CollapsingHeader("Input"))
 	{
 		//Mouse position
