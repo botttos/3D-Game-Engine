@@ -144,7 +144,7 @@ void ModuleFBX::LoadModel(const aiScene* scene, aiNode* node, const char* path)
 				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * mesh.num_normals, mesh.normals, GL_STATIC_DRAW);
 			}
 
-			material = scene->mMaterials[new_mesh->mMaterialIndex];
+			aiMaterial* material = scene->mMaterials[new_mesh->mMaterialIndex];
 
 			if (material)
 			{
@@ -183,4 +183,9 @@ void ModuleFBX::ApplyTexture(const char* path)
 	ilLoadImage(path);
 
 	last_texture_id = ilutGLBindTexImage();
+}
+
+uint ModuleFBX::GetTextureId()
+{
+	return(mesh.texture_id);
 }

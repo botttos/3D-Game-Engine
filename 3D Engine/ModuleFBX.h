@@ -42,6 +42,8 @@ public:
 	void ApplyTexture(const char* path);
 	uint GenerateTextureId(const char* texture_path);
 
+	uint GetTextureId();
+
 	vector<ModelConfig> meshes;
 
 public:
@@ -49,6 +51,5 @@ public:
 
 private:
 	ModelConfig data;
-	aiMaterial* material;
 	ModelConfig mesh;
 };

@@ -499,23 +499,27 @@ void ModuleImGui::Inspector()
 
 	ImGui::Text("Open model %s, with path: %s");
 
-	if (ImGui::CollapsingHeader("Transform"))
+	if (ImGui::CollapsingHeader("Transform"), ImGuiTreeNodeFlags_DefaultOpen)
 	{
 		ImGui::Text("Showing read only information about the mesh transform");
 		
 		
 	}
 
-	if (ImGui::CollapsingHeader("Mesh information"))
+	if (ImGui::CollapsingHeader("Mesh information"), ImGuiTreeNodeFlags_DefaultOpen)
 	{
 		ImGui::Text("Showing read only information about the mesh");
 		
 	}
 
-	if (ImGui::CollapsingHeader("Material"))
+	if (ImGui::CollapsingHeader("Material"), ImGuiTreeNodeFlags_DefaultOpen)
 	{
 		ImGui::Text("Showing only read information about the mesh material");
 		
+		if (App->fbx_loader->last_texture_id == 0)
+			ImGui::Image((ImTextureID)App->fbx_loader->GetTextureId(), ImVec2(200, 200));
+		else
+			ImGui::Image((ImTextureID)App->fbx_loader->last_texture_id, ImVec2(200, 200));
 	}
 
 	ImGui::End();
