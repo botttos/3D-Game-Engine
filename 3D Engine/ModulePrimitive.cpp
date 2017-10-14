@@ -68,7 +68,7 @@ bool ModulePrimitive::CleanUp()
 	return false;
 }
 
-void ModulePrimitive::CreatePrimitive(GeomType primitive)
+void ModulePrimitive::CreatePrimitive(BaseGeomType primitive)
 {
 	if (primitive == CUBE)
 	{

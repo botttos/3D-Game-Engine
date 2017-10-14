@@ -18,7 +18,7 @@ public:
 
 public:
 
-	GeomType type = SPHERE;
+	BaseGeomType type = SPHERE;
 
 	unsigned int rings = 10;
 	unsigned int sectors = 10;
@@ -39,7 +39,7 @@ public:
 	bool UpdateCubeIndice();
 
 public:
-	GeomType type = CUBE_INDICE;
+	BaseGeomType type = CUBE_INDICE;
 
 	std::vector<GLfloat> vertex;
 	std::vector<GLfloat> indices;
@@ -57,7 +57,7 @@ public:
 	bool UpdateCylinder();
 
 public:
-	GeomType type = CYLINDER;
+	BaseGeomType type = CYLINDER;
 
 	float radius = 1.0f;
 	float height = 3.0f;
@@ -72,7 +72,7 @@ public:
 	bool UpdateNormalCube();
 
 public:
-	GeomType type = CUBE;
+	BaseGeomType type = CUBE;
 
 	std::vector<GLfloat> vertex;
 	uint vertices_id = 0; 
@@ -90,7 +90,7 @@ public:
 	bool Update();
 	bool CleanUp();
 
-	void CreatePrimitive(GeomType primitive);
+	void CreatePrimitive(BaseGeomType primitive);
 
 	std::vector<SpherePrim*> spheres;
 	std::vector<CubeIndicePrim*> cubes_indices;

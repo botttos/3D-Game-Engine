@@ -1,7 +1,7 @@
 #include "GeometryBase.h"
 #include "GLEW\include\glew.h"
 
-GeometryBase::GeometryBase(GeomType type) : type(type)
+GeometryBase::GeometryBase(BaseGeomType type) : type(type)
 {}
 
 GeometryBase::~GeometryBase()

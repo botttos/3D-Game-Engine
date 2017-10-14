@@ -1,7 +1,7 @@
 #pragma once
 #include "Globals.h"
 
-enum GeomType
+enum BaseGeomType
 {
 	EMPTY = 0,
 	TRIANGLE,
@@ -20,11 +20,11 @@ enum GeomType
 class GeometryBase
 {
 public:
-	GeometryBase(GeomType t);
+	GeometryBase(BaseGeomType t);
 	virtual ~GeometryBase();
 
 	virtual void Start();
 
-	GeomType type;
+	BaseGeomType type;
 	
 };
