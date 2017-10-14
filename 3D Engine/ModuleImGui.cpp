@@ -502,20 +502,24 @@ void ModuleImGui::Inspector()
 	if (ImGui::CollapsingHeader("Transform"), ImGuiTreeNodeFlags_DefaultOpen)
 	{
 		ImGui::Text("Showing read only information about the mesh transform");
-		
+		ImGui::Separator();
 		
 	}
 
 	if (ImGui::CollapsingHeader("Mesh information"), ImGuiTreeNodeFlags_DefaultOpen)
 	{
 		ImGui::Text("Showing read only information about the mesh");
-		
+		ImGui::Separator();
+		ImGui::Text("Mesh indices: %i", App->fbx_loader->GetIndices());
+		ImGui::Text("Mesh vertices: %i", App->fbx_loader->GetVertices());
+		ImGui::Text("Mesh normals: %f", App->fbx_loader->GetNormals());
+		ImGui::Text("Mesh uvs: %f", App->fbx_loader->GetUvs());
 	}
 
 	if (ImGui::CollapsingHeader("Material"), ImGuiTreeNodeFlags_DefaultOpen)
 	{
 		ImGui::Text("Showing only read information about the mesh material");
-		
+		ImGui::Separator();
 		if (App->fbx_loader->last_texture_id == 0)
 			ImGui::Image((ImTextureID)App->fbx_loader->GetTextureId(), ImVec2(200, 200));
 		else

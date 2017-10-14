@@ -189,3 +189,23 @@ uint ModuleFBX::GetTextureId()
 {
 	return(mesh.texture_id);
 }
+
+uint ModuleFBX::GetIndices()
+{
+	return(mesh.num_indices);
+}
+
+uint ModuleFBX::GetVertices()
+{
+	return(mesh.num_vertices);
+}
+
+float ModuleFBX::GetNormals()
+{
+	return(mesh.num_normals);
+}
+
+float ModuleFBX::GetUvs()
+{
+	return(mesh.num_uvs);
+}

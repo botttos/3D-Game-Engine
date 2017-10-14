@@ -43,6 +43,10 @@ public:
 	uint GenerateTextureId(const char* texture_path);
 
 	uint GetTextureId();
+	uint GetIndices();
+	uint GetVertices();
+	float GetNormals();
+	float GetUvs();
 
 	vector<ModelConfig> meshes;
 
