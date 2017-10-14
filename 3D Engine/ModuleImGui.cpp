@@ -176,10 +176,6 @@ bool ModuleImGui::ImGuiUpdate()
 					{
 						App->primitive->CreatePrimitive(CUBE);
 					}
-					if (ImGui::MenuItem("- Cube optimized"))
-					{
-						App->primitive->CreatePrimitive(CUBE_INDICE);
-					}
 					if (ImGui::BeginMenu("- Sphere"))
 					{
 						if (ImGui::MenuItem("- Sphere"))

@@ -43,6 +43,9 @@ public:
 
 	std::vector<GLfloat> vertex;
 	std::vector<GLfloat> indices;
+
+	uint vertices_id = 0;
+	uint indices_id = 0;
 };
 
 struct CylinderPrim
@@ -72,6 +75,7 @@ public:
 	GeomType type = CUBE;
 
 	std::vector<GLfloat> vertex;
+	uint vertices_id = 0; 
 };
 
 
@@ -91,7 +95,6 @@ public:
 	std::vector<SpherePrim*> spheres;
 	std::vector<CubeIndicePrim*> cubes_indices;
 	std::vector<CylinderPrim*> cylinders;
-
 	std::vector<NormalCubePrim*> normal_cubes;
 private:
 

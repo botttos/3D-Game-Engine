@@ -225,49 +225,35 @@ bool SpherePrim::UpdateSph()
 
 CubeIndicePrim::CubeIndicePrim()
 {
-	vertex = { -1.0f,-1.0f,-1.0f, // triangle 1 : begin
-		-1.0f,-1.0f, 1.0f,
-		-1.0f, 1.0f, 1.0f, // triangle 1 : end
-		1.0f, 1.0f,-1.0f, // triangle 2 : begin
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f,-1.0f, // triangle 2 : end
-		1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f,-1.0f,
-		1.0f,-1.0f,-1.0f,
-		1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		-1.0f,-1.0f, 1.0f,
-		1.0f,-1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f,-1.0f,-1.0f,
-		1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f,-1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f,-1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f,-1.0f,
-		-1.0f, 1.0f,-1.0f,
-		1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f, 1.0f,
-		1.0f,-1.0f, 1.0f };
+	vertex =
+	{
+		0.5,0.5,0.5,// vertex 1
+		-0.5,0.5,0.5,// vertex 2
+		-0.5,-0.5,0.5, 
+		0.5,-0.5,0.5,
+		0.5,-0.5,-0.5,
+		0.5,0.5,-0.5,
+		-0.5,0.5,-0.5,
+		-0.5,-0.5,0.5,
+	};
 
-	/*indices = { 0, 1, 2,   2, 3, 0,      // front
-		4, 5, 6,   6, 7, 4,      // right
-		8, 9,10,  10,11, 8,      // top
-		12,13,14,  14,15,12,      // left
-		16,17,18,  18,19,16,      // bottom
-		20,21,22,  22,23,20 };    // back*/
+	indices = 
+	{ 
+		0,1,2,  2,3,0, 
+		0,3,4,  4,5,0,  
+		0,5,6,  6,1,0,  
+		1,6,7,  7,2,1,  
+		7,4,3,  3,2,7,  
+		4,7,6,  6,5,4 
+	};
+
+	glGenBuffers(1, &vertices_id);
+	glBindBuffer(GL_ARRAY_BUFFER, vertices_id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex), &vertex[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &indices_id);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indices_id);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), &indices[0], GL_STATIC_DRAW);
 }
 
 CubeIndicePrim::~CubeIndicePrim()
@@ -276,14 +262,26 @@ CubeIndicePrim::~CubeIndicePrim()
 
 bool CubeIndicePrim::UpdateCubeIndice()
 {
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, &vertex[0]);
-	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, &indices[0]);
-	glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
+	glEnableClientState(GL_ARRAY_BUFFER);
+	glEnableClientState(GL_ELEMENT_ARRAY_BUFFER);
+	
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indices_id);
+	glBindBuffer(GL_ARRAY_BUFFER, vertices_id);
+	
 
-	glDisableVertexAttribArray(0);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	glDisableClientState(0);  // disable vertex arrays
+	glDrawElements(
+		GL_TRIANGLES,   //- mode
+		vertex.size()/3,//- count
+		GL_UNSIGNED_INT,//- type
+		NULL			//- element array buffer offset
+	);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glDisableClientState(GL_ARRAY_BUFFER);
+	glDisableClientState(GL_ELEMENT_ARRAY_BUFFER);
 
 	return true;
 }
