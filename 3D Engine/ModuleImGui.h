@@ -13,6 +13,8 @@ public:
 	bool Trigger(bool);
 	bool CleanUp();
 
+	void Inspector();
+
 	bool able_imgui = true;
 
 private:

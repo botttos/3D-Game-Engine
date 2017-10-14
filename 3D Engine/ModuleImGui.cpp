@@ -100,6 +100,8 @@ bool ModuleImGui::ImGuiUpdate()
 		static bool show_console_window = false;
 		static bool show_config_window = false;
 
+		Inspector();
+
 		if (show_test_window)
 		{
 			ImGui::ShowTestWindow();
@@ -488,4 +490,33 @@ bool ModuleImGui::Trigger(bool bolean)
 	{
 		return true;
 	}
+}
+
+void ModuleImGui::Inspector()
+{
+	ImGui::Begin("Inspector");
+	ImGui::SetWindowSize(ImVec2(400, 700), 0);
+
+	ImGui::Text("Open model %s, with path: %s");
+
+	if (ImGui::CollapsingHeader("Transform"))
+	{
+		ImGui::Text("Showing read only information about the mesh transform");
+		
+		
+	}
+
+	if (ImGui::CollapsingHeader("Mesh information"))
+	{
+		ImGui::Text("Showing read only information about the mesh");
+		
+	}
+
+	if (ImGui::CollapsingHeader("Material"))
+	{
+		ImGui::Text("Showing only read information about the mesh material");
+		
+	}
+
+	ImGui::End();
 }
