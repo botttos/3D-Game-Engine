@@ -63,7 +63,7 @@ bool ModuleFBX::LoadFBX(const char* path)
 {
 	this->path = path;
 	std::string name(path);
-	//this->file_name = name.find_last_of("\");
+	this->file_name = name.substr(name.find_last_of('\\') + 1);
 	bool ret = true;
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 
