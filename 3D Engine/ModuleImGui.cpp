@@ -506,8 +506,10 @@ void ModuleImGui::Inspector()
 	{
 		ImGui::Text("Showing read only information about the mesh");
 		ImGui::Separator();
-		ImGui::Text("Mesh indices: %i", App->fbx_loader->GetIndices());
+		ImGui::Text("Mesh triangles: %i", App->fbx_loader->GetVertices()/3);
+		ImGui::Text(" ");
 		ImGui::Text("Mesh vertices: %i", App->fbx_loader->GetVertices());
+		ImGui::Text("Mesh indices: %i", App->fbx_loader->GetIndices());
 		ImGui::Text("Mesh normals: %f", App->fbx_loader->GetNormals());
 		ImGui::Text("Mesh uvs: %f", App->fbx_loader->GetUvs());
 	}
