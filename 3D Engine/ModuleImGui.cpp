@@ -138,46 +138,6 @@ bool ModuleImGui::ImGuiUpdate()
 				ImGui::EndMenu();
 			}
 
-			if (ImGui::BeginMenu("Rendering"))
-			{
-				if (ImGui::Checkbox("Color Material", &App->renderer3D->enable_color_material))
-				{
-					(App->renderer3D->enable_color_material) ? glEnable(GL_COLOR_MATERIAL) : glDisable(GL_COLOR_MATERIAL);
-				}
-
-				if (ImGui::Checkbox("Cull Face", &App->renderer3D->enable_cull_face))
-				{
-					(App->renderer3D->enable_cull_face) ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
-				}
-
-				if (ImGui::Checkbox("Depth Test", &App->renderer3D->enable_depth))
-				{
-					(App->renderer3D->enable_depth) ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
-				}
-
-				if (ImGui::Checkbox("Wireframe", &App->renderer3D->enable_wireframe))
-				{
-					(App->renderer3D->enable_wireframe) ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-				}
-
-				if (ImGui::Checkbox("Hard Poly", &App->renderer3D->enable_hardpoly))
-				{
-					(App->renderer3D->enable_hardpoly) ? glShadeModel(GL_FLAT) : glShadeModel(GL_SMOOTH);
-				}
-
-				if (ImGui::Checkbox("Lighting", &App->renderer3D->enable_light))
-				{
-					(App->renderer3D->enable_light) ? glEnable(GL_LIGHTING) : glDisable(GL_LIGHTING);
-				}
-
-				if (ImGui::Checkbox("Texture 2D", &App->renderer3D->enable_texture))
-				{
-					(App->renderer3D->enable_texture) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-				}
-
-				ImGui::EndMenu();
-			}
-
 			if (ImGui::BeginMenu("About"))
 			{
 				ImGui::TextColored(ImVec4(1, 1, 0, 100), "=== Coolgine 3D ===");
