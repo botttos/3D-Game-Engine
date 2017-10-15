@@ -28,7 +28,7 @@ bool ModuleFBX::Start()
 	ilutInit();
 	ilutRenderer(ILUT_OPENGL);
 
-	struct aiLogStream stream;
+	struct aiLogStream stream = aiLogStream();
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 
@@ -57,8 +57,17 @@ void ModuleFBX::ClearMeshes()
 {
 	for (int i = meshes.size()-1; meshes.size() != 0; i--)
 	{
+		delete[] meshes[i].indices;
+		delete[] meshes[i].vertices;
+		delete[] meshes[i].normals;
+		delete[] meshes[i].uvs;
 		meshes.pop_back();
 	}
+
+	delete data.indices;
+	delete data.vertices;
+	delete data.normals;
+	delete data.uvs;
 }
 
 bool ModuleFBX::CleanUp()
