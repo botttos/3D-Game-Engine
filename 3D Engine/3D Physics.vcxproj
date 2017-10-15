@@ -155,7 +155,6 @@
     <ClInclude Include="ModuleFBX.h" />
     <ClInclude Include="ModuleHardware.h" />
     <ClInclude Include="ModuleImGui.h" />
-    <ClInclude Include="ModulePrimitive.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAudio.h" />
@@ -223,7 +222,6 @@
     <ClCompile Include="ModuleHardware.cpp" />
     <ClCompile Include="ModuleImGui.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
-    <ClCompile Include="ModulePrimitive.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
     <ClCompile Include="ModuleSceneIntro.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />

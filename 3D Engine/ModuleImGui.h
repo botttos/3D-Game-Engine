@@ -10,13 +10,13 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	update_status PreUpdate(float dt);
-	bool Trigger(bool);
+	bool Trigger(bool bolean);
 	bool CleanUp();
 
-	void Inspector();
+	void Inspector() const;
 
 	bool able_imgui = true;
 
 private:
-	bool ImGuiUpdate();
+	bool ImGuiUpdate() const;
 };

@@ -22,7 +22,7 @@ public:
 
 	void SetFullScreen(bool fullscreen);
 	void SetWindowed(bool borderless);
-	void SetWindowBrigthness(float brigthness);
+	void SetWindowBrigthness(float brightness);
 	void SetWindowWidth(int w);
 	void SetWindowHeight(int h);
 	void SetWindowSize(int w, int h);

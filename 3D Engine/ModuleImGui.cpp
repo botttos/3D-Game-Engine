@@ -49,14 +49,12 @@ update_status ModuleImGui::PreUpdate(float dt)
 // Update
 update_status ModuleImGui::Update(float dt)
 {
-	// GUI update
-	App->primitive->Update();
 	ImGuiUpdate();
 	
 	return UPDATE_CONTINUE;
 }
 
-bool ModuleImGui::ImGuiUpdate()
+bool ModuleImGui::ImGuiUpdate() const
 {	
 	if (App->console->active == true)
 	{
@@ -276,7 +274,7 @@ bool ModuleImGui::Trigger(bool bolean)
 	}
 }
 
-void ModuleImGui::Inspector()
+void ModuleImGui::Inspector() const
 {
 	ImGui::Begin("Inspector");
 	ImGui::SetWindowSize(ImVec2(500, 500), 0);

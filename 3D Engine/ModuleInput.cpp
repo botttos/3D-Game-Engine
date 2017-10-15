@@ -150,7 +150,7 @@ bool ModuleInput::CleanUp()
 	return true;
 }
 
-FILE_TYPE ModuleInput::GetFileType(const char * dir)
+const FILE_TYPE ModuleInput::GetFileType(const char * dir) const
 {
 	if (dir != nullptr)
 	{

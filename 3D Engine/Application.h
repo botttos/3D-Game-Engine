@@ -17,13 +17,11 @@
 #include "ModuleFBX.h"
 #include "JSON\parson.h"
 #include <list>
-#include "ModulePrimitive.h"
 
 
 class Console;
 class Config;
 class Hardware;
-class ModulePrimitive;
 
 using namespace std;
 
@@ -40,7 +38,6 @@ public:
 	Console* console;
 	Config* config;
 	Hardware* hardware;
-	ModulePrimitive* primitive;
 	ModuleFBX* fbx_loader;
 
 private:

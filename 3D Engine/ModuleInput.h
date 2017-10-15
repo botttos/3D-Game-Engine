@@ -32,12 +32,12 @@ public:
 	update_status PreUpdate(float dt);
 	bool CleanUp();
 
-	KEY_STATE GetKey(int id) const
+	const KEY_STATE GetKey(const int id) const
 	{
 		return keyboard[id];
 	}
 
-	KEY_STATE GetMouseButton(int id) const
+	const KEY_STATE GetMouseButton(const int id) const
 	{
 		return mouse_buttons[id];
 	}
@@ -67,7 +67,7 @@ public:
 		return mouse_y_motion;
 	}
 
-	FILE_TYPE GetFileType(const char* dir);
+	const FILE_TYPE GetFileType(const char* dir) const;
 
 	bool Quit();
 	
@@ -80,7 +80,6 @@ private:
 	int mouse_x_motion;
 	int mouse_y_motion;
 	bool quit_app = false;
-	//int mouse_z_motion;
 
 	std::string file_path;
 };

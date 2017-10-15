@@ -121,9 +121,9 @@ void ModuleWindow::SetWindowed(bool borderless)
 	}
 }
 
-void ModuleWindow::SetWindowBrigthness(float brigthness)
+void ModuleWindow::SetWindowBrigthness(float brightness)
 {
-	SDL_SetWindowBrightness(window, brigthness);
+	SDL_SetWindowBrightness(window, brightness);
 }
 
 void ModuleWindow::SetWindowWidth(int w)
