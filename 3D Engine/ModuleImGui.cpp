@@ -80,11 +80,6 @@ bool ModuleImGui::ImGuiUpdate()
 			Inspector();
 		}
 
-		if (show_test_window)
-		{
-			ImGui::ShowTestWindow();
-		}
-
 		if (show_console_window)
 		{
 			App->console->active = true;

@@ -78,11 +78,11 @@ bool ModuleFBX::LoadFBX(const char* path)
 		}
 
 		aiReleaseImport(scene);
-		LOG("FBX loaded correctly");
+		LOG("FBX loaded correctly --------------");
 			return ret;
 	}
 	else
-		LOG("ERROR LOADING FBX");
+		LOG("ERROR, COULDN'T LOAD FBX ---------------");
 		return false;
 }
 
