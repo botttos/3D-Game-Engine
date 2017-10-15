@@ -52,7 +52,6 @@ update_status Hardware::Update(float dt)
 
 void Hardware::Draw()
 {
-
 	ImGui::Text("Platform: ");
 	const char *plat = SDL_GetPlatform();
 	ImGui::SameLine();
@@ -83,13 +82,11 @@ void Hardware::Draw()
 		ImGui::SameLine();
 	}
 
-
 	if (sse)
 	{
 		ImGui::TextColored(ImVec4(0, 1, 0, 100), "SSE");
 		ImGui::SameLine();
 	}
-
 
 	if (sse2)
 	{
@@ -114,7 +111,6 @@ void Hardware::Draw()
 		ImGui::TextColored(ImVec4(0, 1, 0, 100), "SSE42");
 		ImGui::SameLine();
 	}
-
 
 	if (avx)
 	{

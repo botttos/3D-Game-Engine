@@ -2,6 +2,7 @@
 #include "ModuleWindow.h"
 #include "Application.h"
 #include "MathGeoLib\MathGeoLib.h"
+#include "mmgr\mmgr.h"
 
 #define IM_ARRAYSIZE(_ARR)  ((int)(sizeof(_ARR)/sizeof(*_ARR)))
 
@@ -85,6 +86,10 @@ void Config::Draw(const char * title)
 		sprintf_s(ms_title, 25, "Milliseconds %.1f", ms_array[GRAPH_ARRAY_SIZE-1]);
 		ImGui::PlotHistogram("", ms_array, IM_ARRAYSIZE(ms_array), 30, ms_title, 0.0f, 130.0f, ImVec2(0, 80));
 
+		sMStats smstats = m_getMemoryStatistics();
+		ImGui::Text("Accumulated actual memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i", smstats.accumulatedActualMemory);
+		ImGui::Text("Peak actual memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i", smstats.peakActualMemory);
+		ImGui::Text("Total actual memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i", smstats.totalActualMemory);
 	}
 
 	if (ImGui::CollapsingHeader("Window"))
