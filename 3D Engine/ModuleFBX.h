@@ -26,6 +26,10 @@ struct ModelConfig
 	float* uvs = nullptr;
 
 	uint texture_id = 0;
+
+	vec3 position;
+	vec3 rotation;
+	vec3 scale;
 };
 
 class ModuleFBX : public Module
@@ -45,6 +49,9 @@ public:
 	uint GetTextureId();
 	uint GetIndices();
 	uint GetVertices();
+	vec3 GetPosition();
+	vec3 GetRotation();
+	vec3 GetScale();
 	float GetNormals();
 	float GetUvs();
 

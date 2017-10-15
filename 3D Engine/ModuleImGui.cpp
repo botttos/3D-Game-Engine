@@ -70,7 +70,7 @@ bool ModuleImGui::ImGuiUpdate()
 
 	if (able_imgui == true)
 	{
-		static bool show_test_window = false;
+		static bool show_test_window = true;
 		static bool show_console_window = true;
 		static bool show_config_window = false;
 		static bool show_inspector = false;
@@ -293,6 +293,15 @@ void ModuleImGui::Inspector()
 	{
 		ImGui::Text("Showing read only information about the mesh transform");
 		ImGui::Separator();
+
+		ImGui::Text("Position");
+		ImGui::Text("[%f]   [%f]   [%f]", App->fbx_loader->GetPosition().x, App->fbx_loader->GetPosition().y, App->fbx_loader->GetPosition().z);
+
+		ImGui::Text("Rotation");
+		ImGui::Text("[%f]   [%f]   [%f]", App->fbx_loader->GetRotation().x, App->fbx_loader->GetRotation().x, App->fbx_loader->GetRotation().x);
+
+		ImGui::Text("Scale");
+		ImGui::Text("[%f]   [%f]   [%f]", App->fbx_loader->GetScale().x, App->fbx_loader->GetScale().x, App->fbx_loader->GetScale().x);
 		
 	}
 

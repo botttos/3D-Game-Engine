@@ -197,6 +197,14 @@ void ModuleFBX::LoadModel(const aiScene* scene, aiNode* node, const char* path)
 	{
 		LoadModel(scene, node->mChildren[i], path);
 	}
+
+	mesh.position = (0.f, 0.f, 0.f);
+	mesh.rotation = (0.f, 0.f, 0.f);
+	mesh.scale = (1.f, 1.f, 1.f);
+
+	LOG("Mesh position: (%f, %f, %f)", mesh.position.x, mesh.position.y, mesh.position.z);
+	LOG("Mesh rotation: (%f, %f, %f)", mesh.rotation.x, mesh.rotation.y, mesh.rotation.z);
+	LOG("Mesh scale: (%f, %f, %f)", mesh.scale.x, mesh.scale.y, mesh.scale.z);
 }
 
 void ModuleFBX::ApplyTexture(const char* path)
@@ -233,4 +241,19 @@ float ModuleFBX::GetNormals()
 float ModuleFBX::GetUvs()
 {
 	return(mesh.num_uvs);
+}
+
+vec3 ModuleFBX::GetPosition()
+{
+	return(mesh.position);
+}
+
+vec3 ModuleFBX::GetRotation()
+{
+	return(mesh.rotation);
+}
+
+vec3 ModuleFBX::GetScale()
+{
+	return(mesh.scale);
 }

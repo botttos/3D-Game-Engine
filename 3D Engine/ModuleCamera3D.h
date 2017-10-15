@@ -29,6 +29,7 @@ private:
 public:
 	
 	float speed = 3.0f;
+	float wheel_speed = 3.0f;
 	vec3 X, Y, Z, Position, Reference;
 
 private:
