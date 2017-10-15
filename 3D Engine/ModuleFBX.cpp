@@ -73,6 +73,7 @@ void ModuleFBX::ClearMeshes()
 bool ModuleFBX::CleanUp()
 {
 	aiDetachAllLogStreams();
+	ClearMeshes();
 
 	return true;
 }
