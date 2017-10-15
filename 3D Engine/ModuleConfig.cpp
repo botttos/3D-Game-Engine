@@ -46,7 +46,7 @@ void Config::ClearLog()
 
 int Config::GetFPS()
 {
-	return fps;
+	return fps_cap;
 }
 
 void Config::Draw(const char * title)

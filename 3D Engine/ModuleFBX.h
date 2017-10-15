@@ -46,16 +46,17 @@ public:
 	void ApplyTexture(const char* path);
 	uint GenerateTextureId(const char* texture_path);
 
-	uint GetTextureId();
-	uint GetIndices();
-	uint GetVertices();
-	vec3 GetPosition();
-	vec3 GetRotation();
-	vec3 GetScale();
-	float GetNormals();
-	float GetUvs();
+	// Read only
+	uint const GetTextureId();
+	uint const GetIndices();
+	uint const GetVertices();
+	vec3 const GetPosition();
+	vec3 const GetRotation();
+	vec3 const GetScale();
+	float const GetNormals();
+	float const GetUvs();
 
-	void GetFBXPosition(GLfloat &x, GLfloat &y, GLfloat &z);
+	void const GetFBXPosition(GLfloat &x, GLfloat &y, GLfloat &z);
 	vector<ModelConfig> meshes;
 
 public:

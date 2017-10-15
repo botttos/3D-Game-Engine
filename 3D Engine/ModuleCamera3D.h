@@ -18,7 +18,7 @@ public:
 	float* GetViewMatrix();
 	bool ShowGrid();
 	bool ShowAxis();
-	void LookCentrateObject();
+	void const LookCentrateObject();
 
 	bool show_grid = false;
 	bool show_axis = false;

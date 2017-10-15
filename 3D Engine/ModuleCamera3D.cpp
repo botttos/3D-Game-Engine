@@ -218,7 +218,7 @@ bool ModuleCamera3D::ShowAxis()
 	return show_axis;
 }
 
-void ModuleCamera3D::LookCentrateObject()
+void const ModuleCamera3D::LookCentrateObject()
 {
 	if (App->fbx_loader != nullptr)
 	{

@@ -218,49 +218,49 @@ void ModuleFBX::ApplyTexture(const char* path)
 	LOG("Loaded and applied new texture correctly from path %s.", path);
 }
 
-uint ModuleFBX::GetTextureId()
+uint const ModuleFBX::GetTextureId()
 {
 	return(mesh.texture_id);
 }
 
-uint ModuleFBX::GetIndices()
+uint const ModuleFBX::GetIndices()
 {
 	return(mesh.num_indices);
 }
 
-uint ModuleFBX::GetVertices()
+uint const ModuleFBX::GetVertices()
 {
 	return(mesh.num_vertices);
 }
 
-float ModuleFBX::GetNormals()
+float const ModuleFBX::GetNormals()
 {
 	return(mesh.num_normals);
 }
 
-float ModuleFBX::GetUvs()
+float const ModuleFBX::GetUvs()
 {
 	return(mesh.num_uvs);
 }
 
-void ModuleFBX::GetFBXPosition(GLfloat &x, GLfloat &y, GLfloat &z)
+void const ModuleFBX::GetFBXPosition(GLfloat &x, GLfloat &y, GLfloat &z)
 {
 	x = fbx_position[0];
 	y = fbx_position[1];
 	z = fbx_position[2];
 }
 
-vec3 ModuleFBX::GetPosition()
+vec3 const ModuleFBX::GetPosition()
 {
 	return(mesh.position);
 }
 
-vec3 ModuleFBX::GetRotation()
+vec3 const ModuleFBX::GetRotation()
 {
 	return(mesh.rotation);
 }
 
-vec3 ModuleFBX::GetScale()
+vec3 const ModuleFBX::GetScale()
 {
 	return(mesh.scale);
 }
