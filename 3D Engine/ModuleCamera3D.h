@@ -31,7 +31,7 @@ public:
 	float speed = 3.0f;
 	float wheel_speed = 3.0f;
 	vec3 X, Y, Z, Position, Reference;
-	void const LookCentrateObject();
+
 private:
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;

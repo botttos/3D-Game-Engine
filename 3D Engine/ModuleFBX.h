@@ -57,8 +57,8 @@ public:
 	vec3 const GetScale();
 	float const GetNormals();
 	float const GetUvs();
+	void const LookObject();
 
-	void const GetFBXPosition(GLfloat &x, GLfloat &y, GLfloat &z);
 	vector<ModelConfig> meshes;
 
 public:
@@ -68,7 +68,7 @@ public:
 
 	GLfloat fbx_position[3] = {0.0f, 0.0f, 0.0f};
 
-public:
+private:
 	ModelConfig data;
 	ModelConfig mesh;
 };

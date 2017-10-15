@@ -1,8 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
-#include "MathGeoLib\MathGeoLib.h"
-
 
 ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 {
@@ -134,7 +132,7 @@ update_status ModuleCamera3D::Update(float dt)
 	// Centrate object
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 	{
-		App->camera->LookCentrateObject();
+		App->fbx_loader->LookObject();
 	}
 
 	// Recalculate matrix
@@ -227,23 +225,4 @@ void ModuleCamera3D::CalculateViewMatrix()
 {
 	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
 	ViewMatrixInverse = inverse(ViewMatrix);
-}
-
-void const ModuleCamera3D::LookCentrateObject()
-{
-	if (App->fbx_loader != nullptr)
-	{
-		math::AABB box(float3(0, 0, 0), float3(0, 0, 0));
-		box.Enclose((float3*)App->fbx_loader->mesh.vertices, App->fbx_loader->mesh.num_vertices);
-
-		Reference.x = box.CenterPoint().x;
-		Reference.y = box.CenterPoint().y;
-		Reference.z = box.CenterPoint().z;
-
-		Position.x = box.maxPoint.x + 4;
-		Position.y = box.maxPoint.y + 4;
-		Position.z = box.maxPoint.z + 4;
-
-		LookAt(App->camera->Reference);
-	}
 }

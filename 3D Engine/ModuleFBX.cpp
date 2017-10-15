@@ -5,7 +5,7 @@
 #include "Assimp/include/postprocess.h"
 #include "Devil/include/il.h"
 #include "Devil/include/ilut.h"
-#include "mmgr\mmgr.h"
+#include "MathGeoLib\Geometry\AABB.h"
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 #pragma comment (lib, "Devil/libx86/DevIL.lib")
@@ -263,11 +263,20 @@ float const ModuleFBX::GetUvs()
 	return(mesh.num_uvs);
 }
 
-void const ModuleFBX::GetFBXPosition(GLfloat &x, GLfloat &y, GLfloat &z)
+void const ModuleFBX::LookObject()
 {
-	x = fbx_position[0];
-	y = fbx_position[1];
-	z = fbx_position[2];
+	math::AABB box(float3(0, 0, 0), float3(0, 0, 0));
+	box.Enclose((float3*)App->fbx_loader->mesh.vertices, App->fbx_loader->mesh.num_vertices);
+	
+	App->camera->Reference.x = box.CenterPoint().x;
+	App->camera->Reference.y = box.CenterPoint().y;
+	App->camera->Reference.z = box.CenterPoint().z;
+
+	App->camera->Position.x = box.maxPoint.x * 2;
+	App->camera->Position.y = box.maxPoint.y * 2;
+	App->camera->Position.z = box.maxPoint.z * 2;
+
+	App->camera->LookAt(App->camera->Reference);
 }
 
 vec3 const ModuleFBX::GetPosition()

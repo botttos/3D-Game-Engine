@@ -1,7 +1,6 @@
 #include "Application.h"
 #include "ModuleSceneIntro.h"
 #include "Primitive.h"
-#include "ModuleFBX.h"
 
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 {
@@ -40,6 +39,7 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
+	
 	Plane p(0, 1, 0, 0);
 	if (App->camera->show_grid == true)
 	{
