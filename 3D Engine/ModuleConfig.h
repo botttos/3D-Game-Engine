@@ -23,7 +23,7 @@ public:
 
 	void Draw(const char* title);
 
-	bool active = false;
+	bool active = true;
 private:
 
 	int rand = 0;

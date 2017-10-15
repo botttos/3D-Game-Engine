@@ -68,10 +68,9 @@ bool ModuleImGui::ImGuiUpdate() const
 
 	if (able_imgui == true)
 	{
-		static bool show_test_window = true;
 		static bool show_console_window = true;
-		static bool show_config_window = false;
-		static bool show_inspector = false;
+		static bool show_config_window = true;
+		static bool show_inspector = true;
 
 		if(show_inspector)
 		{

@@ -11,7 +11,6 @@ Config::Config(bool start_enabled) : Module(start_enabled)
 	ClearLog();
 	memset(InputBuf, 0, sizeof(InputBuf));
 	HistoryPos = -1;
-  // "classify" is here to provide an example of "C"+[tab] completing to "CL" and displaying matches.
 }
 
 Config::~Config()

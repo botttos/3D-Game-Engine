@@ -93,16 +93,6 @@ void Console::Draw(const char * title)
 	ImGui::EndChild();
 	ImGui::Separator();
 
-	// Command-line
-	/*if (ImGui::InputText("Input", InputBuf, IM_ARRAYSIZE(InputBuf), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CallbackCompletion | ImGuiInputTextFlags_CallbackHistory, &TextEditCallbackStub, (void*)this))
-	{
-		char* input_end = InputBuf + strlen(InputBuf);
-		while (input_end > InputBuf && input_end[-1] == ' ') input_end--; *input_end = 0;
-		if (InputBuf[0])
-			ExecCommand(InputBuf);
-		strcpy(InputBuf, "");
-	}*/
-
 	// Demonstrate keeping auto focus on the input box
 	if (ImGui::IsItemHovered() || (ImGui::IsRootWindowOrAnyChildFocused() && !ImGui::IsAnyItemActive() && !ImGui::IsMouseClicked(0)))
 		ImGui::SetKeyboardFocusHere(-1); // Auto focus previous widget
