@@ -243,6 +243,13 @@ float ModuleFBX::GetUvs()
 	return(mesh.num_uvs);
 }
 
+void ModuleFBX::GetFBXPosition(GLfloat &x, GLfloat &y, GLfloat &z)
+{
+	x = fbx_position[0];
+	y = fbx_position[1];
+	z = fbx_position[2];
+}
+
 vec3 ModuleFBX::GetPosition()
 {
 	return(mesh.position);

@@ -18,6 +18,7 @@ public:
 	float* GetViewMatrix();
 	bool ShowGrid();
 	bool ShowAxis();
+	void LookCentrateObject();
 
 	bool show_grid = false;
 	bool show_axis = false;
@@ -31,7 +32,7 @@ public:
 	float speed = 3.0f;
 	float wheel_speed = 3.0f;
 	vec3 X, Y, Z, Position, Reference;
-
+	float distance_to_obj = 10.0f;
 private:
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;

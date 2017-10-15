@@ -55,6 +55,7 @@ public:
 	float GetNormals();
 	float GetUvs();
 
+	void GetFBXPosition(GLfloat &x, GLfloat &y, GLfloat &z);
 	vector<ModelConfig> meshes;
 
 public:

@@ -150,7 +150,8 @@ void Config::Draw(const char * title)
 
 	if (ImGui::CollapsingHeader("Camera"))
 	{
-		ImGui::SliderFloat("Speed", &App->camera->speed, 0, 10, NULL);
+		ImGui::SliderFloat("Camera Speed", &App->camera->speed, 0, 15, NULL);
+		ImGui::SliderFloat("Wheel Speed", &App->camera->wheel_speed, 0, 15, NULL);
 	}
 
 	if (ImGui::CollapsingHeader("Input"))

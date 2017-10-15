@@ -129,6 +129,12 @@ update_status ModuleCamera3D::Update(float dt)
 		Position = Reference + Z * length(Position);
 	}
 
+	// Centrate object
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+	{
+		LookCentrateObject();
+	}
+
 	// Recalculate matrix
 	CalculateViewMatrix();
 
@@ -210,6 +216,16 @@ bool ModuleCamera3D::ShowAxis()
 	}
 
 	return show_axis;
+}
+
+void ModuleCamera3D::LookCentrateObject()
+{
+	if (App->fbx_loader != nullptr)
+	{
+		GLfloat x, y, z;
+		App->fbx_loader->GetFBXPosition(x, y, z);
+		Position = vec3(x, y, z) + Z * distance_to_obj * App->fbx_loader->GetScale();
+	}
 }
 
 // -----------------------------------------------------------------

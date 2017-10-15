@@ -120,6 +120,7 @@ update_status ModuleInput::PreUpdate(float dt)
 					App->fbx_loader->meshes.clear();
 					App->fbx_loader->LoadFBX(file_path.c_str());
 				}
+				App->camera->LookCentrateObject();
 			}
 			else if (file_type == TEXTURE)
 			{
