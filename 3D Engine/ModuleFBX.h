@@ -67,7 +67,8 @@ public:
 	std::string file_name;
 
 	GLfloat fbx_position[3] = {0.0f, 0.0f, 0.0f};
-private:
+
+public:
 	ModelConfig data;
 	ModelConfig mesh;
 };
