@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include <vector>
 
+
 class aiScene;
 class aiNode;
 class aiMaterial;
@@ -46,6 +47,7 @@ public:
 	void ApplyTexture(const char* path);
 	uint GenerateTextureId(const char* texture_path);
 
+	void ClearMeshes();
 	// Read only
 	uint const GetTextureId();
 	uint const GetIndices();

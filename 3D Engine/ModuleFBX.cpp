@@ -5,6 +5,7 @@
 #include "Assimp/include/postprocess.h"
 #include "Devil/include/il.h"
 #include "Devil/include/ilut.h"
+#include "mmgr\mmgr.h"
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 #pragma comment (lib, "Devil/libx86/DevIL.lib")
@@ -52,6 +53,14 @@ uint ModuleFBX::GenerateTextureId(const char* texture_path)
 	return texture_id;
 }
 
+void ModuleFBX::ClearMeshes()
+{
+	for (int i = meshes.size()-1; meshes.size() != 0; i--)
+	{
+		meshes.pop_back();
+	}
+}
+
 bool ModuleFBX::CleanUp()
 {
 	aiDetachAllLogStreams();
@@ -62,6 +71,7 @@ bool ModuleFBX::CleanUp()
 bool ModuleFBX::LoadFBX(const char* path)
 {
 	LOG("Loading the FBX...");
+	file_name.clear();
 	this->path = path;
 	std::string name(path);
 	this->file_name = name.substr(name.find_last_of('\\') + 1);

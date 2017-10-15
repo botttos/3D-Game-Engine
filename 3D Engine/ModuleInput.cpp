@@ -117,7 +117,8 @@ update_status ModuleInput::PreUpdate(float dt)
 					App->fbx_loader->LoadFBX(file_path.c_str());
 				else
 				{
-					App->fbx_loader->meshes.clear();
+					App->fbx_loader->ClearMeshes();
+					App->fbx_loader->last_texture_id = 0;
 					App->fbx_loader->LoadFBX(file_path.c_str());
 				}
 				App->camera->LookCentrateObject();
