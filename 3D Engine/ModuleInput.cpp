@@ -113,7 +113,13 @@ update_status ModuleInput::PreUpdate(float dt)
 			file_type = GetFileType(file_path.c_str());
 			if (file_type == GEOMETRY_MODEL)
 			{
-				App->fbx_loader->LoadFBX(file_path.c_str());
+				if(App->fbx_loader->meshes.size() == 0)
+					App->fbx_loader->LoadFBX(file_path.c_str());
+				else
+				{
+					App->fbx_loader->meshes.clear();
+					App->fbx_loader->LoadFBX(file_path.c_str());
+				}
 			}
 			else if (file_type == TEXTURE)
 			{
