@@ -12,7 +12,6 @@ Application::Application()
 	scene_intro = new ModuleSceneIntro();
 	renderer3D = new ModuleRenderer3D();
 	camera = new ModuleCamera3D();
-	primitive = new ModulePrimitive();
 	fbx_loader = new ModuleFBX();
 	imgui = new ModuleImGui();
 	//Console
@@ -33,7 +32,6 @@ Application::Application()
 
 	// Scenes
 	AddModule(scene_intro);
-	AddModule(primitive);
 	AddModule(fbx_loader);
 
 	//Console

@@ -23,7 +23,7 @@ public:
 
 	void Draw(const char* title);
 
-	bool active = false;
+	bool active = true;
 private:
 
 	int rand = 0;
@@ -31,7 +31,7 @@ private:
 	int height = 1024;
 	int volume = 50;
 	float brightness = 1.0;
-	int fps = 0;
+	int fps_cap = 0;
 	bool mute = false;
 	float			fps_array[GRAPH_ARRAY_SIZE];
 	float			ms_array[GRAPH_ARRAY_SIZE];

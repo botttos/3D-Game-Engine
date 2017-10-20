@@ -2,6 +2,7 @@
 #include "ModuleWindow.h"
 #include "Application.h"
 #include "MathGeoLib\MathGeoLib.h"
+#include "mmgr\mmgr.h"
 
 #define IM_ARRAYSIZE(_ARR)  ((int)(sizeof(_ARR)/sizeof(*_ARR)))
 
@@ -11,7 +12,6 @@ Config::Config(bool start_enabled) : Module(start_enabled)
 	ClearLog();
 	memset(InputBuf, 0, sizeof(InputBuf));
 	HistoryPos = -1;
-  // "classify" is here to provide an example of "C"+[tab] completing to "CL" and displaying matches.
 }
 
 Config::~Config()
@@ -46,7 +46,7 @@ void Config::ClearLog()
 
 int Config::GetFPS()
 {
-	return fps;
+	return fps_cap;
 }
 
 void Config::Draw(const char * title)
@@ -66,10 +66,6 @@ void Config::Draw(const char * title)
 		ImGui::TextWrapped("Organization: UPC CITM");
 		
 		ImGui::Separator();
-		ImGui::SliderInt("Max FPS", &fps, 0, 60, NULL);
-		ImGui::TextWrapped("Limit Framerate: %i", fps);
-		if (fps > 60) fps = 0;
-		
 		//FPS Graph
 		for (uint i = 0; i < GRAPH_ARRAY_SIZE; i++)
 		{
@@ -90,6 +86,15 @@ void Config::Draw(const char * title)
 		sprintf_s(ms_title, 25, "Milliseconds %.1f", ms_array[GRAPH_ARRAY_SIZE-1]);
 		ImGui::PlotHistogram("", ms_array, IM_ARRAYSIZE(ms_array), 30, ms_title, 0.0f, 130.0f, ImVec2(0, 80));
 
+		//sM Stats
+		sMStats smstats = m_getMemoryStatistics();
+		
+		//Acummulated memory
+		ImGui::Text("Accumulated actual memory: "); ImGui::SameLine(); ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i", smstats.accumulatedActualMemory);
+		//Memory peak
+		ImGui::Text("Actual memory peak: "); ImGui::SameLine(); ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i", smstats.peakActualMemory);
+		//Actual memory
+		ImGui::Text("Total actual memory: "); ImGui::SameLine(); ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i", smstats.totalActualMemory);
 	}
 
 	if (ImGui::CollapsingHeader("Window"))
@@ -154,7 +159,8 @@ void Config::Draw(const char * title)
 
 	if (ImGui::CollapsingHeader("Camera"))
 	{
-		ImGui::SliderFloat("Speed", &App->camera->speed, 0, 10, NULL);
+		ImGui::SliderFloat("Camera Speed", &App->camera->speed, 0, 15, NULL);
+		ImGui::SliderFloat("Wheel Speed", &App->camera->wheel_speed, 0, 15, NULL);
 	}
 
 	if (ImGui::CollapsingHeader("Input"))

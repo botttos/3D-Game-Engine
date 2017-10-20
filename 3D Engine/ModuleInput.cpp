@@ -113,7 +113,15 @@ update_status ModuleInput::PreUpdate(float dt)
 			file_type = GetFileType(file_path.c_str());
 			if (file_type == GEOMETRY_MODEL)
 			{
-				App->fbx_loader->LoadFBX(file_path.c_str());
+				if(App->fbx_loader->meshes.size() == 0)
+					App->fbx_loader->LoadFBX(file_path.c_str());
+				else
+				{
+					App->fbx_loader->ClearMeshes();
+					App->fbx_loader->last_texture_id = 0;
+					App->fbx_loader->LoadFBX(file_path.c_str());
+				}
+				App->fbx_loader->LookObject();
 			}
 			else if (file_type == TEXTURE)
 			{
@@ -143,7 +151,7 @@ bool ModuleInput::CleanUp()
 	return true;
 }
 
-FILE_TYPE ModuleInput::GetFileType(const char * dir)
+const FILE_TYPE ModuleInput::GetFileType(const char * dir) const
 {
 	if (dir != nullptr)
 	{

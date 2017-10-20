@@ -5,6 +5,7 @@
 #include "Assimp/include/postprocess.h"
 #include "Devil/include/il.h"
 #include "Devil/include/ilut.h"
+#include "MathGeoLib\Geometry\AABB.h"
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 #pragma comment (lib, "Devil/libx86/DevIL.lib")
@@ -27,7 +28,7 @@ bool ModuleFBX::Start()
 	ilutInit();
 	ilutRenderer(ILUT_OPENGL);
 
-	struct aiLogStream stream;
+	struct aiLogStream stream = aiLogStream();
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 
@@ -52,16 +53,35 @@ uint ModuleFBX::GenerateTextureId(const char* texture_path)
 	return texture_id;
 }
 
+void ModuleFBX::ClearMeshes()
+{
+	for (int i = meshes.size()-1; meshes.size() != 0; i--)
+	{
+		delete[] meshes[i].indices;
+		delete[] meshes[i].vertices;
+		delete[] meshes[i].normals;
+		delete[] meshes[i].uvs;
+		meshes.pop_back();
+	}
+
+	delete data.indices;
+	delete data.vertices;
+	delete data.normals;
+	delete data.uvs;
+}
+
 bool ModuleFBX::CleanUp()
 {
 	aiDetachAllLogStreams();
+	ClearMeshes();
 
 	return true;
 }
 
 bool ModuleFBX::LoadFBX(const char* path)
 {
-	LOG("LOADING FBX ---------------");
+	LOG("Loading the FBX...");
+	file_name.clear();
 	this->path = path;
 	std::string name(path);
 	this->file_name = name.substr(name.find_last_of('\\') + 1);
@@ -78,11 +98,11 @@ bool ModuleFBX::LoadFBX(const char* path)
 		}
 
 		aiReleaseImport(scene);
-		LOG("LOAD FBX COMPLETED ---------------");
+		LOG("FBX loaded correctly --------------");
 			return ret;
 	}
 	else
-		LOG("ERROR LOADING FBX ---------------");
+		LOG("ERROR, COULDN'T LOAD FBX ---------------");
 		return false;
 }
 
@@ -90,10 +110,11 @@ void ModuleFBX::LoadModel(const aiScene* scene, aiNode* node, const char* path)
 {
 	if (node->mNumMeshes <= 0)
 	{
-		LOG("MESH NOT FOUND! =================");
+		LOG("Unable to load the mesh with path: %s. The number of meshes is below or equal to 0.", path);
 	}
 	else
 	{
+		LOG("Loading mesh from path %s", path);
 		for (int i = 0; i < node->mNumMeshes; i++)
 		{
 			aiMesh* new_mesh = scene->mMeshes[node->mMeshes[i]];
@@ -122,6 +143,10 @@ void ModuleFBX::LoadModel(const aiScene* scene, aiNode* node, const char* path)
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.id_indices);
 				glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * mesh.num_indices, mesh.indices, GL_STATIC_DRAW);
 			}
+			else
+			{
+				LOG("Mesh with %i faces can not be loaded.", new_mesh->mNumFaces);
+			}
 
 			if (new_mesh->HasTextureCoords(mesh.id_uvs))
 			{
@@ -138,6 +163,10 @@ void ModuleFBX::LoadModel(const aiScene* scene, aiNode* node, const char* path)
 				glBindBuffer(GL_ARRAY_BUFFER, mesh.id_uvs);
 				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * mesh.num_uvs, mesh.uvs, GL_STATIC_DRAW);
 			}
+			else
+			{ 
+				LOG("Can't find texture coords for the specified mesh.");
+			}
 
 			if (new_mesh->HasNormals())
 			{
@@ -148,6 +177,10 @@ void ModuleFBX::LoadModel(const aiScene* scene, aiNode* node, const char* path)
 				glGenBuffers(1, (GLuint*)&(mesh.id_normals));
 				glBindBuffer(GL_ARRAY_BUFFER, mesh.id_normals);
 				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * mesh.num_normals, mesh.normals, GL_STATIC_DRAW);
+			}
+			else
+			{
+				LOG("Mesh has no normals.");
 			}
 
 			aiMaterial* material = scene->mMaterials[new_mesh->mMaterialIndex];
@@ -165,13 +198,18 @@ void ModuleFBX::LoadModel(const aiScene* scene, aiNode* node, const char* path)
 					base_path += final_path;
 
 					mesh.texture_id = GenerateTextureId(base_path.c_str());
-
+					LOG("Texture with path %s has been loaded.", base_path.c_str());
 					final_path.clear();
 					base_path.clear();
 				}
 			}
 
 			meshes.push_back(mesh);
+			LOG("Loaded mesh with %i vertices.", mesh.num_vertices);
+			LOG("Loaded mesh with %i indices.", mesh.num_indices);
+			LOG("Loaded mesh with %i triangles.", mesh.num_vertices/3);
+			LOG("Loaded mesh with %f normals.", mesh.num_normals);
+			LOG("Loaded mesh with %f uvs.", mesh.num_uvs);
 		}
 	}
 
@@ -179,6 +217,14 @@ void ModuleFBX::LoadModel(const aiScene* scene, aiNode* node, const char* path)
 	{
 		LoadModel(scene, node->mChildren[i], path);
 	}
+
+	mesh.position = (0.f, 0.f, 0.f);
+	mesh.rotation = (0.f, 0.f, 0.f);
+	mesh.scale = (1.f, 1.f, 1.f);
+
+	LOG("Mesh position: (%f, %f, %f)", mesh.position.x, mesh.position.y, mesh.position.z);
+	LOG("Mesh rotation: (%f, %f, %f)", mesh.rotation.x, mesh.rotation.y, mesh.rotation.z);
+	LOG("Mesh scale: (%f, %f, %f)", mesh.scale.x, mesh.scale.y, mesh.scale.z);
 }
 
 void ModuleFBX::ApplyTexture(const char* path)
@@ -189,29 +235,61 @@ void ModuleFBX::ApplyTexture(const char* path)
 	ilLoadImage(path);
 
 	last_texture_id = ilutGLBindTexImage();
+	LOG("Loaded and applied new texture correctly from path %s.", path);
 }
 
-uint ModuleFBX::GetTextureId()
+uint const ModuleFBX::GetTextureId()
 {
 	return(mesh.texture_id);
 }
 
-uint ModuleFBX::GetIndices()
+uint const ModuleFBX::GetIndices()
 {
 	return(mesh.num_indices);
 }
 
-uint ModuleFBX::GetVertices()
+uint const ModuleFBX::GetVertices()
 {
 	return(mesh.num_vertices);
 }
 
-float ModuleFBX::GetNormals()
+float const ModuleFBX::GetNormals()
 {
 	return(mesh.num_normals);
 }
 
-float ModuleFBX::GetUvs()
+float const ModuleFBX::GetUvs()
 {
 	return(mesh.num_uvs);
+}
+
+void const ModuleFBX::LookObject()
+{
+	math::AABB box(float3(0, 0, 0), float3(0, 0, 0));
+	box.Enclose((float3*)App->fbx_loader->mesh.vertices, App->fbx_loader->mesh.num_vertices);
+	
+	App->camera->Reference.x = box.CenterPoint().x;
+	App->camera->Reference.y = box.CenterPoint().y;
+	App->camera->Reference.z = box.CenterPoint().z;
+
+	App->camera->Position.x = box.maxPoint.x * 2;
+	App->camera->Position.y = box.maxPoint.y * 2;
+	App->camera->Position.z = box.maxPoint.z * 2;
+
+	App->camera->LookAt(App->camera->Reference);
+}
+
+vec3 const ModuleFBX::GetPosition()
+{
+	return(mesh.position);
+}
+
+vec3 const ModuleFBX::GetRotation()
+{
+	return(mesh.rotation);
+}
+
+vec3 const ModuleFBX::GetScale()
+{
+	return(mesh.scale);
 }

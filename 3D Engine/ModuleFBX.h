@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include <vector>
 
+
 class aiScene;
 class aiNode;
 class aiMaterial;
@@ -26,6 +27,10 @@ struct ModelConfig
 	float* uvs = nullptr;
 
 	uint texture_id = 0;
+
+	vec3 position;
+	vec3 rotation;
+	vec3 scale;
 };
 
 class ModuleFBX : public Module
@@ -42,11 +47,17 @@ public:
 	void ApplyTexture(const char* path);
 	uint GenerateTextureId(const char* texture_path);
 
-	uint GetTextureId();
-	uint GetIndices();
-	uint GetVertices();
-	float GetNormals();
-	float GetUvs();
+	void ClearMeshes();
+	// Read only
+	uint const GetTextureId();
+	uint const GetIndices();
+	uint const GetVertices();
+	vec3 const GetPosition();
+	vec3 const GetRotation();
+	vec3 const GetScale();
+	float const GetNormals();
+	float const GetUvs();
+	void const LookObject();
 
 	vector<ModelConfig> meshes;
 
@@ -54,6 +65,8 @@ public:
 	uint last_texture_id = 0;
 	std::string path;
 	std::string file_name;
+
+	GLfloat fbx_position[3] = {0.0f, 0.0f, 0.0f};
 
 private:
 	ModelConfig data;
