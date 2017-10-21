@@ -11,11 +11,11 @@ class Component
 {
 public:
 	Component(ComponentType type);
-	~Component();
+	virtual ~Component();
 
-	void Update();
-	void Enable();
-	void Disable();
+	virtual void Update();
+	virtual void Enable();
+	virtual void Disable();
 
 	ComponentType type;
 

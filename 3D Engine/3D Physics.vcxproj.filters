@@ -46,6 +46,9 @@
     <Filter Include="Sources\Tools\JSON">
       <UniqueIdentifier>{234e8c0f-7543-4568-8b8f-35776ac123c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Modules\Game\Components">
+      <UniqueIdentifier>{cef3a4e6-c8d9-41ae-b739-656d71b664bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -319,7 +322,7 @@
       <Filter>Sources\Modules\Game</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>Sources\Modules\Game</Filter>
+      <Filter>Sources\Modules\Game\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -513,7 +516,7 @@
       <Filter>Sources\Modules\Game</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
-      <Filter>Sources\Modules\Game</Filter>
+      <Filter>Sources\Modules\Game\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
