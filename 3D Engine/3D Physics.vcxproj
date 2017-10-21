@@ -76,6 +76,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GeometryBase.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
@@ -167,6 +168,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GeometryBase.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="imGUI\imgui.cpp" />
