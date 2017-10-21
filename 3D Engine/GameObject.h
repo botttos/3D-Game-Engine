@@ -11,13 +11,17 @@ public:
 
 	void Update();
 
+	void SetEnable();
+	void SetDisable();
+	bool IsActive();
 	// Add component method
 	// Add find component method
-	bool active;
+	
 private:
 	std::string name;
 
 	std::vector<GameObject*> childs;
 	GameObject* parent;
+	bool active = true;
 	// Add components vector(?
 };

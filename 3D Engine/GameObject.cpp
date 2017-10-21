@@ -2,12 +2,10 @@
 #include "GameObject.h"
 
 GameObject::GameObject()
-{
-}
+{}
 
 GameObject::~GameObject()
-{
-}
+{}
 
 void GameObject::Update()
 {
@@ -20,4 +18,27 @@ void GameObject::Update()
 	}
 
 	//Iterate components vector Update
+}
+
+
+
+void GameObject::SetEnable()
+{
+	if (active == false)
+	{
+		active = true;
+	}
+}
+
+void GameObject::SetDisable()
+{
+	if (active == true)
+	{
+		active = false;
+	}
+}
+
+bool GameObject::IsActive()
+{
+	return active;
 }
