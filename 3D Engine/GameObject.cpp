@@ -20,8 +20,6 @@ void GameObject::Update()
 	//Iterate components vector Update
 }
 
-
-
 void GameObject::SetEnable()
 {
 	if (active == false)

@@ -318,6 +318,9 @@
     <ClInclude Include="GameObject.h">
       <Filter>Sources\Modules\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Sources\Modules\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -507,6 +510,9 @@
       <Filter>Sources\Tools</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
+      <Filter>Sources\Modules\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
       <Filter>Sources\Modules\Game</Filter>
     </ClCompile>
   </ItemGroup>

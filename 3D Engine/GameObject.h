@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include "Globals.h"
 #include <vector>
 
 class GameObject
