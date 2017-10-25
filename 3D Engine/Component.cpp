@@ -25,7 +25,7 @@ void Component::Disable()
 	}
 }
 
-bool Component::IsActive()
+bool Component::IsActive() const
 {
 	return active;
 }
