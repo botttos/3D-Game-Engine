@@ -24,3 +24,8 @@ void Component::Disable()
 		active = false;
 	}
 }
+
+bool Component::IsActive()
+{
+	return active;
+}

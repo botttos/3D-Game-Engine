@@ -17,6 +17,7 @@ public:
 	virtual void Enable();
 	virtual void Disable();
 
+	bool IsActive();
 	ComponentType type;
 
 private:
