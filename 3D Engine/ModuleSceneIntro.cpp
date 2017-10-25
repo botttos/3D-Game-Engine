@@ -27,7 +27,20 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
+
+	//Delete GameObjects
+	for (uint i = game_objects.size(); i > 0; i--)
+	{
+		delete[] game_objects[i];
+	}
 	return true;
+}
+
+GameObject * ModuleSceneIntro::CreateNewGameObject()
+{
+	GameObject* g_object = new GameObject();
+	game_objects.push_back(g_object);
+	return g_object;
 }
 
 // PreUpdate
@@ -48,6 +61,12 @@ update_status ModuleSceneIntro::Update(float dt)
 			p.axis = true;
 		}
 		p.Render();
+	}
+
+	//Update Game Objects
+	for (uint i = 0; i < game_objects.size(); i++)
+	{
+		game_objects[i]->Update();
 	}
 	
 	return UPDATE_CONTINUE;
