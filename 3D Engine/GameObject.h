@@ -4,6 +4,9 @@
 #include <string>
 #include <vector>
 
+class Component;
+enum ComponentType;
+
 class GameObject
 {
 public:
