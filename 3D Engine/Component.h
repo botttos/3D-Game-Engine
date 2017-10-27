@@ -1,4 +1,5 @@
 #pragma once
+#include "GameObject.h"
 
 enum ComponentType
 {
@@ -17,6 +18,7 @@ public:
 	virtual void Enable();
 	virtual void Disable();
 
+	bool IsActive() const;
 	ComponentType type;
 
 private:

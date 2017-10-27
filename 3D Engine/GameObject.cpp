@@ -40,3 +40,24 @@ bool GameObject::IsActive()
 {
 	return active;
 }
+
+void GameObject::AddComponent(ComponentType type)
+{
+	Component* comp = new Component(type);
+	components.push_back(comp);
+}
+
+Component * GameObject::FindComponent(ComponentType type)
+{
+	Component* desired_comp = nullptr;
+	for (int i = 0; i < components.size(); i++)
+	{
+		if (components[i]->IsActive() == true && components[i]->type == type)
+		{
+			desired_comp = components[i];
+			return desired_comp;
+		}
+	}
+
+	return desired_comp;
+}

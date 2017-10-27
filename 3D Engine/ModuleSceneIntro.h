@@ -2,6 +2,8 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Primitive.h"
+#include "GameObject.h"
+#include <vector>
 
 #define MAX_SNAKE 2
 
@@ -15,4 +17,10 @@ public:
 	update_status Update(float dt);
 	update_status PreUpdate(float dt);
 	bool CleanUp();
+
+	//Game Object Creation
+	GameObject* CreateNewGameObject();
+
+private:
+	std::vector<GameObject*> game_objects;
 };

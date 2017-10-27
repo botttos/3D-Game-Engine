@@ -1,12 +1,15 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include "glmath.h"
+#include "glew\include\glew.h"
 #include <vector>
 
 
 class aiScene;
 class aiNode;
 class aiMaterial;
+
 
 struct ModelConfig
 {
@@ -59,7 +62,7 @@ public:
 	float const GetUvs();
 	void const LookObject();
 
-	vector<ModelConfig> meshes;
+	std::vector<ModelConfig> meshes;
 
 public:
 	uint last_texture_id = 0;

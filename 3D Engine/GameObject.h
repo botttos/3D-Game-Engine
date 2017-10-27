@@ -1,4 +1,6 @@
 #pragma once
+#include "Globals.h"
+#include "Component.h"
 #include <string>
 #include <vector>
 
@@ -13,8 +15,10 @@ public:
 	void SetEnable();
 	void SetDisable();
 	bool IsActive();
-	// Add component method
-	// Add find component method
+
+	//Components
+	void AddComponent(ComponentType type);
+	Component* FindComponent(ComponentType type);
 	
 private:
 	std::string name;
@@ -22,5 +26,7 @@ private:
 	std::vector<GameObject*> childs;
 	GameObject* parent;
 	bool active = true;
-	// Add components vector(?
+
+	//Components
+	std::vector<Component*> components;
 };
