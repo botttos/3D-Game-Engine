@@ -326,8 +326,11 @@
     </ClInclude>
     <ClInclude Include="SceneImporter.h">
       <Filter>Sources\Helpers</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="ComponentTransform.h">
+      <Filter>Sources\Modules\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentMaterial.h">
       <Filter>Sources\Modules\Game\Components</Filter>
     </ClInclude>
   </ItemGroup>
@@ -526,8 +529,11 @@
     </ClCompile>
     <ClCompile Include="SceneImporter.cpp">
       <Filter>Sources\Helpers</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="ComponentTransform.cpp">
+      <Filter>Sources\Modules\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentMaterial.cpp">
       <Filter>Sources\Modules\Game\Components</Filter>
     </ClCompile>
   </ItemGroup>
