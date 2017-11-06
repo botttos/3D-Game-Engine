@@ -71,12 +71,20 @@ bool ModuleImGui::ImGuiUpdate() const
 		static bool show_console_window = true;
 		static bool show_config_window = true;
 		static bool show_inspector = true;
+		static bool show_gameObjects_window = true;
 
 		if(show_inspector)
 		{
 			Inspector();
 		}
-
+		if (show_gameObjects_window)
+		{
+			App->scene_intro->go_window_enabled = true;
+		}
+		else
+		{
+			App->scene_intro->go_window_enabled = false;
+		}
 		if (show_console_window)
 		{
 			App->console->active = true;

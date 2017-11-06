@@ -17,9 +17,11 @@ public:
 	update_status Update(float dt);
 	update_status PreUpdate(float dt);
 	bool CleanUp();
+	void GameObjectWindow();
 
 	//Game Object Creation
 	GameObject* CreateNewGameObject();
+	bool go_window_enabled = true;
 
 private:
 	std::vector<GameObject*> game_objects;

@@ -69,5 +69,14 @@ update_status ModuleSceneIntro::Update(float dt)
 		game_objects[i]->Update();
 	}
 	
+	if (go_window_enabled == true)
+	{
+		GameObjectWindow();
+	}
 	return UPDATE_CONTINUE;
+}
+
+void ModuleSceneIntro::GameObjectWindow()
+{
+
 }
