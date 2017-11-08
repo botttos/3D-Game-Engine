@@ -52,7 +52,7 @@ float4x4 ComponentTransform::GetTransform() const
 
 void ComponentTransform::TransformInspector()
 {
-	if (ImGui::CollapsingHeader("Transform"), ImGuiTreeNodeFlags_DefaultOpen)
+	/*if (ImGui::CollapsingHeader("Transform"), ImGuiTreeNodeFlags_DefaultOpen)
 	{
 		if (ImGui::SmallButton("Active")) InvertState();
 
@@ -64,5 +64,5 @@ void ComponentTransform::TransformInspector()
 
 		ImGui::Text("Scale");
 		ImGui::Text("[%f]   [%f]   [%f]", scale[0], scale[1], scale[2]);
-	}
+	}*/
 }

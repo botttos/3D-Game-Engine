@@ -31,7 +31,7 @@ bool ModuleSceneIntro::CleanUp()
 	//Delete GameObjects
 	for (uint i = game_objects.size(); i > 0; i--)
 	{
-		delete[] game_objects[i];
+		game_objects.pop_back();
 	}
 	return true;
 }

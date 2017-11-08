@@ -99,6 +99,9 @@ void Config::Draw(const char * title)
 
 	if (ImGui::CollapsingHeader("Window"))
 	{
+		if (ImGui::SmallButton("Create Test Game Object")) 
+			App->scene_intro->CreateNewGameObject();
+
 		ImGuiStyle& style = ImGui::GetStyle();
 		ImGui::DragFloat("Global Alpha", &style.Alpha, 0.005f, 0.20f, 1.0f, "%.2f");
 

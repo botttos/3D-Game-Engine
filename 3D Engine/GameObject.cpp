@@ -6,7 +6,8 @@ GameObject::GameObject()
 {}
 
 GameObject::~GameObject()
-{}
+{
+}
 
 void GameObject::Update()
 {
@@ -19,21 +20,21 @@ void GameObject::Update()
 	}
 
 	//Iterate components vector Update
-	for (int i = 0; i < components.size(); i++)
+	for (int i = 0; i <= components.size(); i++)
 	{
 		if (App->scene_intro->go_inspector_enabled == true)
 		{
 			ImGui::Begin("Game Object Inspector");
 			ImGui::SetWindowSize(ImVec2(500, 500), 0);
+			ImGui::End();
 		}
-		if (components[i]->IsActive() == true)
+		if (components.size() > 0)
 		{
-			components[i]->Update();
+			if (components[i]->IsActive() == true)
+			{
+				components[i]->Update();
+			}
 		}
-	}
-	if (App->scene_intro->go_inspector_enabled == true)
-	{
-		ImGui::End();
 	}
 }
 
