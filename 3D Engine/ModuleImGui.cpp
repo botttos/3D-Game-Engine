@@ -291,7 +291,7 @@ void ModuleImGui::Inspector() const
 	ImGui::Text("Model Name: %s", App->fbx_loader->file_name.c_str());
 	ImGui::Text("Model Path: %s", App->fbx_loader->path.c_str());
 
-	if (ImGui::CollapsingHeader("Transform"), ImGuiTreeNodeFlags_DefaultOpen)
+	if (ImGui::CollapsingHeader("Transform"))
 	{
 		ImGui::Text("Showing read only information about the mesh transform");
 		ImGui::Separator();
@@ -307,7 +307,7 @@ void ModuleImGui::Inspector() const
 		
 	}
 
-	if (ImGui::CollapsingHeader("Mesh information"), ImGuiTreeNodeFlags_DefaultOpen)
+	if (ImGui::CollapsingHeader("Mesh information"))
 	{
 		ImGui::Text("Showing read only information about the mesh");
 		ImGui::Separator();
@@ -318,7 +318,7 @@ void ModuleImGui::Inspector() const
 		ImGui::Text("Mesh uvs: %f", App->fbx_loader->GetUvs());
 	}
 
-	if (ImGui::CollapsingHeader("Material"), ImGuiTreeNodeFlags_DefaultOpen)
+	if (ImGui::CollapsingHeader("Material"))
 	{
 		ImGui::Text("Showing only read information about the mesh material");
 		ImGui::Separator();

@@ -7,6 +7,7 @@
 GameObject::GameObject()
 {
 	AddComponent(C_TRANSFORM);
+	AddComponent(C_MATERIAL);
 }
 
 GameObject::~GameObject()

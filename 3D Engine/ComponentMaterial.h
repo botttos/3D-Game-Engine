@@ -16,6 +16,8 @@ public:
 	ComponentMaterial(ComponentType type);
 	~ComponentMaterial();
 
+	void Update();
+	void ShowMaterialInspector();
 	void SetTexture(std::vector<Texture> texture);
 	void AddTexture(const Texture texture);
 
