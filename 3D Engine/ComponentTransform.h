@@ -36,4 +36,7 @@ private:
 	float3 position = { 0, 0, 0 };
 	float3 scale = { 0, 0, 0 };
 	float3 rotation = { 0, 0, 0 };
+
+	//-----------
+	void TransformInspector();
 };

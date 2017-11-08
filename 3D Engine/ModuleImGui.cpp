@@ -77,14 +77,16 @@ bool ModuleImGui::ImGuiUpdate() const
 		{
 			Inspector();
 		}
+		
 		if (show_gameObjects_window)
 		{
-			App->scene_intro->go_window_enabled = true;
+			App->scene_intro->go_inspector_enabled = true;
 		}
 		else
 		{
-			App->scene_intro->go_window_enabled = false;
+			App->scene_intro->go_inspector_enabled = false;
 		}
+		
 		if (show_console_window)
 		{
 			App->console->active = true;

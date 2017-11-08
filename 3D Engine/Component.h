@@ -19,6 +19,9 @@ public:
 	virtual void Disable();
 
 	bool IsActive() const;
+	bool InvertState();
+	void SetActive();
+	void SetDisable();
 	ComponentType type;
 
 private:

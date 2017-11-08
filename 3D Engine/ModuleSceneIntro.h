@@ -21,7 +21,7 @@ public:
 
 	//Game Object Creation
 	GameObject* CreateNewGameObject();
-	bool go_window_enabled = true;
+	bool go_inspector_enabled = true;
 
 private:
 	std::vector<GameObject*> game_objects;

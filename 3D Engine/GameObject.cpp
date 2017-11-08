@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Application.h"
 
 GameObject::GameObject()
 {}
@@ -18,6 +19,22 @@ void GameObject::Update()
 	}
 
 	//Iterate components vector Update
+	for (int i = 0; i < components.size(); i++)
+	{
+		if (App->scene_intro->go_inspector_enabled == true)
+		{
+			ImGui::Begin("Game Object Inspector");
+			ImGui::SetWindowSize(ImVec2(500, 500), 0);
+		}
+		if (components[i]->IsActive() == true)
+		{
+			components[i]->Update();
+		}
+	}
+	if (App->scene_intro->go_inspector_enabled == true)
+	{
+		ImGui::End();
+	}
 }
 
 void GameObject::SetEnable()
