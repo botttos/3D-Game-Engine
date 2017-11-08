@@ -38,6 +38,7 @@ bool ModuleSceneIntro::CleanUp()
 
 GameObject * ModuleSceneIntro::CreateNewGameObject()
 {
+	LOG("CREATING GAME OBJECT");
 	GameObject* g_object = new GameObject();
 	game_objects.push_back(g_object);
 	return g_object;

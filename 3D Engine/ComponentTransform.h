@@ -5,7 +5,7 @@
 
 class GameObject;
 
-class ComponentTransform :public Component
+class ComponentTransform : public Component
 {
 public:
 	ComponentTransform(ComponentType type);
@@ -38,5 +38,5 @@ private:
 	float3 rotation = { 0, 0, 0 };
 
 	//-----------
-	void TransformInspector();
+	void ShowTransformInspector();
 };

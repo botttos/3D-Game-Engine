@@ -11,7 +11,7 @@ void ComponentTransform::Update()
 {
 	if (App->scene_intro->go_inspector_enabled == true && this->IsActive() == true)
 	{
-		TransformInspector();
+		ShowTransformInspector();
 	}
 }
 
@@ -50,12 +50,10 @@ float4x4 ComponentTransform::GetTransform() const
 	return transform;
 }
 
-void ComponentTransform::TransformInspector()
+void ComponentTransform::ShowTransformInspector()
 {
-	if (ImGui::CollapsingHeader("Transform"), ImGuiTreeNodeFlags_NoAutoOpenOnLog)
+	if (ImGui::CollapsingHeader("Transform"))
 	{
-		if (ImGui::SmallButton("Active")) InvertState();
-
 		ImGui::Text("Position");
 		ImGui::Text("[%f]   [%f]   [%f]", position[0], position[1], position[3]);
 

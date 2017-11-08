@@ -25,5 +25,5 @@ public:
 	ComponentType type;
 
 private:
-	bool active;
+	bool active = true;
 };
