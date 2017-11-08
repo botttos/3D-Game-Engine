@@ -19,15 +19,11 @@ void GameObject::Update()
 		}
 	}
 
+	ImGui::Begin("Game Object Inspector");
+	ImGui::SetWindowSize(ImVec2(500, 500), 0);
 	//Iterate components vector Update
 	for (int i = 0; i <= components.size(); i++)
 	{
-		if (App->scene_intro->go_inspector_enabled == true)
-		{
-			ImGui::Begin("Game Object Inspector");
-			ImGui::SetWindowSize(ImVec2(500, 500), 0);
-			ImGui::End();
-		}
 		if (components.size() > 0)
 		{
 			if (components[i]->IsActive() == true)
@@ -35,7 +31,9 @@ void GameObject::Update()
 				components[i]->Update();
 			}
 		}
+		
 	}
+	ImGui::End();
 }
 
 void GameObject::SetEnable()
