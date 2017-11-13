@@ -27,7 +27,8 @@ void GameObject::Update()
 	//Inspector window
 	ImGui::Begin("Game Object Inspector");
 	ImGui::SetWindowSize(ImVec2(500, 500), 0);
-	// button code example (must be used to enable/disable component) 	if (ImGui::SmallButton("NAME")) component[i]->InvertState();
+	// button code example (must be used to enable/disable component) 	
+	// if (ImGui::SmallButton("NAME")) component[i]->InvertState();
 	
 	//Iterate components vector Update
 	for (int i = 0; i < components.size(); i++)
