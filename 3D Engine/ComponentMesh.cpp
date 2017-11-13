@@ -1,7 +1,7 @@
 #pragma once
 #include "ComponentMesh.h"
 
-ComponentMesh::ComponentMesh(ComponentType type)
+ComponentMesh::ComponentMesh(ComponentType type) : Component(type)
 {
 }
 
