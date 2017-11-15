@@ -21,6 +21,7 @@ public:
 	void SetTexture(std::vector<Texture> texture);
 	void AddTexture(const Texture texture);
 
+	float alpha = 0.5;
 private:
 
 	std::vector<Texture> texture;

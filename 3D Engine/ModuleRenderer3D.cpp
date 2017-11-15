@@ -170,9 +170,21 @@ bool ModuleRenderer3D::DrawMeshes(const ModelConfig mesh) const
 	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
 	if (App->fbx_loader->last_texture_id == 0)
+	{
+		glEnable(GL_ALPHA_TEST);
+		//TODO replace 0.5 with float alpha_value from material component
+		glAlphaFunc(GL_GREATER, 0.5);
 		glBindTexture(GL_TEXTURE_2D, mesh.texture_id);
+	}
+		
 	else
+	{
+		glEnable(GL_ALPHA_TEST);
+		//TODO replace 0.5 with float alpha_value from material component
+		glAlphaFunc(GL_GREATER, 0.5);
 		glBindTexture(GL_TEXTURE_2D, App->fbx_loader->last_texture_id);
+	}
+		
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.id_indices);
 	glDrawElements(GL_TRIANGLES, mesh.num_indices, GL_UNSIGNED_INT, NULL);
